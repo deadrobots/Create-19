@@ -23,6 +23,7 @@ def init(icpp):
     cpp.rotate(20, 40)
     wait_for_button()
 
+
 def findBurningBuildings():
     cpp.drive_distance(50, 100)
     #Function determines which skyscraper and which MC are burning
