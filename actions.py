@@ -5,7 +5,6 @@ from wallaby import *
 import camera as p
 import createPlusPlus as cpp
 
-
 colorOrder = []
 
 cpp = None
