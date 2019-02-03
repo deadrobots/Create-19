@@ -1,23 +1,21 @@
-
 from wallaby import *
 from math import pi
 from utilities import *
 import constants as c
-import createPlusPlus as cpp
-
-cpp = None
-
-
-def init_movement(icpp):
-    global cpp
-    cpp = icpp
-
+import gyro as g
 
 def drive_timed(left, right, time): #DRS forward is opposite of create forward
     create_drive_direct(-right, -left)
     msleep(time)
     create_drive_direct(0, 0)
 
+def drive_condition(condition, speed):
+    print("Driving for condition")
+    speed = -speed
+    create_drive_direct(speed, speed)
+    while condition:
+         pass
+    create_drive_direct(0, 0)
 
 def spin_cw(power, time):
     create_drive_direct(power, -power)
@@ -76,42 +74,33 @@ def rotate_degrees(degrees, speed):
     stop()
 
 def black_left_or_right():
-    return cpp.get_black_left() or cpp.get_black_right()
+    return get_black_left() or get_black_right()
 
 def driveTilBlackLCliffAndSquareUp(speed):
     if speed > 0:
-        cpp.drive_conditional(black_left_or_right, speed, False)
-        while not cpp.get_black_left() or not cpp.get_black_right():
-            if cpp.get_black_left():
-                cpp.drive(-speed, 0)
+        drive_condition(not black_left_or_right, speed)
+        while not get_black_left() or not get_black_right():
+            if get_black_left():
+                g.turn_with_gyro(-speed, 0)
                 print ("left")
-            elif cpp.get_black_right():
-                cpp.drive(0, -speed)
+            elif get_black_right():
+                g.turn_with_gyro(0, -speed)
                 print ("right")
             else:
                 print ("None")
     else:
-        cpp.drive_conditional(black_left_or_right, speed, False)
-        while not cpp.get_black_left() or not cpp.get_black_right():
-            if cpp.get_black_left():
-                cpp.drive(-speed, 0)
+        drive_condition(black_left_or_right, speed)
+        while not get_black_left() or not get_black_right():
+            if get_black_left():
+                g.turn_with_gyro(-speed, 0)
                 print ("left")
-            elif cpp.get_black_right():
-                cpp.drive(0, -speed)
+            elif get_black_right():
+                g.turn_with_gyro(0, -speed)
                 print ("right")
             else:
                 print ("None")
     print ("done!")
-    cpp.drive(0, 0)
-
-
-def driveTilFrontTophatBlack(lspeed, rspeed):
-    lspeed = -lspeed
-    rspeed = -rspeed
-    create_drive_direct(rspeed, lspeed)
-    while (analog(c.FRONT_TOPHAT) < 2000):
-        pass
-    create_stop()
+    create_drive_direct(0, 0)
 
 def timedLineFollowLeftFront(speed, time):
     sec = seconds()
@@ -163,3 +152,31 @@ def turnTilRightFrontBlack(left, right):
     while (get_create_rfcliff_amt() > 2000):
         pass
     create_stop()
+
+#####################################################
+
+def get_bump_left(self):
+    """Returns condition of left create bumper"""
+    self._verify()
+    return get_create_lbump
+
+def get_bump_right(self):
+    """Returns condition of right create bumper"""
+    self._verify()
+    return get_create_rbump
+
+
+def get_black_right():
+    print("Black Right Cliff")
+    return get_create_rcliff_amt() < 2200
+
+
+def get_black_left():
+    print("Black Left Cliff")
+    return get_create_lcliff_amt() < 2200
+
+def black_left_or_right():
+    return get_black_left() or get_black_right()
+
+
+

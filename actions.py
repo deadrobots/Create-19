@@ -3,39 +3,52 @@ from utilities import *
 import constants as c
 from wallaby import *
 import camera as p
-import createPlusPlus as cpp
+import gyro as g
 
 colorOrder = []
 
-cpp = None
 burningMCLeft = True
 burningSky = 0
 
-def init(icpp):
-    global cpp
-    cpp = icpp
-    init_movement(cpp)
-    cpp.connect()
+def init():
+    print("Starting init")
+    enable_servos()
+    print("Enabling servos")
     p.cameraInit()
     p.camera_update()
-    cpp.rotate(-20, 40)
-    msleep(2000)
-    cpp.rotate(20, 40)
+    print("Camera Init")
+    msleep(500)
+    moveServo(c.skyArm, c.armHighSkyscraper)
+    msleep(500)
+    moveServo(c.skyClaw, c.clawOpen)
+    msleep(500)
+    moveServo(c.skyClaw, c.clawClosed)
+    msleep(500)
+    create_connect()
+    print("Connecting create")
+    g.rotate(-50, 150)
+    msleep(500)
+    g.rotate(50, 150)
+    msleep(500)
+    moveServo(c.skyArm, c.armDown)
+    msleep(500)
+    moveServo(c.skyClaw, c.clawOpen)
     wait_for_button()
 
 
 def findBurningBuildings():
-    cpp.drive_distance(50, 100)
     #Function determines which skyscraper and which MC are burning
     global burningMCLeft
     global burningSky
+    g.rotate(50, 200)
+    msleep(500)
     burningMCLeft = p.findBurningMC()
     if burningMCLeft == True:
         print("doing code for left")
     else:
         print("doing code for right")
     msleep(500)
-    cpp.rotate(-50, 50)
+    g.rotate(-45, 200)
     msleep(500)
     burningSky = p.findBurningSky()
     if burningSky == 0:
@@ -48,12 +61,30 @@ def findBurningBuildings():
 
 def grabWaterCube():
     #Create turns and grabs large water cube
-    cpp.rotate(145, 50)
-    driveTilBlackLCliffAndSquareUp(50)
+    moveServo(c.skyArm, c.armVertical)
+    msleep(300)
+    g.rotate(160, 150)
+    msleep(300)
+    moveServo(c.skyArm, c.armDown)
+    #driveTilBlackLCliffAndSquareUp(100)
+    g.create_drive_timed(100, 2)
+    msleep(1000)
+    g.rotate(12, 150)
+    msleep(1000)
+    g.create_drive_timed(100, 1)
+    moveServo(c.skyClaw, c.clawClosed)
+    moveServo(c.skyArm, c.armLowSkyscraper)
+    DEBUG()
     msleep(500)
-    cpp.drive_distance(4, 50)
-    cpp.rotate(8, 50)
+    #g.create_drive_timed(100, 1.5)
+    msleep(500)
+    cpp.rotate(20, 100)
+    msleep(500)
+    g.create_drive_timed(50, 1)
+    msleep(500)
+    moveServo(c.skyClaw, c.clawClosed)
     print("Grab water cube")
+    DEBUG()
     msleep(1000)
     cpp.rotate(-8, 50)
     msleep(500)

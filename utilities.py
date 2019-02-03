@@ -1,4 +1,3 @@
-
 import constants as c
 from wallaby import *
 
@@ -8,7 +7,6 @@ cpp = None
 def init_utilities(icpp):
     global cpp
     cpp = icpp
-
 
 def wait_for_button_blink():
     print "Press Button..."
@@ -24,7 +22,6 @@ def wait_for_button_blink():
     msleep(1)
     print "Pressed"
     msleep(1000)
-
 
 def wait_for_button(force=False):
     if c.ALLOW_BUTTON_WAIT or force:

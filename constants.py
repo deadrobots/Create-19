@@ -1,11 +1,23 @@
 
 from wallaby import digital
 
-
 FRONT_BUMPED = 0
 ALLOW_BUTTON_WAIT = True
 START_TIME = 0
 COLOR_PROXIMITY = 5
+
+#Servo Ports
+skyArm = 2
+skyClaw = 3
+
+#Servo Positions
+armVertical = 1450
+armLowSkyscraper = 2000
+armHighSkyscraper = 1820
+armDown = 90
+clawOpen = 200
+clawClosed = 1000
+
 
 #Camera Channels
 YELLOW = 0

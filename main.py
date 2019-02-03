@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import os, sys
 import actions as act
-import createPlusPlus
 import constants as c
 from wallaby import *
 import utilities as u
@@ -9,13 +8,9 @@ import camera as p
 import shutdown
 
 def main():
-    # motorz.test()
-    with createPlusPlus.Create(full=True) as cpp:
-        print("Running!")
-        act.init(cpp)
-        shutdown.die_after_time(main_two, 118)#118
-
-def main_two():
+    print("Running!")
+    act.init()
+    shut_down_in(118)
     act.findBurningBuildings()
     act.grabWaterCube()
     act.dropWaterCube()
