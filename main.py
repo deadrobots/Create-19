@@ -8,7 +8,7 @@ import camera as p
 import shutdown
 
 def main():
-    print("Running!")
+    print("Running CameraTest!")
     act.init()
     shut_down_in(118)
     act.findBurningBuildings()
