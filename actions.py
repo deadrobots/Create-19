@@ -13,7 +13,7 @@ burningSky = 0
 def init():
     print("Starting init")
     enable_servos()
-    print("Enabling servos")
+    print("Enabling my servos")
     p.cameraInit()
     p.camera_update()
     print("Camera Init")
