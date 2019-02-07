@@ -14,7 +14,7 @@ skyClaw = 3
 armVertical = 1450
 armLowSkyscraper = 2000
 armHighSkyscraper = 1820
-armDown = 90
+armDown = 50
 clawOpen = 200
 clawClosed = 1000
 
@@ -29,4 +29,4 @@ SKY_LIMIT = 50
 
 #Gyro
 bias = 0
-turn_conversion = 5500
+turn_conversion = 5100  #5500

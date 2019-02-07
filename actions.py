@@ -11,6 +11,11 @@ burningMCLeft = True
 burningSky = 0
 
 def init():
+    #SETUP
+    #Arm pointing away from MCs
+    #Edges of create line up with the black tape
+    #Align square up surface with left side of middle bump
+    #   This should ensure that the robot is pointing directly towards the middle bump (DRS forward)
     print("Starting init")
     enable_servos()
     print("Enabling my servos")
@@ -18,13 +23,14 @@ def init():
     p.camera_update()
     print("Camera Init")
     msleep(500)
-    moveServo(c.skyArm, c.armHighSkyscraper)
+    moveServo(c.skyArm, c.armVertical)
     msleep(500)
     moveServo(c.skyClaw, c.clawOpen)
     msleep(500)
     moveServo(c.skyClaw, c.clawClosed)
     msleep(500)
     create_connect()
+    create_full()
     print("Connecting create")
     g.rotate(-50, 150)
     msleep(500)
@@ -40,7 +46,8 @@ def findBurningBuildings():
     #Function determines which skyscraper and which MC are burning
     global burningMCLeft
     global burningSky
-    g.rotate(50, 200)
+    moveServo(c.skyArm, c.armVertical)
+    g.rotate(50, 100)
     msleep(500)
     burningMCLeft = p.findBurningMC()
     if burningMCLeft == True:
@@ -48,7 +55,7 @@ def findBurningBuildings():
     else:
         print("doing code for right")
     msleep(500)
-    g.rotate(-45, 200)
+    g.rotate(-45, 100)
     msleep(500)
     burningSky = p.findBurningSky()
     if burningSky == 0:
@@ -63,58 +70,54 @@ def grabWaterCube():
     #Create turns and grabs large water cube
     moveServo(c.skyArm, c.armVertical)
     msleep(300)
-    g.rotate(160, 150)
+    g.rotate(175, 150)
     msleep(300)
     moveServo(c.skyArm, c.armDown)
     #driveTilBlackLCliffAndSquareUp(100)
     g.create_drive_timed(100, 2)
     msleep(1000)
-    g.rotate(12, 150)
+    g.rotate(12.5, 150)
     msleep(1000)
-    g.create_drive_timed(100, 1)
+    g.create_drive_timed(100, 1.5)
     moveServo(c.skyClaw, c.clawClosed)
-    moveServo(c.skyArm, c.armLowSkyscraper)
-    DEBUG()
-    msleep(500)
-    #g.create_drive_timed(100, 1.5)
-    msleep(500)
-    cpp.rotate(20, 100)
-    msleep(500)
-    g.create_drive_timed(50, 1)
-    msleep(500)
-    moveServo(c.skyClaw, c.clawClosed)
-    print("Grab water cube")
-    DEBUG()
+    moveServo(c.skyArm, c.armVertical)
     msleep(1000)
-    cpp.rotate(-8, 50)
+    g.create_drive_timed(-100, 1.5)
     msleep(500)
-    cpp.drive_distance(-18.5, 50)
-    msleep(500)
+
 
 def dropWaterCube():
     #Create deposits large water cube on burning building
-    cpp.rotate(-94, 50)
+    g.rotate(-12.5, 150)
+    msleep(500)
+    g.create_drive_timed(-200, 2)
+    msleep(500)
+    g.rotate(90, 150)
+    msleep(500)
+    wait_for_button()
+    g.create_drive_timed(-200, 2)
     msleep(1000)
-    driveTilBlackLCliffAndSquareUp(50)
-    msleep(3000)
-    #Uses previous test to determine which building is on fire
-    print(burningSky)
-    #Drives towards burning building
+    #Next Step:
+    #Edit this code below so that the create pauses as a certain location where it can reach all three skyscrapers
+    #From here, based on which building is burning, place block there
+    #Code below is framework
     if burningSky == 0:
         print("Left")
-        cpp.rotate(60, 20)
-        cpp.drive_distance(12, 50)
-        cpp.rotate(-60, 20)
+        g.rotate(60, 100)
+        g.create_drive_timed(-100, 3)
+        g.rotate(-60, 100)
     elif burningSky == 1:
         print("Middle")
-        cpp.drive_distance(8, 50)
+        g.create_drive_timed(-100, 2.5)
     else:
         print("Right")
-        cpp.rotate(-60, 20)
-        cpp.drive_distance(12, 50)
-        cpp.rotate(60, 20)
+        g.rotate(-60, 100)
+        g.create_drive_timed(-100, 3)
+        g.rotate(60, 100)
+    #After this is successful, fill function below that picks up the Mayor and Botguy and places them in the startbox
+    #You shouldn't have to move the robot at all because the arm is long enough to reach the start box
 
-#Proposed strategy, but might change
+#Proposed strategy
 def grabFirstSkyCube():
     pass
 def grabSecondSkyCube():
