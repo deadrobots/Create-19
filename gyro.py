@@ -12,7 +12,7 @@ def _calibrate_gyro():
     v.bias = avg/50
     print("Calibrating")
 
-
+#All of the drives measures the change in measurment of gyro_z and uses a formula borrowed from Norman Robotics to adjust drives
 def create_drive_timed(speed, time):
     print("Driving for time")
     _calibrate_gyro()
@@ -25,10 +25,10 @@ def create_drive_timed(speed, time):
         else:
             create_drive_direct(int((speed - speed * (1.920137e-16 + 0.000004470956 * theta))), int((speed + speed * (1.920137e-16 + 0.000004470956 * theta))))
         msleep(10)
-        theta = theta + (gyro_z() - v.bias) * 10
+        theta = theta + (gyro_z() - v.bias) * 10 
     create_drive_direct(0, 0)
 
-
+#Turns and pivots use the change in measurment of gyro_z to measure how far the robot has turned and how far it needs to change
 def turn_with_gyro_degrees(left_wheel_speed, right_wheel_speed, target_theta_deg):
     _calibrate_gyro()
     print("turning")
