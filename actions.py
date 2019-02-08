@@ -10,10 +10,15 @@ colorOrder = []
 burningMCLeft = True
 burningSky = 0
 
+def turnCalibration():
+    g.rotate(180, 100)
+    msleep(500)
+    DEBUG()
+
 def init():
     #SETUP
     #Arm pointing away from MCs
-    #Edges of create line up with the black tape
+    #Edges of create line up with the black tape intersection
     #Align square up surface with left side of middle bump
     #   This should ensure that the robot is pointing directly towards the middle bump (DRS forward)
     print("Starting init")
@@ -31,6 +36,7 @@ def init():
     msleep(500)
     create_connect()
     create_full()
+    #turnCalibration()
     print("Connecting create")
     g.rotate(-50, 150)
     msleep(500)
@@ -75,45 +81,40 @@ def grabWaterCube():
     moveServo(c.skyArm, c.armDown)
     #driveTilBlackLCliffAndSquareUp(100)
     g.create_drive_timed(100, 2)
-    msleep(1000)
-    g.rotate(12.5, 150)
-    msleep(1000)
+    msleep(300)
+    g.rotate(13, 150)
+    msleep(300)
     g.create_drive_timed(100, 1.5)
     moveServo(c.skyClaw, c.clawClosed)
     moveServo(c.skyArm, c.armVertical)
-    msleep(1000)
+    msleep(300)
     g.create_drive_timed(-100, 1.5)
-    msleep(500)
+    msleep(300)
 
 
 def dropWaterCube():
     #Create deposits large water cube on burning building
-    g.rotate(-12.5, 150)
-    msleep(500)
-    g.create_drive_timed(-200, 2)
-    msleep(500)
-    g.rotate(90, 150)
-    msleep(500)
-    wait_for_button()
-    g.create_drive_timed(-200, 2)
-    msleep(1000)
-    #Next Step:
-    #Edit this code below so that the create pauses as a certain location where it can reach all three skyscrapers
-    #From here, based on which building is burning, place block there
-    #Code below is framework
+    g.rotate(-13, 150)
+    msleep(300)
+    g.create_drive_timed(-200, 1.8)
+    msleep(300)
+    g.rotate(85, 150)
+    msleep(3000)
+    g.create_drive_timed(-200, 1.8)
+    msleep(300)
+    g.create_drive_timed(-100, 1.4)
     if burningSky == 0:
         print("Left")
-        g.rotate(60, 100)
-        g.create_drive_timed(-100, 3)
-        g.rotate(-60, 100)
+        g.rotate(40, 100)
+        moveServo(c.skyArm, c.armLowSkyscraper, 5)
     elif burningSky == 1:
         print("Middle")
-        g.create_drive_timed(-100, 2.5)
+        moveServo(c.skyArm, c.armHighSkyscraper, 5)
     else:
+
         print("Right")
-        g.rotate(-60, 100)
-        g.create_drive_timed(-100, 3)
-        g.rotate(60, 100)
+        g.rotate(-40, 100)
+        moveServo(c.skyArm, c.armLowSkyscraper, 5)
     #After this is successful, fill function below that picks up the Mayor and Botguy and places them in the startbox
     #You shouldn't have to move the robot at all because the arm is long enough to reach the start box
 

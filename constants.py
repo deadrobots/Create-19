@@ -14,7 +14,7 @@ skyClaw = 3
 armVertical = 1450
 armLowSkyscraper = 2000
 armHighSkyscraper = 1820
-armDown = 50
+armDown = 25
 clawOpen = 200
 clawClosed = 1000
 
