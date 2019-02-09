@@ -4,6 +4,7 @@ from utilities import *
 import constants as c
 import gyro as g
 
+
 def drive_timed(left, right, time): #DRS forward is opposite of create forward
     create_drive_direct(-right, -left)
     msleep(time)
@@ -73,8 +74,6 @@ def rotate_degrees(degrees, speed):
         pass
     stop()
 
-def black_left_or_right():
-    return get_black_left() or get_black_right()
 
 def driveTilBlackLCliffAndSquareUp(speed):
     if speed > 0:
@@ -101,6 +100,7 @@ def driveTilBlackLCliffAndSquareUp(speed):
                 print ("None")
     print ("done!")
     create_drive_direct(0, 0)
+
 
 def timedLineFollowLeftFront(speed, time):
     sec = seconds()
@@ -160,6 +160,7 @@ def get_bump_left(self):
     self._verify()
     return get_create_lbump
 
+
 def get_bump_right(self):
     """Returns condition of right create bumper"""
     self._verify()
@@ -173,10 +174,28 @@ def get_black_right():
 
 def get_black_left():
     print("Black Left Cliff")
+    print("Black Left Cliff")
     return get_create_lcliff_amt() < 2200
+
 
 def black_left_or_right():
     return get_black_left() or get_black_right()
+
+
+def drive_to_black_and_square_up(speed):
+    g.drive_condition(black_left_or_right, speed, False)
+    create_drive_direct(0, 0)
+    msleep(500)
+    lspeed = -speed
+    rspeed = -speed
+    while lspeed != 0 or rspeed != 0:
+        if get_black_left():
+            lspeed = 0
+        if get_black_right():
+            rspeed = 0
+        create_drive_direct(lspeed, rspeed)
+
+
 
 
 

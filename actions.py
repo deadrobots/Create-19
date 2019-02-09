@@ -4,6 +4,7 @@ import constants as c
 from wallaby import *
 import camera as p
 import gyro as g
+import movement as m
 
 colorOrder = []
 
@@ -77,14 +78,16 @@ def grabWaterCube():
     moveServo(c.skyArm, c.armVertical)
     msleep(300)
     g.rotate(175, 150)
-    msleep(300)
+    msleep(500)
     moveServo(c.skyArm, c.armDown)
     #driveTilBlackLCliffAndSquareUp(100)
-    g.create_drive_timed(100, 2)
-    msleep(300)
+    m.drive_to_black_and_square_up(75)
+    msleep(500)
+    g.create_drive_timed(-100, 1)
+    msleep(500)
     g.rotate(13, 150)
-    msleep(300)
-    g.create_drive_timed(100, 1.5)
+    msleep(500)
+    g.create_drive_timed(100, 2)
     moveServo(c.skyClaw, c.clawClosed)
     moveServo(c.skyArm, c.armVertical)
     msleep(300)
@@ -98,18 +101,20 @@ def dropWaterCube():
     msleep(300)
     g.create_drive_timed(-200, 1.8)
     msleep(300)
-    g.rotate(85, 150)
+    g.rotate(90, 150)
     msleep(3000)
-    g.create_drive_timed(-200, 1.8)
+    g.create_drive_timed(-200, 3)
     msleep(300)
-    g.create_drive_timed(-100, 1.4)
+    m.drive_to_black_and_square_up(75)
+    g.create_pivot_on_right_wheel(50, 7)
     if burningSky == 0:
         print("Left")
         g.rotate(40, 100)
         moveServo(c.skyArm, c.armLowSkyscraper, 5)
     elif burningSky == 1:
         print("Middle")
-        moveServo(c.skyArm, c.armHighSkyscraper, 5)
+        moveServo(c.skyArm, c.armHighSkyscraperDeliver, 5)
+        moveServo(c.skyClaw, c.clawOpen, 5)
     else:
 
         print("Right")

@@ -11,11 +11,12 @@ skyArm = 2
 skyClaw = 3
 
 #Servo Positions
-armVertical = 1450
+armVertical = 1425
 armLowSkyscraper = 2000
 armHighSkyscraper = 1820
+armHighSkyscraperDeliver = 1895
 armDown = 25
-clawOpen = 200
+clawOpen = 2048
 clawClosed = 1000
 
 

@@ -98,12 +98,12 @@ def create_pivot_on_right_wheel(right_speed, degrees):
     print (theta)
     create_drive_direct(0, 0)
 
-def drive_condition(condition, speed):
+def drive_condition(test_function, speed, state=True):
     print("Driving for time")
     _calibrate_gyro()
     speed = -speed
     theta = 0
-    while condition:
+    while test_function() is state:
         if speed > 0:
             create_drive_direct(int((speed + speed * (1.920137e-16 + 0.000004470956 * theta))),
                                 int((speed - speed * (1.920137e-16 + 0.000004470956 * theta))))
