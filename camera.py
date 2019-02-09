@@ -81,13 +81,13 @@ def findBurningSky():
         if get_object_count(c.YELLOW) > 0 and get_object_area(0, c.YELLOW) > c.SKY_LIMIT:
             print("I see yellow")
             if get_object_center_x(c.YELLOW, 0) < 80:
-                #print("Burning skyscraper is on the left")
+                print("Burning skyscraper is on the left")
                 return 0
             elif get_object_center_x(c.YELLOW, 0) > 80:
-                #print("Burning skyscraper is in the middle")
+                print("Burning skyscraper is in the middle")
                 return 1
         else:
-            #print("Burning skyscraper is on the right")
+            print("Burning skyscraper is on the right")
             return 2
 
 

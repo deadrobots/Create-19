@@ -80,6 +80,7 @@ def grabWaterCube():
     g.rotate(175, 150)
     msleep(500)
     moveServo(c.skyArm, c.armDown)
+    msleep(800)
     #driveTilBlackLCliffAndSquareUp(100)
     m.drive_to_black_and_square_up(75)
     msleep(500)
@@ -97,29 +98,44 @@ def grabWaterCube():
 
 def dropWaterCube():
     #Create deposits large water cube on burning building
-    g.rotate(-13, 150)
+    g.rotate(-10, 150)
     msleep(300)
-    g.create_drive_timed(-200, 1.8)
-    msleep(300)
+    g.create_drive_timed(-100, .7)
+    msleep(500)
+    m.drive_to_black_and_square_up(-100)
+    msleep(500)
+    g.create_drive_timed(100, 1.5)
+    msleep(500)
     g.rotate(90, 150)
     msleep(3000)
     g.create_drive_timed(-200, 3)
     msleep(300)
     m.drive_to_black_and_square_up(75)
-    g.create_pivot_on_right_wheel(50, 7)
     if burningSky == 0:
         print("Left")
-        g.rotate(40, 100)
+        g.rotate(35, 100)
+        msleep(500)
+        g.create_drive_timed(-50, 1.3)
         moveServo(c.skyArm, c.armLowSkyscraper, 5)
+        msleep(100)
+        moveServo(c.skyClaw, c.clawOpen, 10)
     elif burningSky == 1:
         print("Middle")
+        g.create_pivot_on_right_wheel(50, 7)
+        msleep(250)
         moveServo(c.skyArm, c.armHighSkyscraperDeliver, 5)
+        msleep(100)
         moveServo(c.skyClaw, c.clawOpen, 5)
     else:
-
         print("Right")
-        g.rotate(-40, 100)
+        g.rotate(-18, 100)
+        msleep(500)
+        g.create_drive_timed(-50, .5)
+        msleep(100)
         moveServo(c.skyArm, c.armLowSkyscraper, 5)
+        msleep(100)
+        moveServo(c.skyClaw, c.clawOpen, 10)
+
     #After this is successful, fill function below that picks up the Mayor and Botguy and places them in the startbox
     #You shouldn't have to move the robot at all because the arm is long enough to reach the start box
 
