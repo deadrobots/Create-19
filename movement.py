@@ -5,10 +5,52 @@ import constants as c
 import gyro as g
 
 
+
+def get_bump_left(self):
+    """Returns condition of left create bumper"""
+    self._verify()
+    return get_create_lbump
+
+
+def get_bump_right(self):
+    """Returns condition of right create bumper"""
+    self._verify()
+    return get_create_rbump
+
+
+def get_black_right():
+    print("Black Right Cliff")
+    return get_create_rcliff_amt() < 2200
+
+
+def get_black_left():
+    print("Black Left Cliff")
+    print("Black Left Cliff")
+    return get_create_lcliff_amt() < 2200
+
+
+def black_left_or_right():
+    return get_black_left() or get_black_right()
+
+
+def drive_to_black_and_square_up(speed):
+    g.drive_condition(black_left_or_right, speed, False)
+    create_drive_direct(0, 0)
+    msleep(500)
+    lspeed = -speed
+    rspeed = -speed
+    while lspeed != 0 or rspeed != 0:
+        if get_black_left():
+            lspeed = 0
+        if get_black_right():
+            rspeed = 0
+        create_drive_direct(lspeed, rspeed)
+
 def drive_timed(left, right, time): #DRS forward is opposite of create forward
     create_drive_direct(-right, -left)
     msleep(time)
     create_drive_direct(0, 0)
+
 
 def drive_condition(condition, speed):
     print("Driving for condition")
@@ -17,6 +59,7 @@ def drive_condition(condition, speed):
     while condition:
          pass
     create_drive_direct(0, 0)
+
 
 def spin_cw(power, time):
     create_drive_direct(power, -power)
@@ -36,6 +79,7 @@ def rotate(power, time):
     else:
         spin_cw(abs(power), time)
 
+
 def rotateTillBlack(power):
     if power > 0:
         create_drive_direct(-power, power)
@@ -44,6 +88,7 @@ def rotateTillBlack(power):
     while (get_create_rfcliff_amt() > 2000):
         pass
     create_stop()
+
 
 def drive_forever(left, right):
     create_drive_direct(-right, -left)
@@ -111,6 +156,7 @@ def timedLineFollowLeftFront(speed, time):
             cpp.drive(speed, speed/2)
     cpp.drive(0, 0)
 
+
 def timedLineFollowFrontTophat(time):
     sec = seconds()
     while(seconds() - sec<time):
@@ -119,6 +165,7 @@ def timedLineFollowFrontTophat(time):
         else:
             create_drive_direct(-50, -100)
     create_stop()
+
 
 def timedLineFollowRightFront(speed, time):
     sec = seconds()
@@ -129,6 +176,7 @@ def timedLineFollowRightFront(speed, time):
             create_drive_direct((int)(speed/1.8), speed)
         msleep(10)
     create_stop()
+
 
 def lineFollowLeftFrontTilRightFrontBlack(speed):
     while cpp.get_black_front_right():
@@ -147,6 +195,7 @@ def lineFollowRightFrontTilLeftFrontBlack(speed):
             cpp.drive(speed, speed / 2)
     cpp.drive(0, 0)
 
+
 def turnTilRightFrontBlack(left, right):
     create_drive_direct(left, right)
     while (get_create_rfcliff_amt() > 2000):
@@ -154,46 +203,6 @@ def turnTilRightFrontBlack(left, right):
     create_stop()
 
 #####################################################
-
-def get_bump_left(self):
-    """Returns condition of left create bumper"""
-    self._verify()
-    return get_create_lbump
-
-
-def get_bump_right(self):
-    """Returns condition of right create bumper"""
-    self._verify()
-    return get_create_rbump
-
-
-def get_black_right():
-    print("Black Right Cliff")
-    return get_create_rcliff_amt() < 2200
-
-
-def get_black_left():
-    print("Black Left Cliff")
-    print("Black Left Cliff")
-    return get_create_lcliff_amt() < 2200
-
-
-def black_left_or_right():
-    return get_black_left() or get_black_right()
-
-
-def drive_to_black_and_square_up(speed):
-    g.drive_condition(black_left_or_right, speed, False)
-    create_drive_direct(0, 0)
-    msleep(500)
-    lspeed = -speed
-    rspeed = -speed
-    while lspeed != 0 or rspeed != 0:
-        if get_black_left():
-            lspeed = 0
-        if get_black_right():
-            rspeed = 0
-        create_drive_direct(lspeed, rspeed)
 
 
 

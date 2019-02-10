@@ -8,6 +8,7 @@ def init_utilities(icpp):
     global cpp
     cpp = icpp
 
+
 def wait_for_button_blink():
     print "Press Button..."
     state = False
@@ -23,6 +24,7 @@ def wait_for_button_blink():
     print "Pressed"
     msleep(1000)
 
+
 def wait_for_button(force=False):
     if c.ALLOW_BUTTON_WAIT or force:
         print "Press Button..."
@@ -31,6 +33,7 @@ def wait_for_button(force=False):
         msleep(1)
         print "Pressed"
         msleep(1000)
+
 
 def wait_for_selection(force=False):
     seeding1= False
@@ -47,6 +50,7 @@ def wait_for_selection(force=False):
         print "Pressed Right"
         msleep(1000)
         return seeding1
+
 
 def wait_4_light(ignore=False):
     if ignore:
@@ -88,10 +92,12 @@ def calibrate(port):
     print('{} {} {}'.format(lightOff, lightOn, c.startLightThresh))
     return True
 
+
 def _wait_4(port):
     print("waiting for light!! ")
     while analog(port) > c.startLightThresh:
         pass
+
 
 def DEBUG(PrintTime=True):
     ao()
@@ -114,6 +120,7 @@ def DEBUG_with_wait():
     msleep(5000)
     DEBUG(False)
 
+
 def moveServo(servo, endPos, speed=10):
     # speed of 1 is slow
     # speed of 2000 is fast
@@ -131,87 +138,6 @@ def moveServo(servo, endPos, speed=10):
     set_servo_position(servo, endPos)
     msleep(10)
 
-# def moveArm(servoMain, servoAssist, endPos, speed):
-#     # speed of 1 is slow
-#     # speed of 2000 is fast
-#     # speed of 10 is the default
-#     now = get_servo_position(servoMain)
-#     if now > 2048:
-#         print("Servo setting too large ", servoMain)
-#     if now < 0:
-#         print("Servo setting too small ", servoMain)
-#     if now > endPos:
-#         speed = -speed
-#     for i in range(now, endPos, speed):
-#         if c.IS_ORANGE_BOT:
-#             x = int(2043.45 - 0.987 * (i))
-#         elif c.IS_BLUE_BOT:
-#             x = int(1924.48 - 0.987 * (i))
-#         else:
-#             x = int(1906.8 - 0.976 * (i)) #Previous values
-#         set_servo_position(servoMain, i)
-#         set_servo_position(servoAssist, x)
-#         msleep(10)
-#     set_servo_position(servoMain, endPos)
-#     msleep(10)
-
-
-def moveArm(endPos, speed):
-    if get_motor_position_counter(c.leftMotor) > endPos:
-        speed = -speed
-        motor(c.leftMotor, speed)
-        motor(c.rightMotor, speed)
-        while get_motor_position_counter(c.leftMotor) > endPos:
-            pass
-    else:
-        motor(c.leftMotor, speed)
-        motor(c.rightMotor, speed)
-        while get_motor_position_counter(c.leftMotor) < endPos:
-            pass
-    motor(c.leftMotor, 0)
-    motor(c.rightMotor, 0)
-
-def resetArm(power, time):
-    # drive both motors to full-up positon
-    motor(c.leftMotor, power)
-    motor(c.rightMotor, power)
-    msleep(time)
-    motor_power(c.leftMotor, 5)
-    motor_power(c.rightMotor, 5)
-    msleep(250)
-    clear_motor_position_counter(c.leftMotor)
-    clear_motor_position_counter(c.rightMotor)
-    ao()
-
-def resetArmLowPosition():
-    moveArm(c.armStartbox,20)
-    ao()
-    msleep(500)
-    clear_motor_position_counter(c.leftMotor)
-    clear_motor_position_counter(c.rightMotor)
-
-
-def testArm():
-    print("Left motor up")
-    motor(c.leftMotor, 40)
-    msleep(125)
-    motor(c.leftMotor, 0)
-    print("Holding with left motor")
-    msleep(1000)
-    ao()
-    msleep(1000)
-    print("Right motor up")
-    motor(c.rightMotor, 40)
-    msleep(125)
-    motor(c.rightMotor, 0)
-    print("Holding with right motor")
-    msleep(1000)
-    ao()
-    msleep(1000)
-    # resetArm()
-
-def igusReset():
-    return digital(c.IGUS_BUTTON)
 
 def getLinefollowvalues():
     create_connect()
