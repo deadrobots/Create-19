@@ -163,7 +163,7 @@ def dropWaterCube():
         msleep(100)
         moveServo(c.skyClaw, c.clawOpen, 10)
     elif burningSky == 1:
-        print("Middle")
+        print("middle")
         if c.IS_CLONE:
             msleep(500)
             g.create_drive_timed(50, 3.1)
