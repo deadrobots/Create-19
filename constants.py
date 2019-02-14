@@ -11,7 +11,7 @@ IS_PRIME = not IS_CLONE
 #Servo Ports
 skyArm = 2
 skyClaw = 3
-eletricalArm = 0
+electricalArm = 0
 
 if IS_PRIME:
     #Servo Positions

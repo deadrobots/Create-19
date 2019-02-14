@@ -51,7 +51,7 @@ def init():
     msleep(500)
     moveServo(c.skyClaw, c.clawOpen)
     msleep(500)
-    moveServo(c.eletricalArm, c.electricArmDown, 10)
+    moveServo(c.electricalArm, c.electricArmDown, 10)
     wait_for_button()
 
 
@@ -104,7 +104,7 @@ def grabWaterCube():
     if c.IS_PRIME:
         g.create_drive_timed(-100, 1)
     elif c.IS_CLONE:
-        g.create_drive_timed(100, 1.8)
+        g.create_drive_timed(100, 1.5) #Will
     msleep(500)
     if c.IS_PRIME:
         g.rotate(13, 150)
@@ -149,22 +149,26 @@ def dropWaterCube():
         m.drive_to_black_and_square_up(75)
     else:
         g.rotate(-90, 150)
-        g.create_drive_timed(200, 3)
+        g.create_drive_timed(200, 3.3)
         m.drive_to_black_and_square_up(-75)
     if burningSky == 0:
         print("Left")
-        g.rotate(35, 100)
+        if c.IS_CLONE:
+            g.rotate(35, 100)
+        else:
+            g.rotate(35, 100)
         msleep(500)
-        g.create_drive_timed(-50, 1.3)
+        g.create_drive_timed(100, 1.8) #Will
         moveServo(c.skyArm, c.armLowSkyscraper, 5)
         msleep(100)
         moveServo(c.skyClaw, c.clawOpen, 10)
     elif burningSky == 1:
         print("Middle")
         if c.IS_CLONE:
-            g.create_drive_timed(50, 2.9)
             msleep(500)
-            g.rotate(12, 50)
+            g.create_drive_timed(50, 3.1)
+            msleep(500)
+            g.rotate(9, 50)
         msleep(250)
         moveServo(c.skyArm, c.armHighSkyscraperDeliver, 5)
         msleep(100)

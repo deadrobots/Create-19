@@ -19,13 +19,13 @@ def get_bump_right(self):
 
 
 def get_black_right():
-    print("Black Right Cliff")
+    #print("Black Right Cliff")
     return get_create_rcliff_amt() < 2200
 
 
 def get_black_left():
-    print("Black Left Cliff")
-    print("Black Left Cliff")
+    #print("Black Left Cliff")
+    #print("Black Left Cliff")
     return get_create_lcliff_amt() < 2200
 
 
