@@ -9,7 +9,7 @@ import shutdown
 
 
 def main():
-    print("Running!")
+    print("Running!!!")
     act.init()
     shut_down_in(118)
     act.findBurningBuildings()
