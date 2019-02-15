@@ -22,19 +22,22 @@ if IS_PRIME:
     armDown = 0
 
     clawOpen = 2048
-    clawClosed = 1000
+    clawClosedWater = 1000
 
 elif IS_CLONE:
     # Servo Positions
     armVertical = 1260
     armLowSkyscraper = 645
+    mayorArm = 910
     armHighSkyscraper = 1310
     armHighSkyscraperDeliver = 990
     armDown = 0
 
     clawOpen = 2048
     clawDeliver = 1700
-    clawClosed = 710
+    clawClosedWater = 710
+
+    clawClosedMayor = clawClosedWater - 250
 
     electricArmDown = 2000
 

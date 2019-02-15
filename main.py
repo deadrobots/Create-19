@@ -13,6 +13,8 @@ def main():
     act.init()
     shut_down_in(118)
     act.findBurningBuildings()
+    act.grabBotMayor()
+    u.DEBUG()
     act.grabWaterCube()
     act.dropWaterCube()
     camera_close()
