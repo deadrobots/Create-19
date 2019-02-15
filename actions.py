@@ -140,7 +140,7 @@ def dropWaterCube():
     if c.IS_PRIME:
         g.create_drive_timed(100, 1.5)
     else:
-        g.create_drive_timed(-200, 2.4)
+        g.create_drive_timed(-200, 2.1)
     msleep(500)
     if c.IS_PRIME:
         g.rotate(90, 150)
@@ -154,7 +154,7 @@ def dropWaterCube():
     if burningSky == 0:
         print("Left")
         if c.IS_CLONE:
-            g.rotate(35, 100)
+            g.rotate(40, 100)
         else:
             g.rotate(35, 100)
         msleep(500)
@@ -166,9 +166,10 @@ def dropWaterCube():
         print("middle")
         if c.IS_CLONE:
             msleep(500)
-            g.create_drive_timed(50, 3.1)
+            g.rotate(2.5, 50)
             msleep(500)
-            g.rotate(9, 50)
+            g.create_drive_timed(50, 3.3)
+            msleep(500)
         msleep(250)
         moveServo(c.skyArm, c.armHighSkyscraperDeliver, 5)
         msleep(100)
@@ -180,7 +181,7 @@ def dropWaterCube():
             msleep(500)
             g.create_drive_timed(-50, .5)
         elif c.IS_CLONE:
-            g.rotate(-28, 100)
+            g.rotate(-35, 100)
             msleep(500)
             g.create_drive_timed(50, 1.3)
         msleep(100)
