@@ -28,6 +28,7 @@ elif IS_CLONE:
     # Servo Positions
     armVertical = 1260
     armLowSkyscraper = 645
+    armLowGrab = 570
     mayorArm = 910
     armHighSkyscraper = 1310
     armHighSkyscraperDeliver = 990
@@ -37,7 +38,7 @@ elif IS_CLONE:
     clawDeliver = 1700
     clawClosedWater = 710
 
-    clawClosedMayor = clawClosedWater - 250
+    clawClosedMayor = 450
 
     electricArmDown = 2000
 
