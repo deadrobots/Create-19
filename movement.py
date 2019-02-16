@@ -45,6 +45,7 @@ def drive_to_black_and_square_up(speed):
         if get_black_right():
             rspeed = 0
         create_drive_direct(lspeed, rspeed)
+    msleep(100)
 
 def drive_timed(left, right, time): #DRS forward is opposite of create forward
     create_drive_direct(-right, -left)
@@ -151,10 +152,10 @@ def timedLineFollowLeftFront(speed, time):
     sec = seconds()
     while(seconds() - sec<time):
         if cpp.get_black_left():
-            cpp.drive(speed/2, speed)
+            create_drive_direct(speed/2, speed)
         else:
-            cpp.drive(speed, speed/2)
-    cpp.drive(0, 0)
+            create_drive_direct(speed, speed/2)
+    create_drive_direct(0, 0)
 
 
 def timedLineFollowFrontTophat(time):

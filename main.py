@@ -14,6 +14,7 @@ def main():
     shut_down_in(118)
     act.findBurningBuildings()
     act.grabBotMayor()
+    act.headToElecLines()
     u.DEBUG()
     act.grabWaterCube()
     act.dropWaterCube()

@@ -28,8 +28,8 @@ elif IS_CLONE:
     # Servo Positions
     armVertical = 1260
     armLowSkyscraper = 645
-    armLowGrab = 570
-    mayorArm = 910
+    armLowGrab = 600 #570
+    mayorArm = 950
     armHighSkyscraper = 1310
     armHighSkyscraperDeliver = 990
     armDown = 0
@@ -41,6 +41,7 @@ elif IS_CLONE:
     clawClosedMayor = 450
 
     electricArmDown = 2000
+    electricArmUp = 758
 
 #Camera Channels
 YELLOW = 0
@@ -51,5 +52,7 @@ MC_LIMIT = 15
 SKY_LIMIT = 50
 
 #Gyro
-bias = 0
 turn_conversion = 5100  #5500
+
+
+
