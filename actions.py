@@ -33,7 +33,6 @@ def init():
     p.camera_update()
     print("Camera Init")
     msleep(500)
-    g.calibrate_gyro()
     msleep(500)
     moveServo(c.skyArm, c.armVertical)
     msleep(500)
@@ -49,6 +48,7 @@ def init():
     msleep(500)
     g.rotate(50, 150)
     msleep(500)
+    g.drive_condition(m.get_black_left, -250, False)
     moveServo(c.skyArm, c.armDown)
     msleep(500)
     moveServo(c.skyClaw, c.clawOpen)
@@ -56,7 +56,10 @@ def init():
     moveServo(c.electricalArm, c.electricArmUp)
     msleep(500)
     moveServo(c.electricalArm, c.electricArmDown, 10)
+    disable_servo(c.electricalArm)
     wait_for_button()
+    msleep(500)
+    g.calibrate_gyro()
     c.START_TIME = seconds()
 
 
@@ -65,10 +68,7 @@ def findBurningBuildings():
     global burningMCLeft
     global burningSky
     moveServo(c.skyArm, c.armVertical)
-    if c.IS_PRIME:
-        g.rotate(50, 100)
-    elif c.IS_CLONE:
-        g.rotate(55, 100)
+    g.rotate(55, 100)
     msleep(500)
     burningMCLeft = p.findBurningMC()
     if burningMCLeft == True:
@@ -76,10 +76,7 @@ def findBurningBuildings():
     else:
         print("doing code for right")
     msleep(500)
-    if c.IS_PRIME:
-        g.rotate(-45, 100)
-    elif c.IS_CLONE:
-        g.rotate(-55, 100)
+    g.rotate(-55, 100)
     msleep(900)
     burningSky = p.findBurningSky()
     if burningSky == 0:
@@ -100,7 +97,10 @@ def grabBotMayor():
     m.drive_to_black_and_square_up(-75)
     if burningSky == 0 or burningSky == 2: #center building
         #g.rotate(2.5, 50)
-        g.create_drive_timed(50, 3.2)
+        if c.IS_CLONE:
+            g.create_drive_timed(50, 3.2)
+        else:
+            g.create_drive_timed(50, 2.9)
         msleep(500)
         moveServo(c.skyArm, c.mayorArm, 5)
         msleep(100)
@@ -132,10 +132,12 @@ def grabBotMayor():
             g.create_drive_timed(-50, 3.5)
             g.rotate(-155, 100)
             m.drive_to_black_and_square_up(100)
-            # g.rotate(180, 125)
+            g.rotate(5, 125)
             moveServo(c.skyArm, c.armDown + 75, 10)
             msleep(100)
             moveServo(c.skyClaw, c.clawOpen, 20)
+            msleep(100)
+            g.rotate(-5, 125)
         else: #Left building
             moveServo(c.skyArm, c.armVertical, 10)
             g.rotate(-143, 125)
@@ -194,11 +196,19 @@ def grabBotMayor():
         msleep(100)
         moveServo(c.skyClaw, c.clawOpen, 20)
         msleep(100)
+        g.rotate(10, 125)
+
 
 def headToElecLines():
     moveServo(c.skyArm, c.armVertical, 10)
+    g.create_drive_timed(-60,2)
     g.rotate(-90, 125)
-    m.timedLineFollowLeftFront()
+    m.timedLineFollowLeftFront(100, 9.3)
+    g.rotate(180, 125)
+    g.create_drive_timed(100, 3)
+    msleep(100)
+    g.create_drive_timed(-100, 1)
+    g.rotate(90, 125)
 
 
 def grabWaterCube():

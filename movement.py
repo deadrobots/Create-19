@@ -28,6 +28,9 @@ def get_black_left():
     #print("Black Left Cliff")
     return get_create_lcliff_amt() < 2200
 
+def get_left_front():
+    return get_create_lfcliff_amt() < 2200
+
 
 def black_left_or_right():
     return get_black_left() or get_black_right()
@@ -151,8 +154,8 @@ def driveTilBlackLCliffAndSquareUp(speed):
 def timedLineFollowLeftFront(speed, time):
     sec = seconds()
     while(seconds() - sec<time):
-        if cpp.get_black_left():
-            create_drive_direct(speed/2, speed)
+        if get_left_front():
+            create_drive_direct(speed/3, speed)
         else:
             create_drive_direct(speed, speed/2)
     create_drive_direct(0, 0)

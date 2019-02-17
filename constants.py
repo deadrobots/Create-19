@@ -14,15 +14,22 @@ skyClaw = 3
 electricalArm = 0
 
 if IS_PRIME:
-    #Servo Positions
-    armVertical = 1350
-    armLowSkyscraper = 2000
-    armHighSkyscraper = 1795
-    armHighSkyscraperDeliver = 1870
-    armDown = 0
+    # Servo Positions
+    armVertical = 1260 + 170
+    armLowSkyscraper = 645 + 170
+    armLowGrab = 600 + 170 #570
+    mayorArm = 950 + 170
+    armHighSkyscraper = 1310 + 170
+    armHighSkyscraperDeliver = 990 + 170
+    armDown = 0 + 170
 
-    clawOpen = 2048
-    clawClosedWater = 1000
+    clawOpen = 150
+    clawDeliver = 150
+    clawClosedWater = 1350
+    clawClosedMayor = 1300
+
+    electricArmDown = 2000
+    electricArmUp = 758
 
 elif IS_CLONE:
     # Servo Positions
@@ -34,11 +41,10 @@ elif IS_CLONE:
     armHighSkyscraperDeliver = 990
     armDown = 0
 
-    clawOpen = 2048
-    clawDeliver = 1700
-    clawClosedWater = 710
-
-    clawClosedMayor = 450
+    clawOpen = 150
+    clawDeliver = 150
+    clawClosedWater = 1350
+    clawClosedMayor = 1300
 
     electricArmDown = 2000
     electricArmUp = 758

@@ -40,6 +40,7 @@ def count():
         i += 1
         msleep(60)
 
+
 def seeColor(color):
     count()
     startTime = seconds()
@@ -79,11 +80,20 @@ def findBurningSky():
         camera_update()
         msleep(50)
         if get_object_count(c.YELLOW) > 0 and get_object_area(0, c.YELLOW) > c.SKY_LIMIT:
-            print("I see yellow")
-            if get_object_center_x(c.YELLOW, 0) < 80:
+            i = 0
+            while get_object_count(c.YELLOW) >= i and get_object_center_y(c.YELLOW, i) < 70:
+                if get_object_center_y(c.YELLOW, i) >= 70:
+                    print("I see yellow in the right area")
+                    break
+                elif get_object_count(c.YELLOW) == i and get_object_center_y(c.YELLOW, i) < 70:
+                    print("I see yellow but not in the right area")
+                    return 0
+                else:
+                    i = i + 1
+            if get_object_center_x(c.YELLOW, i) < 80:
                 print("Burning skyscraper is in the middle")
                 return 1
-            elif get_object_center_x(c.YELLOW, 0) > 80:
+            elif get_object_center_x(c.YELLOW, i) > 80:
                 print("Burning skyscraper is on the right")
                 return 2
         else:
