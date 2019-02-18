@@ -18,9 +18,9 @@ def turnCalibration():
 
 def init():
     if c.IS_PRIME:
-        print("I am prime")
+        print("I are prime")
     if c.IS_CLONE:
-        print("I am clone")
+        print("I are clone")
     #SETUP
     #Arm pointing away from MCs
     #Edges of create line up with the black tape intersection
@@ -90,17 +90,17 @@ def findBurningBuildings():
 
 def grabBotMayor():
     print("Grabbing the botMayor")
-    m.drive_to_black_and_square_up(-75)
+    m.drive_to_black_and_square_up(-100)
     g.create_drive_timed(150, 1.6)
-    g.rotate(-90, 100)
+    g.rotate(-90, 150)
     g.create_drive_timed(200, 3.3)
-    m.drive_to_black_and_square_up(-75)
+    m.drive_to_black_and_square_up(-100)
     if burningSky == 0 or burningSky == 2: #center building
         #g.rotate(2.5, 50)
         if c.IS_CLONE:
             g.create_drive_timed(50, 3.2)
         else:
-            g.create_drive_timed(50, 2.9)
+            g.create_drive_timed(50, 3.1)
         msleep(500)
         moveServo(c.skyArm, c.mayorArm, 5)
         msleep(100)
@@ -140,7 +140,10 @@ def grabBotMayor():
             g.rotate(-5, 125)
         else: #Left building
             moveServo(c.skyArm, c.armVertical, 10)
-            g.rotate(-143, 125)
+            if c.IS_PRIME:
+                g.rotate(-148, 125)
+            else:
+                g.rotate(-143, 125)
             g.create_drive_timed(50, 5.2)
             moveServo(c.skyArm, c.armLowGrab, 10)
             msleep(100)
@@ -178,7 +181,6 @@ def grabBotMayor():
         moveServo(c.skyArm, c.armVertical, 10)
         msleep(500)
         g.rotate(-143, 125)
-        print("HERE!")
         g.create_drive_timed(100, 2.4)
         g.create_drive_timed(50, .5)
         msleep(100)
@@ -200,15 +202,61 @@ def grabBotMayor():
 
 
 def headToElecLines():
+    print("Heading to electric lines")
     moveServo(c.skyArm, c.armVertical, 10)
-    g.create_drive_timed(-60,2)
-    g.rotate(-90, 125)
-    m.timedLineFollowLeftFront(100, 9.3)
+    wait_for_button()
+    if c.IS_PRIME:
+        g.create_drive_timed(-60, 1)
+    else:
+        g.create_drive_timed(-60,2)
+    g.rotate_condition(m.get_right_front, -100, 100, False)
+    msleep(100)
+    m.timedLineFollowLeftFront(100, 12)
     g.rotate(180, 125)
     g.create_drive_timed(100, 3)
     msleep(100)
     g.create_drive_timed(-100, 1)
-    g.rotate(90, 125)
+    g.rotate(87, 125)
+    enable_servo(c.electricalArm)
+    msleep(100)
+    moveServo(c.electricalArm, c.electricArmStart, 10)
+    msleep(100)
+    g.create_drive_timed(125, 1)
+    msleep(100)
+    moveServo(c.electricalArm, c.electricArmUp, 3)
+    msleep(100)
+    g.create_drive_timed(125, 1)
+    msleep(100)
+    g.create_drive_timed(-50, 1)
+    msleep(100)
+    moveServo(c.electricalArm, c.electricArmDown, 10)
+    m.drive_to_black_and_square_up(-100)
+    g.create_drive_timed(-50, 1)
+    g.rotate(-90, 125)
+    g.create_drive_timed(125, 2)
+    msleep(100)
+    g.create_drive_timed(-100, 1)
+    g.rotate(93, 125)
+    g.create_drive_timed(-50, 2.5)
+    moveServo(c.electricalArm, c.electricArmStart, 10)
+    msleep(100)
+    g.create_drive_timed(-125, 1)
+    moveServo(c.electricalArm, c.electricArmUp, 3)
+    msleep(100)
+    g.create_drive_timed(-125, 1)
+    msleep(100)
+    g.create_drive_timed(125, 1)
+    moveServo(c.electricalArm, c.electricArmDown, 10)
+    disable_servo(c.electricalArm)
+
+
+def headToWaterCube():
+    g.create_drive_timed(250, .75)
+    m.drive_to_black_and_square_up(125)
+    msleep(100)
+    g.create_drive_timed(125, .3)
+    g.rotate(90, -125)
+    m.timedLineFollowLeftFront(100, 17)
 
 
 def grabWaterCube():

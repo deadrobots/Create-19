@@ -10,15 +10,15 @@ IS_PRIME = not IS_CLONE
 
 #Servo Ports
 skyArm = 2
-skyClaw = 3
+skyClaw = 1
 electricalArm = 0
 
 if IS_PRIME:
     # Servo Positions
     armVertical = 1260 + 170
     armLowSkyscraper = 645 + 170
-    armLowGrab = 600 + 170 #570
-    mayorArm = 950 + 170
+    armLowGrab = 600 + 200 #570
+    mayorArm = 950 + 200
     armHighSkyscraper = 1310 + 170
     armHighSkyscraperDeliver = 990 + 170
     armDown = 0 + 170
@@ -29,7 +29,8 @@ if IS_PRIME:
     clawClosedMayor = 1300
 
     electricArmDown = 2000
-    electricArmUp = 758
+    electricArmUp = 800
+    electricArmStart = 950
 
 elif IS_CLONE:
     # Servo Positions

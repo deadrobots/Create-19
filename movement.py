@@ -32,6 +32,10 @@ def get_left_front():
     return get_create_lfcliff_amt() < 2200
 
 
+def get_right_front():
+    return get_create_rfcliff_amt() < 2200
+
+
 def black_left_or_right():
     return get_black_left() or get_black_right()
 
@@ -155,10 +159,11 @@ def timedLineFollowLeftFront(speed, time):
     sec = seconds()
     while(seconds() - sec<time):
         if get_left_front():
-            create_drive_direct(speed/3, speed)
+            create_drive_direct(speed/10, speed)
         else:
-            create_drive_direct(speed, speed/2)
-    create_drive_direct(0, 0)
+            create_drive_direct(speed, speed/10)
+        msleep(10)
+    create_stop()
 
 
 def timedLineFollowFrontTophat(time):

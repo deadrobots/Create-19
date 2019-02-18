@@ -137,3 +137,13 @@ def _drive(speed):
     msleep(10)
     theta = theta + (gyro_z() - bias) * 10
     create_drive_direct(0, 0)
+
+
+def rotate_condition(test_function, lspeed, rspeed, state = True):
+    lspeed = -lspeed
+    rspeed = -rspeed
+    theta = 0
+    while test_function() is state:
+        create_drive_direct(lspeed, rspeed)
+        msleep(10)
+    create_drive_direct(0, 0)

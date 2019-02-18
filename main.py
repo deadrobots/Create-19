@@ -6,20 +6,19 @@ from wallaby import *
 import utilities as u
 import camera as p
 import shutdown
+import movement as m
 
 
 def main():
     print("Running!!!")
     act.init()
-    shut_down_in(118)
+    #shut_down_in(118) put me back in for comptetion!!!!!!!!!!!!!!!!
     act.findBurningBuildings()
     act.grabBotMayor()
     act.headToElecLines()
+    act.headToWaterCube()
     u.DEBUG()
-    act.grabWaterCube()
-    act.dropWaterCube()
-    camera_close()
-    u.DEBUG()
+
 
 
 class tee :
