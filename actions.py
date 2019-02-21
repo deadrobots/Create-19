@@ -16,16 +16,16 @@ def turnCalibration():
     msleep(500)
     DEBUG()
 
-def init():
+def init(): #Test to make sure all the moving parts and sensors work the way they should
     if c.IS_PRIME:
         print("I are prime")
     if c.IS_CLONE:
         print("I are clone")
     #SETUP
-    #Arm pointing away from MCs
+    #Arm pointing towards the medical centers
     #Edges of create line up with the black tape intersection
     #Align square up surface with left side of middle bump
-    #   This should ensure that the robot is pointing directly towards the middle bump (DRS forward)
+    #This should ensure that the robot is pointing directly towards the middle bump (DRS forward)
     print("Starting init")
     enable_servos()
     print("Enabling my servos")
@@ -64,14 +64,14 @@ def init():
     c.START_TIME = seconds()
 
 
-def findBurningBuildings():
+def findBurningBuildings(): #Determines which sky scraper and medical center is burning
     #Function determines which skyscraper and which MC are burning
     global burningMCLeft
     global burningSky
     moveServo(c.skyArm, c.armVertical)
     g.rotate(55, 100)
     msleep(500)
-    burningMCLeft = p.findBurningMC()
+    burningMCLeft = p.findBurningMC() #Eventually will need to pass this info onto lego
     if burningMCLeft == True:
         print("doing code for left")
     else:
@@ -89,7 +89,7 @@ def findBurningBuildings():
     #Do Bump to signal LEGO bot (not coded yet)
 
 
-def grabBotMayor():
+def grabBotMayor(): #Grabs the Botguy and the mayor off the two non burning skyscrapers
     print("Grabbing the botMayor")
     m.drive_to_black_and_square_up(-100)
     g.create_drive_timed(150, 1.6)
@@ -119,7 +119,7 @@ def grabBotMayor():
         moveServo(c.skyClaw, c.clawOpen, 20)
         msleep(100)
         g.rotate(5, 125)
-        if burningSky == 0: #Right building
+        if burningSky == 0: # Go to right building
             moveServo(c.skyArm, c.armVertical, 10)
             msleep(100)
             m.drive_to_black_and_square_up(-75)
@@ -141,7 +141,7 @@ def grabBotMayor():
             moveServo(c.skyClaw, c.clawOpen, 20)
             msleep(100)
             g.rotate(-5, 125)
-        else: #Left building
+        else: # Go to left building
             moveServo(c.skyArm, c.armVertical, 10)
             if c.IS_PRIME:
                 g.rotate(-148, 125)
@@ -161,7 +161,7 @@ def grabBotMayor():
             msleep(100)
             moveServo(c.skyClaw, c.clawOpen, 20)
             msleep(100)
-    else: #outside buildings
+    else: # Go to outside buildings
         moveServo(c.skyArm, c.armVertical, 10)
         msleep(100)
         m.drive_to_black_and_square_up(-75)
@@ -204,7 +204,7 @@ def grabBotMayor():
         g.rotate(10, 125)
 
 
-def headToElecLines():
+def headToElecLines(): # Goes to electric lines and attatches them
     print("Heading to electric lines")
     moveServo(c.skyArm, c.armVertical, 10)
     if c.IS_PRIME:
@@ -248,10 +248,11 @@ def headToElecLines():
     disable_servo(c.electricalArm)
 
 
-def headToWaterCube():
+def headToWaterCube(): # Drives to cube of water
     g.create_drive_timed(250, .25)
     m.drive_to_black_and_square_up(125)
     msleep(100)
     g.create_drive_timed(125, .5)
     g.rotate(90, -125)
     m.proportional_line_follow(200, 9)
+    
