@@ -16,8 +16,8 @@ def main():
     act.findBurningBuildings()
     act.grabBotMayor()
     act.headToElecLines()
-    act.headToWaterCube()
     u.DEBUG()
+    act.headToWaterCube()
 
 
 

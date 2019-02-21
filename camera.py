@@ -81,11 +81,11 @@ def findBurningSky():
         msleep(50)
         if get_object_count(c.YELLOW) > 0 and get_object_area(0, c.YELLOW) > c.SKY_LIMIT:
             i = 0
-            while get_object_count(c.YELLOW) >= i and get_object_center_y(c.YELLOW, i) < 50:
-                if get_object_center_y(c.YELLOW, i) >= 50:
+            while get_object_count(c.YELLOW) >= i and get_object_center_y(c.YELLOW, i) < 60:
+                if get_object_center_y(c.YELLOW, i) >= 60:
                     print("I see yellow in the right area")
                     break
-                elif get_object_count(c.YELLOW) == i and get_object_center_y(c.YELLOW, i) < 50:
+                elif get_object_count(c.YELLOW) == i and get_object_center_y(c.YELLOW, i) < 60:
                     print("I see yellow but not in the right area")
                     return 0
                 else:

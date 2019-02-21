@@ -28,9 +28,9 @@ if IS_PRIME:
     clawClosedWater = 1350
     clawClosedMayor = 1300
 
-    electricArmDown = 2000
+    electricArmDown = 1680 #2000
     electricArmUp = 800
-    electricArmStart = 950
+    electricArmStart = 600 #950
 
 elif IS_CLONE:
     # Servo Positions

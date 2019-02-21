@@ -84,6 +84,7 @@ def calibrate(port):
         print("Bad calibration")
         return False
 
+
     if (lightOff - lightOn) < 1000:
         print("Bad calibration")
         return False
