@@ -79,26 +79,30 @@ def findBurningSky():
     while (seconds() - startTime < .5):
         camera_update()
         msleep(50)
+        found = False
         if get_object_count(c.YELLOW) > 0 and get_object_area(0, c.YELLOW) > c.SKY_LIMIT:
             i = 0
-            while get_object_count(c.YELLOW) >= i and get_object_center_y(c.YELLOW, i) < 60:
+            while get_object_count(c.YELLOW) >= i:
                 if get_object_center_y(c.YELLOW, i) >= 60:
-                    print("I see yellow in the right area")
+                    print("I see yellow in the correct area")
+                    found = True
                     break
-                elif get_object_count(c.YELLOW) == i and get_object_center_y(c.YELLOW, i) < 60:
-                    print("I see yellow but not in the right area")
-                    return 0
+                i = i + 1
+            if found == True:
+                if get_object_center_x(c.YELLOW, i) < 80:
+                    print("Burning skyscraper is in the middle")
+                    return 1
+                elif get_object_center_x(c.YELLOW, i) > 80:
+                    print("Burning skyscraper is on the right")
+                    return 2
                 else:
-                    i = i + 1
-            if get_object_center_x(c.YELLOW, i) < 80:
-                print("Burning skyscraper is in the middle")
-                return 1
-            elif get_object_center_x(c.YELLOW, i) > 80:
-                print("Burning skyscraper is on the right")
-                return 2
+                    print("Burning skyscraper is on the left")
+                    return 0
+            else:
+                print("I see yellow but not in the correct area")
+                print(get_object_center_y(c.YELLOW, i))
         else:
-            print("Burning skyscraper is on the left")
-            return 0
+            print("No burning skyscraper found")
 
 
 
