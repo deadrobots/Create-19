@@ -169,7 +169,7 @@ def grab_bot_mayor(): #Grabs the Botguy and the mayor off the two non burning sk
         move_servo(c.skyArm, c.armVertical, 10)
         msleep(100)
         m.drive_to_black_and_square_up(-75)
-        g.rotate(-35, 100)
+        g.rotate(-30, 100)  #-35
         g.create_drive_timed(50, 2.2)
         msleep(100)
         move_servo(c.skyArm, c.armLowGrab, 10)
@@ -217,13 +217,16 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         g.create_drive_timed(-60,2)
     g.rotate(85, 100)
     msleep(100)
-    g.create_drive_timed(200, 3)
-    g.rotate(20, -100)
-    g.drive_condition(on_black_front, 200, False)
-    g.rotate(20 , 100)
     g.create_drive_timed(200, 4)
+    g.rotate(10, -100)
+    g.drive_condition(on_black_front, 200, False)
+    g.rotate(10 , 100)
+    g.create_drive_timed(200, 3)
     # g.create_drive_timed(100, 4) #Mechenical square up on pipe
     msleep(100)
+
+
+def hook_up_elec_lines():
     g.create_drive_timed(-100, 1)
     g.rotate(89, 125)
     enable_servo(c.electricalArm)
@@ -240,7 +243,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     move_servo(c.electricalArm, c.electricArmStart, 10)
     msleep(100)
     move_servo(c.electricalArm, c.electricArmStart - 100, 3)
-    g.create_drive_timed(-125, 2)
+    g.create_drive_timed(-125, 2.5)
     msleep(250)
     g.create_drive_timed(125, 1)
     move_servo(c.electricalArm, c.electricArmDown, 50)
@@ -254,14 +257,67 @@ def get_water_cube(): # Drives to cube of water
     g.create_drive_timed(100, 2)
     g.create_drive_timed(-200, 8)
     g.rotate(-90, 100)
-    g.create_drive_timed(200, 5)
+    g.create_drive_timed(200, 3)
     g.create_pivot_on_right_wheel(-100, 90)
     g.create_drive_timed(-125, 1)
     m.drive_to_black_and_square_up(100)
     g.rotate(10, 100)
-    g.create_drive_timed(100, 2)
+    g.create_drive_timed(100, 1.7)
     move_servo(c.skyArm, c.armDown, 10)
     move_servo(c.skyClaw, c.clawClosedWater, 10)
     move_servo(c.skyArm, c.armVertical, 10)
+
+
+def dropWaterCube():
+    #Create deposits large water cube on burning building
+    g.rotate(80, 100)
+    g.create_drive_timed(200, 1)
+    g.drive_condition(m.on_black_front, -200, False)
+    g.create_drive_timed(100, 1)
+    g.rotate(-90, 100)
+    g.create_drive_timed(-200, 3.2)
+    g.rotate(-90, 100)
+    g.create_drive_timed(200, 1)
+    m.drive_to_black_and_square_up(-100)
+    wait_for_button()
+    if burningSky == 0:
+        print("Left")
+        if c.IS_CLONE:
+            g.rotate(40, 100)
+        else:
+            g.rotate(35, 100)
+        msleep(500)
+        g.create_drive_timed(100, 1.8) #Will
+        move_servo(c.skyArm, c.armLowSkyscraper, 5)
+        msleep(100)
+        move_servo(c.skyClaw, c.clawOpen, 10)
+    elif burningSky == 1:
+        print("middle")
+        if c.IS_CLONE:
+            msleep(500)
+            g.rotate(2.5, 50)
+            msleep(500)
+            g.create_drive_timed(50, 3.3)
+            msleep(500)
+        msleep(250)
+        move_servo(c.skyArm, c.armHighSkyscraperDeliver, 5)
+        msleep(100)
+        move_servo(c.skyClaw, c.clawDeliver, 5)
+    else:
+        print("Right")
+        if c.IS_PRIME:
+            g.rotate(-23, 100)
+            msleep(500)
+            g.create_drive_timed(-50, .5)
+        elif c.IS_CLONE:
+            g.rotate(-35, 100)
+            msleep(500)
+            g.create_drive_timed(50, 1.3)
+        msleep(100)
+        move_servo(c.skyArm, c.armLowSkyscraper, 5)
+        msleep(100)
+        move_servo(c.skyClaw, c.clawDeliver, 10)
+
+
 
     

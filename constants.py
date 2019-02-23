@@ -33,7 +33,7 @@ if IS_PRIME:
 
     electricArmDown = 1680 #2000
     electricArmUp = 800
-    electricArmStart = 600 #950
+    electricArmStart = 630 #950
 
 elif IS_CLONE:
     # Servo Positions
