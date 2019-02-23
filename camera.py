@@ -3,7 +3,7 @@ import constants as c
 import actions as a
 import utilities as u
 
-def cameraInit():
+def camera_init():
     #Initializes/Opens up camera
     print("Running!")
     if camera_open_black() == 0:
@@ -18,14 +18,14 @@ def cameraInit():
     count()
 
 
-def colorProximity(color):
+def color_proximity(color):
     #Tests to see if the center of the colored block is within a certain proximity to the center of the orange card
     if abs(get_object_center_x(color, 0)- get_object_center_x(c.YELLOW,0)) < c.COLOR_PROXIMITY: # and get_object_center_y(color,0) < get_object_center_y(c.ORANGE,0):
         return True
     return False
 
 
-def colorValue(color):
+def color_value(color):
     #Prints data (x,y,area) of the selected color channel
     print("objects=" + str(get_object_count(color))),
     print(", x=" + str(get_object_center_x(color, 0))),

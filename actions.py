@@ -30,7 +30,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     print("Enabling my servos")
     enable_servos()
     print("Camera Init")
-    p.cameraInit()
+    p.camera_init()
     p.camera_update()
     camera_test = p.find_burning_sky()
     msleep(500)
@@ -215,11 +215,14 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         g.create_drive_timed(-60, 1)
     else:
         g.create_drive_timed(-60,2)
-    g.rotate_condition(m.get_right_front, -100, 100, False)
+    g.rotate(85, 100)
     msleep(100)
-    m.timedLineFollowLeftFront(100, 12)
-    g.rotate(180, 125)
-    g.create_drive_timed(100, 4) #Mechenical square up on pipe
+    g.create_drive_timed(200, 3)
+    g.rotate(20, -100)
+    g.drive_condition(on_black_front, 200, False)
+    g.rotate(20 , 100)
+    g.create_drive_timed(200, 4)
+    # g.create_drive_timed(100, 4) #Mechenical square up on pipe
     msleep(100)
     g.create_drive_timed(-100, 1)
     g.rotate(89, 125)
@@ -244,13 +247,21 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     disable_servo(c.electricalArm)
 
 
-def head_to_water_cube(): # Drives to cube of water
+def get_water_cube(): # Drives to cube of water
     g.create_drive_timed(125, .5)
     msleep(100)
     g.rotate(-90, 100)
     g.create_drive_timed(100, 2)
     g.create_drive_timed(-200, 8)
     g.rotate(-90, 100)
-    g.create_drive_timed(100, 5)
+    g.create_drive_timed(200, 5)
+    g.create_pivot_on_right_wheel(-100, 90)
+    g.create_drive_timed(-125, 1)
+    m.drive_to_black_and_square_up(100)
+    g.rotate(10, 100)
+    g.create_drive_timed(100, 2)
+    move_servo(c.skyArm, c.armDown, 10)
+    move_servo(c.skyClaw, c.clawClosedWater, 10)
+    move_servo(c.skyArm, c.armVertical, 10)
 
     

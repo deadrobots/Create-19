@@ -13,6 +13,9 @@ skyArm = 2
 skyClaw = 1
 electricalArm = 0
 
+#Sensor ports
+front_tophat = 0
+
 if IS_PRIME:
     # Servo Positions
     armVertical = 1260 + 170

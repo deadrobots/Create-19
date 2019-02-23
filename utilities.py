@@ -147,4 +147,8 @@ def get_line_follow_values():
         print get_create_rfcliff_amt()
 
 
+def on_black_front():
+    return analog(c.front_tophat) > 1000
+
+
 

@@ -16,7 +16,7 @@ def main():
     act.find_burning_biuldings()
     act.grab_bot_mayor()
     act.head_to_elec_lines()
-    act.head_to_water_cube()
+    act.get_water_cube()
     u.DEBUG()
 
 
