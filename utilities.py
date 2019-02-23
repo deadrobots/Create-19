@@ -122,7 +122,7 @@ def DEBUG_with_wait():
     DEBUG(False)
 
 
-def moveServo(servo, endPos, speed=10):
+def move_servo(servo, endPos, speed=10):
     # speed of 1 is slow
     # speed of 2000 is fast
     # speed of 10 is the default
@@ -140,7 +140,7 @@ def moveServo(servo, endPos, speed=10):
     msleep(10)
 
 
-def getLinefollowvalues():
+def get_line_follow_values():
     create_connect()
     while 1:
         print ("The right front line follow sensor sees: ")

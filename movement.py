@@ -220,11 +220,13 @@ def proportional_line_follow(speed, time):
         elif get_create_lfcliff_amt < 1700 and get_create_lfcliff_amt > 1200:
             create_drive_direct(speed, speed/10)
         elif get_create_lfcliff_amt < 2200 and get_create_lfcliff_amt > 1700:
-            g.create_drive_timed(speed, .1)
+            create_drive_direct(speed, speed)
         elif get_create_lfcliff_amt < 2700 and get_create_lfcliff_amt > 2200:
             create_drive_direct(speed/2, speed)
         elif get_create_lfcliff_amt > 2700:
             create_drive_direct(speed/5, speed)
+        msleep(10)
+    create_drive_direct(0, 0)
 
 
 

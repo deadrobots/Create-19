@@ -13,11 +13,11 @@ def main():
     print("Running!!!")
     act.init()
     #shut_down_in(118) put me back in for comptetion!!!!!!!!!!!!!!!!
-    act.findBurningBuildings()
-    act.grabBotMayor()
-    act.headToElecLines()
+    act.find_burning_biuldings()
+    act.grab_bot_mayor()
+    act.head_to_elec_lines()
+    act.head_to_water_cube()
     u.DEBUG()
-    act.headToWaterCube()
 
 
 
