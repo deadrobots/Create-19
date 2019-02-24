@@ -9,49 +9,49 @@ IS_CLONE = digital(ROBOT_ID_CLONE)
 IS_PRIME = not IS_CLONE
 
 #Servo Ports
-skyArm = 2
-skyClaw = 1
-electricalArm = 0
+sky_arm = 0
+sky_claw = 1
+electric_arm = 3
 
 #Sensor ports
-front_tophat = 0
+front_tophat = 5
 
 if IS_PRIME:
     # Servo Positions
-    armVertical = 1260 + 170
-    armLowSkyscraper = 645 + 170
-    armLowGrab = 600 + 200 #570
-    mayorArm = 950 + 200
-    armHighSkyscraper = 1310 + 170
-    armHighSkyscraperDeliver = 990 + 170
-    armDown = 0 + 170
+    arm_vertical = 1260 + 170
+    arm_low_sky = 645 + 170
+    arm_low_grab = 600 + 200 #570
+    mayor_arm = 950 + 200
+    arm_high_sky = 1310 + 170
+    arm_high_sky_deliver = 990 + 170
+    arm_down = 0 + 170
 
-    clawOpen = 150
+    claw_open = 150
     clawDeliver = 150
-    clawClosedWater = 1350
-    clawClosedMayor = 1300
+    claw_closed_water = 1350
+    claw_closed_mayor = 1300
 
-    electricArmDown = 1680 #2000
-    electricArmUp = 800
-    electricArmStart = 630 #950
+    electric_arm_down = 1680 #2000
+    electric_arm_up = 800
+    electric_arm_start = 630 #950
 
 elif IS_CLONE:
     # Servo Positions
-    armVertical = 1260
-    armLowSkyscraper = 645
-    armLowGrab = 600 #570
-    mayorArm = 950
-    armHighSkyscraper = 1310
-    armHighSkyscraperDeliver = 990
-    armDown = 0
+    arm_vertical = 1260
+    arm_low_sky = 645
+    arm_low_grab = 600 #570
+    mayor_arm = 950
+    arm_high_sky = 1310
+    arm_high_sky_deliver = 990
+    arm_down = 0
 
-    clawOpen = 150
+    claw_open = 150
     clawDeliver = 150
-    clawClosedWater = 1350
-    clawClosedMayor = 1300
+    claw_closed_water = 1350
+    claw_closed_mayor = 1300
 
-    electricArmDown = 2000
-    electricArmUp = 758
+    electric_arm_down = 2000
+    electric_arm_up = 758
 
 #Camera Channels
 YELLOW = 0

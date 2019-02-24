@@ -64,10 +64,10 @@ def find_burning_MC():
         if get_object_count(c.YELLOW) > 0 and get_object_area(0, c.YELLOW) > c.MC_LIMIT:
             print("I see yellow")
             if get_object_center_x(c.YELLOW, 0) < 80:
-                #print("Burning MC is on the left")
+                print("Burning MC is on the left")
                 return True
             elif get_object_center_x(c.YELLOW, 0) > 80:
-                #print("Burning MC is on the right")
+                print("Burning MC is on the right")
                 return False
         else:
             print("I see approximately no yellow")
