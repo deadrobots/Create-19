@@ -88,7 +88,7 @@ def rotate(power, time):
         spin_cw(abs(power), time)
 
 
-def rotateTillBlack(power):
+def rotate_till_black(power):
     if power > 0:
         create_drive_direct(-power, power)
     else:
@@ -128,34 +128,7 @@ def rotate_degrees(degrees, speed):
     stop()
 
 
-def driveTilBlackLCliffAndSquareUp(speed):
-    if speed > 0:
-        drive_condition(not black_left_or_right, speed)
-        while not get_black_left() or not get_black_right():
-            if get_black_left():
-                g.turn_with_gyro(-speed, 0)
-                print ("left")
-            elif get_black_right():
-                g.turn_with_gyro(0, -speed)
-                print ("right")
-            else:
-                print ("None")
-    else:
-        drive_condition(black_left_or_right, speed)
-        while not get_black_left() or not get_black_right():
-            if get_black_left():
-                g.turn_with_gyro(-speed, 0)
-                print ("left")
-            elif get_black_right():
-                g.turn_with_gyro(0, -speed)
-                print ("right")
-            else:
-                print ("None")
-    print ("done!")
-    create_drive_direct(0, 0)
-
-
-def timedLineFollowLeftFront(speed, time):
+def timed_line_follow_left_front(speed, time):
     sec = seconds()
     while(seconds() - sec<time):
         if get_left_front():
@@ -166,46 +139,7 @@ def timedLineFollowLeftFront(speed, time):
     create_stop()
 
 
-def timedLineFollowFrontTophat(time):
-    sec = seconds()
-    while(seconds() - sec<time):
-        if analog(c.FRONT_TOPHAT) < 1500:
-            create_drive_direct(-100, -50)
-        else:
-            create_drive_direct(-50, -100)
-    create_stop()
-
-
-def timedLineFollowRightFront(speed, time):
-    sec = seconds()
-    while(seconds() - sec<time):
-        if get_create_rfcliff_amt() < 2000:
-            create_drive_direct(speed, (int)(speed/1.8))
-        else:
-            create_drive_direct((int)(speed/1.8), speed)
-        msleep(10)
-    create_stop()
-
-
-def lineFollowLeftFrontTilRightFrontBlack(speed):
-    while cpp.get_black_front_right():
-        if not cpp.get_black_front_left():
-            cpp.drive(speed, speed / 2)
-        else:
-            cpp.drive(speed / 2, speed)
-    cpp.drive(0, 0)
-
-
-def lineFollowRightFrontTilLeftFrontBlack(speed):
-    while cpp.get_black_front_left():
-        if not cpp.get_black_front_right():
-            cpp.drive(speed / 2, speed)
-        else:
-            cpp.drive(speed, speed / 2)
-    cpp.drive(0, 0)
-
-
-def turnTilRightFrontBlack(left, right):
+def turn_till_right_front_black(left, right):
     create_drive_direct(left, right)
     while (get_create_rfcliff_amt() > 2000):
         pass

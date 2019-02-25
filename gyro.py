@@ -44,7 +44,7 @@ def turn_with_gyro_degrees(left_wheel_speed, right_wheel_speed, target_theta_deg
         create_drive_direct(-right_wheel_speed, -left_wheel_speed)
         msleep(10)
         theta = theta + abs(gyro_x() - bias) * 10
-    print(theta)
+    #print(theta)
     create_drive_direct(0, 0)
 
 
@@ -57,7 +57,7 @@ def turn_with_gyro(left_wheel_speed, right_wheel_speed):
         create_drive_direct(-right_wheel_speed, -left_wheel_speed)
         msleep(10)
         theta = theta + abs(gyro_x() - bias) * 10
-    print(theta)
+    #print(theta)
     create_drive_direct(0, 0)
 
 
@@ -75,9 +75,9 @@ def rotate(target_theta_deg, wheel_speed):
         theta = theta + abs(gyro_x() - bias) * 10
     create_drive_direct(0,0)
     msleep(500)
-    print(target_theta)
+    #print(target_theta)
     theta = theta + abs(gyro_x() - bias) * 10
-    print(theta)
+    #print(theta)
 
 
 def create_pivot_on_left_wheel(left_speed, degrees):
@@ -90,7 +90,7 @@ def create_pivot_on_left_wheel(left_speed, degrees):
         create_drive_direct(0, left_speed)
         msleep(10)
         theta = theta + abs(gyro_x() - bias) * 10
-    print (theta)
+    #print (theta)
     create_drive_direct(0, 0)
 
 
@@ -104,7 +104,7 @@ def create_pivot_on_right_wheel(right_speed, degrees):
         create_drive_direct(right_speed, 0)
         msleep(10)
         theta = theta + abs(gyro_x() - bias) * 10
-    print (theta)
+    #print (theta)
     create_drive_direct(0, 0)
 
 
