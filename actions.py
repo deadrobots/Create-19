@@ -69,7 +69,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     g.calibrate_gyro()
 
 
-def find_burning_biuldings(): #Determines which sky scraper and medical center is burning
+def find_burning_buildings(): #Determines which sky scraper and medical center is burning
     #Function determines which skyscraper and which MC are burning
     global burningMCLeft
     global burningSky
@@ -93,6 +93,46 @@ def find_burning_biuldings(): #Determines which sky scraper and medical center i
         print("doing code for right")
     #Do Bump to signal LEGO bot (not coded yet)
 
+def go_to_tallest_building(): #exactly what it sounds like
+    print ("Going to the tallest building")
+    move_servo(c.sky_arm, c.arm_vertical)
+    msleep(500)
+    #g.rotate(-90, 125)
+    #g.create_drive_timed(100, 3)
+    #g.rotate(8, 125)
+    print("help me i'm pivoting")
+    m.pivot_till_black(100)
+    print("did i pivot?")
+    wait_for_button()
+    g.create_drive_timed(100, 1)
+    wait_for_button()
+    g.rotate(8, 125)
+    wait_for_button()
+    g.create_drive_timed(100, 1)
+    wait_for_button()
+    g.rotate(-8, 125)
+    print("did we do this right? Are we looking directly at the building????????????????????")
+    wait_for_button()
+    m.drive_to_black_and_square_up(100)
+    wait_for_button()
+    #g.create_drive_timed(50, 3.2)
+    msleep(500)
+    move_servo(c.sky_arm, c.mayor_arm, 5)
+    msleep(100)
+    move_servo(c.sky_claw, c.claw_closed_mayor, 20)
+    msleep(800)
+    move_servo(c.sky_arm, c.arm_vertical, 5)
+    msleep(500)
+    m.drive_to_black_and_square_up(-100)
+    #g.create_drive_timed(-175, 1)
+    g.rotate(180, 125)
+    m.drive_to_black_and_square_up(100)
+    g.rotate(-5, 125)
+    move_servo(c.sky_arm, c.arm_down, 10)
+    msleep(100)
+    move_servo(c.sky_claw, c.claw_open, 20)
+    msleep(100)
+    g.rotate(5, 125)
 
 def grab_bot_mayor(): #Grabs the Botguy and the mayor off the two non burning skyscrapers
     print("Grabbing the botMayor")
