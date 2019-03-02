@@ -134,6 +134,106 @@ def go_to_tallest_building(): #exactly what it sounds like
     msleep(100)
     g.rotate(5, 125)
 
+def new_pattern(): #exactly what it sounds like
+    global burningSky
+    burningSky = p.find_burning_sky()
+    if burningSky == 0:
+        print("doing code for left")
+    elif burningSky == 1:
+        print("doing code for middle")
+    else:
+        print("doing code for right")
+    print ("Going to 1/2 building")
+    move_servo(c.sky_arm, c.arm_vertical)
+    msleep(500)
+    #g.rotate(-90, 125)
+    #g.create_drive_timed(100, 3)
+    #g.rotate(8, 125)
+    #g.create_drive_timed(50, .2)
+    #g.rotate(-90, 100)
+    m.pivot_till_black(200)
+    m.drive_to_black_and_square_up(200) #
+    g.create_drive_timed(200, 0.5)  # 1
+    m.drive_to_black_and_square_up(200)  #
+    if burningSky!=0:
+        grab_first()
+        if burningSky!=1:
+            grab_second()
+        else:
+            grab_third()
+    else:
+        grab_second()
+        grab_third()
+
+
+def grab_second():
+    move_servo(c.sky_arm, c.arm_high_sky_deliver, 10)#
+    g.create_drive_timed(200, 0.825)#
+    move_servo(c.sky_claw, c.claw_closed_mayor, 5)#
+    move_servo(c.sky_arm, c.arm_high_sky)
+    #######################################################
+    g.rotate(180, 150)
+    m.drive_to_black_and_square_up(200)
+    g.rotate(-10, 150)
+    move_servo(c.sky_arm, c.arm_down)
+    move_servo(c.sky_claw, c.claw_open +500, 5)
+    move_servo(c.sky_arm, c.arm_low_sky, 5)
+    move_servo(c.sky_claw, c.claw_open)
+    move_servo(c.sky_arm, c.arm_high_sky)
+    g.rotate(10, 150)
+    g.rotate(180, 150)
+    m.drive_to_black_and_square_up(200)
+
+
+def grab_first():
+    g.create_drive_timed(200, 0.6)
+    g.rotate(40, 150)
+    move_servo(c.sky_claw, c.claw_open+300)
+    g.create_drive_timed(200, .325)
+    move_servo(c.sky_arm, c.arm_low_grab +50, 10)  #
+    move_servo(c.sky_claw, c.claw_closed_mayor, 5)  #
+    move_servo(c.sky_arm, c.arm_high_sky)
+    g.create_drive_timed(-200, .325)
+    g.rotate(-40, 150)
+    ######################################################
+    g.rotate(180, 150)
+    m.drive_to_black_and_square_up(200)
+    g.rotate(10, 150)
+    move_servo(c.sky_arm, c.arm_down)
+    move_servo(c.sky_claw, c.claw_open + 500, 5)
+    move_servo(c.sky_arm, c.arm_low_sky, 5)
+    move_servo(c.sky_claw, c.claw_open)
+    move_servo(c.sky_arm, c.arm_high_sky)
+    g.rotate(170, 150)
+    m.drive_to_black_and_square_up(200)
+
+
+def grab_third():
+    g.create_drive_timed(200, 0.6)
+    g.rotate(-45, 150)
+    move_servo(c.sky_claw, c.claw_open + 300)
+    g.create_drive_timed(200, .25)
+    move_servo(c.sky_arm, c.arm_low_grab +50, 10)  #
+    g.create_drive_timed(200, 0.3)
+    move_servo(c.sky_claw, c.claw_closed_mayor, 5)  #
+    move_servo(c.sky_arm, c.arm_high_sky)
+    g.create_drive_timed(-200, 0.55)
+    g.rotate(45, 150)
+    #####################################################
+    g.rotate(180, 150)
+    m.drive_to_black_and_square_up(200)
+    g.rotate(-10, 150)
+    move_servo(c.sky_arm, c.arm_down)
+    move_servo(c.sky_claw, c.claw_open + 500, 5)
+    move_servo(c.sky_arm, c.arm_low_sky, 5)
+    move_servo(c.sky_claw, c.claw_open)
+    move_servo(c.sky_arm, c.arm_high_sky)
+    g.rotate(10, 150)
+    g.rotate(180, 150)
+    m.drive_to_black_and_square_up(200)
+    wait_for_button()
+
+
 def grab_bot_mayor(): #Grabs the Botguy and the mayor off the two non burning skyscrapers
     print("Grabbing the botMayor")
     m.drive_to_black_and_square_up(-100)

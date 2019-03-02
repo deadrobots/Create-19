@@ -127,6 +127,15 @@ def rotate_degrees(degrees, speed):
         pass
     stop()
 
+def pivot_till_black(power):
+    if power > 0:
+        create_drive_direct(0, -power)
+    else:
+        create_drive_direct(0, power)
+    while (analog(c.front_tophat) < 2000):
+        pass
+    create_stop()
+
 
 def timed_line_follow_left_front(speed, time):
     sec = seconds()

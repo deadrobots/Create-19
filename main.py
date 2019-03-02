@@ -12,6 +12,8 @@ import movement as m
 def main():
     print("Running!!!")
     act.init()
+    act.new_pattern()
+    u.DEBUG()
     #shut_down_in(118) put me back in for comptetion!!!!!!!!!!!!!!!!
     act.find_burning_biuldings()
     act.grab_bot_mayor()
