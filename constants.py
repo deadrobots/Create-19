@@ -14,7 +14,9 @@ sky_claw = 1
 electric_arm = 3
 
 #Sensor ports
-front_tophat = 5
+left_tophat = 5
+right_tophat = 4
+
 
 if IS_PRIME:
     # Servo Positions

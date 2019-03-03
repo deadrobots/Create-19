@@ -3,6 +3,7 @@ from math import pi
 from utilities import *
 import constants as c
 import gyro as g
+import utilities as u
 
 
 
@@ -132,7 +133,7 @@ def pivot_till_black(power):
         create_drive_direct(0, -power)
     else:
         create_drive_direct(0, power)
-    while (analog(c.front_tophat) < 2000):
+    while (analog(c.left_tophat) < 2000):
         pass
     create_stop()
 
@@ -171,6 +172,10 @@ def proportional_line_follow(speed, time):
         msleep(10)
     create_drive_direct(0, 0)
 
-
-
-
+def electric_drive(speed, time):
+    sec = seconds()
+    while (seconds() - sec < time):
+        if(u.on_black_left_tophat()):
+            rotate(200, 10)
+        if(u.on_black_right_tophat()):
+            rotate(-200, 10)

@@ -168,19 +168,26 @@ def new_pattern(): #exactly what it sounds like
 
 def grab_second():
     move_servo(c.sky_arm, c.arm_high_sky_deliver, 10)#
-    g.create_drive_timed(200, 0.825)#
+    g.create_drive_timed(200, 0.925)#
     move_servo(c.sky_claw, c.claw_closed_mayor, 5)#
     move_servo(c.sky_arm, c.arm_high_sky)
+    g.create_drive_timed(-200, 0.1)  #
     #######################################################
     g.rotate(180, 150)
     m.drive_to_black_and_square_up(200)
-    g.rotate(-10, 150)
+    if burningSky == 0:
+        g.rotate(10, 150)
+    else:
+        g.rotate(-10, 150)
     move_servo(c.sky_arm, c.arm_down)
     move_servo(c.sky_claw, c.claw_open +500, 5)
     move_servo(c.sky_arm, c.arm_low_sky, 5)
     move_servo(c.sky_claw, c.claw_open)
     move_servo(c.sky_arm, c.arm_high_sky)
-    g.rotate(10, 150)
+    if burningSky == 0:
+        g.rotate(-10, 150)
+    else:
+        g.rotate(10, 150)
     g.rotate(180, 150)
     m.drive_to_black_and_square_up(200)
 
@@ -189,7 +196,7 @@ def grab_first():
     g.create_drive_timed(200, 0.6)
     g.rotate(40, 150)
     move_servo(c.sky_claw, c.claw_open+300)
-    g.create_drive_timed(200, .325)
+    g.create_drive_timed(200, .425)
     move_servo(c.sky_arm, c.arm_low_grab +50, 10)  #
     move_servo(c.sky_claw, c.claw_closed_mayor, 5)  #
     move_servo(c.sky_arm, c.arm_high_sky)
@@ -212,7 +219,7 @@ def grab_third():
     g.create_drive_timed(200, 0.6)
     g.rotate(-45, 150)
     move_servo(c.sky_claw, c.claw_open + 300)
-    g.create_drive_timed(200, .25)
+    g.create_drive_timed(200, .35)
     move_servo(c.sky_arm, c.arm_low_grab +50, 10)  #
     g.create_drive_timed(200, 0.3)
     move_servo(c.sky_claw, c.claw_closed_mayor, 5)  #
@@ -231,122 +238,6 @@ def grab_third():
     g.rotate(10, 150)
     g.rotate(180, 150)
     m.drive_to_black_and_square_up(200)
-    wait_for_button()
-
-
-def grab_bot_mayor(): #Grabs the Botguy and the mayor off the two non burning skyscrapers
-    print("Grabbing the botMayor")
-    m.drive_to_black_and_square_up(-100)
-    g.create_drive_timed(150, 1.9)
-    g.rotate(-90, 100)
-    g.create_drive_timed(200, 3.3)
-    m.drive_to_black_and_square_up(-90)
-    if burningSky == 0 or burningSky == 2: #center building
-        g.rotate(2.5, 50)
-        if c.IS_CLONE:
-            g.create_drive_timed(50, 3.2)
-        else:
-            g.create_drive_timed(50, 3.3)
-        msleep(500)
-        move_servo(c.sky_arm, c.mayor_arm, 5)
-        msleep(100)
-        move_servo(c.sky_claw, c.claw_closed_mayor, 20)
-        msleep(800)
-        move_servo(c.sky_arm, c.arm_vertical, 5)
-        msleep(500)
-        m.drive_to_black_and_square_up(-100)
-        #g.create_drive_timed(-175, 1)
-        g.rotate(180, 125)
-        m.drive_to_black_and_square_up(100)
-        g.rotate(-5, 125)
-        move_servo(c.sky_arm, c.arm_down, 10)
-        msleep(100)
-        move_servo(c.sky_claw, c.claw_open, 20)
-        msleep(100)
-        g.rotate(5, 125)
-        if burningSky == 0: # Go to right building
-            move_servo(c.sky_arm, c.arm_vertical, 10)
-            msleep(100)
-            m.drive_to_black_and_square_up(-75)
-            g.rotate(145, 100)
-            g.create_drive_timed(50, 4.9) #2.7
-            msleep(100)
-            move_servo(c.sky_arm, c.arm_low_grab, 10)
-            msleep(100)
-            move_servo(c.sky_claw, c.claw_closed_mayor, 20)
-            msleep(100)
-            move_servo(c.sky_arm, c.arm_vertical, 10)
-            msleep(250)
-            g.create_drive_timed(-50, 3.5)
-            g.rotate(-155, 100)
-            m.drive_to_black_and_square_up(100)
-            g.rotate(5, 125)
-            move_servo(c.sky_arm, c.arm_down + 75, 10)
-            msleep(100)
-            move_servo(c.sky_claw, c.claw_open, 20)
-            msleep(100)
-            g.rotate(-5, 125)
-        else: # Go to left building
-            move_servo(c.sky_arm, c.arm_vertical, 10)
-            if c.IS_PRIME:
-                g.rotate(-138, 125)
-            else:
-                g.rotate(-143, 125)
-            g.create_drive_timed(100, 2.6)
-            move_servo(c.sky_arm, c.arm_low_grab, 10)
-            msleep(100)
-            move_servo(c.sky_claw, c.claw_closed_mayor, 20)
-            msleep(100)
-            move_servo(c.sky_arm, c.arm_vertical, 10)
-            msleep(250)
-            g.create_drive_timed(-50, 2.7)
-            g.rotate(143, 100)
-            m.drive_to_black_and_square_up(100)
-            move_servo(c.sky_arm, c.arm_down + 75, 10)
-            msleep(100)
-            move_servo(c.sky_claw, c.claw_open, 20)
-            msleep(100)
-    else: # Go to outside buildings
-        move_servo(c.sky_arm, c.arm_vertical, 10)
-        msleep(100)
-        m.drive_to_black_and_square_up(-75)
-        g.rotate(-30, 100)  #-35
-        g.create_drive_timed(50, 2.2)
-        msleep(100)
-        move_servo(c.sky_arm, c.arm_low_grab, 10)
-        msleep(100)
-        move_servo(c.sky_claw, c.claw_closed_mayor, 20)
-        msleep(100)
-        move_servo(c.sky_arm, c.arm_vertical, 10)
-        msleep(250)
-        g.create_drive_timed(-50, 2.2)
-        g.rotate(-145, 100)
-        m.drive_to_black_and_square_up(100)
-        move_servo(c.sky_arm, c.arm_down, 10)
-        msleep(100)
-        move_servo(c.sky_claw, c.claw_open, 20)
-        msleep(100)
-        move_servo(c.sky_arm, c.arm_vertical, 10)
-        msleep(500)
-        g.rotate(-146, 125)
-        g.create_drive_timed(100, 2.4)
-        g.create_drive_timed(50, .5)
-        msleep(100)
-        move_servo(c.sky_arm, c.arm_low_grab, 10)
-        msleep(100)
-        move_servo(c.sky_claw, c.claw_closed_mayor, 20)
-        msleep(100)
-        move_servo(c.sky_arm, c.arm_vertical, 10)
-        msleep(250)
-        g.create_drive_timed(-50, 2.7)
-        g.rotate(142, 100)
-        m.drive_to_black_and_square_up(100)
-        g.rotate(-10, 125)
-        move_servo(c.sky_arm, c.arm_down + 75, 10)
-        msleep(100)
-        move_servo(c.sky_claw, c.claw_open, 20)
-        msleep(100)
-        g.rotate(10, 125)
 
 
 def head_to_elec_lines(): # Goes to electric lines and attatches them
@@ -356,16 +247,24 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         g.create_drive_timed(-60, 1)
     else:
         g.create_drive_timed(-60,2)
-    g.rotate(85, 100)
+    g.rotate(-90, 100)
     msleep(100)
-    g.create_drive_timed(200, 4)
-    if not on_black_front():
-        g.rotate(13, -100)
-        g.drive_condition(on_black_front, 200, False)
-        g.rotate(13 , 100)
-    g.create_drive_timed(200, 3)
-    # g.create_drive_timed(100, 4) #Mechenical square up on pipe
+    g.create_drive_timed(500, 3.5) #Square up on wall
     msleep(100)
+    g.create_drive_timed(-200, 1)
+    g.rotate(-90, 150)
+    g.drive_condition(get_bump_or_black, -500, False) #I dont work :(
+    if method == 0:
+        print("Bumped")
+        g.create_drive_timed(200, .7)
+    elif method == 2:
+        print("Create sensors")
+    else:
+        print("Tophats")
+        g.create_drive_timed(-200, 1)
+    m.drive_to_black_and_square_up(100)
+    g.rotate(90, 125)
+    g.create_drive_timed(125, 2.3) #Square up on wall
 
 
 def hook_up_elec_lines():
@@ -414,7 +313,7 @@ def drop_water_cube():
     #Create deposits large water cube on burning building
     g.rotate(80, 100)
     g.create_drive_timed(200, 1)
-    g.drive_condition(m.on_black_front, -200, False)
+    g.drive_condition(m.on_black_left_tophat, -200, False)
     g.create_drive_timed(100, 1)
     g.rotate(-90, 100)
     g.create_drive_timed(-200, 3)

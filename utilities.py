@@ -1,8 +1,10 @@
 import constants as c
 from wallaby import *
+import movement as m
 
 
 cpp = None
+method = 0
 
 def init_utilities(icpp):
     global cpp
@@ -147,8 +149,33 @@ def get_line_follow_values():
         print get_create_rfcliff_amt()
 
 
-def on_black_front():
-    return analog(c.front_tophat) > 1000
+def on_black_left_tophat():
+    return analog(c.left_tophat) > 1000
 
 
+def on_black_right_tophat():
+    return analog(c.right_tophat) > 1000
 
+
+def hit_wall():
+    return accel_y() > 1000
+
+
+def bump_or_black_test():
+    global method
+    if get_create_lbump() > 0 or get_create_rbump() > 0:
+        print("Bumped")
+        method = 0
+        return 1
+    elif on_black_right_tophat() or on_black_left_tophat():
+        print("Tophats")
+        method = 1
+        return 2
+    else:
+        print("Create sensors")
+        method = 2
+        return 3
+
+
+def get_bump_or_black():
+    return bump_or_black_test() > 0
