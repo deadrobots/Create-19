@@ -19,7 +19,7 @@ def calibrate_gyro():
 
 #All of the drives measures the change in measurment of gyro_x and uses a formula borrowed from Norman Robotics to adjust drives
 def create_drive_timed(speed, time):
-    print("Driving for time")
+    #print("Driving for time")
     #_calibrate_gyro()
     start_time = seconds()
     speed = -speed
@@ -37,7 +37,7 @@ def create_drive_timed(speed, time):
 #Turns and pivots use the change in measurment of gyro_x to measure how far the robot has turned and how far it needs to change
 def turn_with_gyro_degrees(left_wheel_speed, right_wheel_speed, target_theta_deg):
     #_calibrate_gyro()
-    print("turning")
+    #print("turning")
     target_theta = round(target_theta_deg * v.turn_conversion)
     theta = 0
     while theta < target_theta:
@@ -50,7 +50,7 @@ def turn_with_gyro_degrees(left_wheel_speed, right_wheel_speed, target_theta_deg
 
 def turn_with_gyro(left_wheel_speed, right_wheel_speed):
     #_calibrate_gyro()
-    print("turning")
+    #print("turning")
     target_theta = round(target_theta_deg * v.turn_conversion)
     theta = 0
     while True:
@@ -63,7 +63,7 @@ def turn_with_gyro(left_wheel_speed, right_wheel_speed):
 
 def rotate(target_theta_deg, wheel_speed):
     #_calibrate_gyro()
-    print("turning")
+    #print("turning")
     target_theta = round(abs(target_theta_deg) * v.turn_conversion)
     theta = 0
     dir = 1
@@ -109,7 +109,7 @@ def create_pivot_on_right_wheel(right_speed, degrees):
 
 
 def drive_condition(test_function, speed, state=True):
-    print("Driving for time")
+    #print("Driving for time")
     #_calibrate_gyro()
     speed = -speed
     theta = 0

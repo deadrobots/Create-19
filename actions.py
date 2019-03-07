@@ -32,7 +32,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     print("Camera Init")
     p.camera_init()
     p.camera_update()
-    camera_test = p.find_burning_sky()
+    p.find_burning_MC()
     msleep(500)
     print("Testing Servos")
     msleep(500)
@@ -50,10 +50,10 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     create_full()
     #turnCalibration()
     print("Drive and Sensor Testing")
-    g.rotate(50, 150)
-    msleep(500)
-    p.find_burning_MC()
     g.rotate(-50, 150)
+    msleep(500)
+    p.find_burning_sky()
+    g.rotate(50, 150)
     msleep(500)
     g.drive_condition(m.get_black_left, -250, False)
     print("Setting servos for the run")
@@ -134,8 +134,14 @@ def go_to_tallest_building(): #exactly what it sounds like
     msleep(100)
     g.rotate(5, 125)
 
-def new_pattern(): #exactly what it sounds like
+def new_pattern():
     global burningSky
+    global burningMCLeft
+    p.count()
+    burningMCLeft = p.find_burning_MC()
+    move_servo(c.sky_arm, c.arm_vertical)
+    g.rotate(-50, 100)
+    msleep(500)
     burningSky = p.find_burning_sky()
     if burningSky == 0:
         print("doing code for left")
@@ -144,17 +150,11 @@ def new_pattern(): #exactly what it sounds like
     else:
         print("doing code for right")
     print ("Going to 1/2 building")
-    move_servo(c.sky_arm, c.arm_vertical)
-    msleep(500)
-    #g.rotate(-90, 125)
-    #g.create_drive_timed(100, 3)
-    #g.rotate(8, 125)
-    #g.create_drive_timed(50, .2)
-    #g.rotate(-90, 100)
+    g.create_drive_timed(200, .7)
     m.pivot_till_black(200)
-    m.drive_to_black_and_square_up(200) #
-    g.create_drive_timed(200, 0.5)  # 1
-    m.drive_to_black_and_square_up(200)  #
+    m.drive_to_black_and_square_up(200)
+    g.create_drive_timed(200, 0.5)
+    m.drive_to_black_and_square_up(200)
     if burningSky!=0:
         grab_first()
         if burningSky!=1:
@@ -253,16 +253,21 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     msleep(100)
     g.create_drive_timed(-200, 1)
     g.rotate(-90, 150)
-    g.drive_condition(get_bump_or_black, -500, False) #I dont work :(
-    if method == 0:
+    g.drive_condition(get_bump_or_black, -500, False)
+    method = u.bump_or_black_test()
+    print(method)
+    if method == 1:
         print("Bumped")
         g.create_drive_timed(200, .7)
     elif method == 2:
+        print("Tophats")
+    elif method == 3:
         print("Create sensors")
     else:
-        print("Tophats")
+        print("None (shouldn't happen)")
         g.create_drive_timed(-200, 1)
     m.drive_to_black_and_square_up(100)
+    g.create_drive_timed(-60, .5)
     g.rotate(90, 125)
     g.create_drive_timed(125, 2.3) #Square up on wall
 

@@ -165,17 +165,17 @@ def bump_or_black_test():
     global method
     if get_create_lbump() > 0 or get_create_rbump() > 0:
         print("Bumped")
-        method = 0
-        return 1
+        method = 1
     elif on_black_right_tophat() or on_black_left_tophat():
         print("Tophats")
-        method = 1
-        return 2
-    else:
-        print("Create sensors")
         method = 2
-        return 3
-
+    elif m.get_black_right() or m.get_black_left():
+        print("Create sensors")
+        method = 3
+    else:
+        method = 0
+        pass
+    return method
 
 def get_bump_or_black():
     return bump_or_black_test() > 0

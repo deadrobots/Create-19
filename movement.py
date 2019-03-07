@@ -62,7 +62,7 @@ def drive_timed(left, right, time): #DRS forward is opposite of create forward
 
 
 def drive_condition(condition, speed):
-    print("Driving for condition")
+    #print("Driving for condition")
     speed = -speed
     create_drive_direct(speed, speed)
     while condition:
