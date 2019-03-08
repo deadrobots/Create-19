@@ -63,7 +63,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     msleep(500)
     move_servo(c.electric_arm, c.electric_arm_down, 10)
     disable_servo(c.electric_arm)
-    wait_for_button()
+    wait_for_button_camera()
     c.START_TIME = seconds()
     msleep(500)
     g.calibrate_gyro()
@@ -169,7 +169,7 @@ def new_pattern():
 def grab_second():
     move_servo(c.sky_arm, c.arm_high_sky_deliver, 10)#
     g.create_drive_timed(200, 0.925)#
-    move_servo(c.sky_claw, c.claw_closed_mayor, 5)#
+    move_servo(c.sky_claw, c.claw_closed_mayor, 15)#
     move_servo(c.sky_arm, c.arm_high_sky)
     g.create_drive_timed(-200, 0.1)  #
     #######################################################
@@ -198,7 +198,7 @@ def grab_first():
     move_servo(c.sky_claw, c.claw_open+300)
     g.create_drive_timed(200, .425)
     move_servo(c.sky_arm, c.arm_low_grab +50, 10)  #
-    move_servo(c.sky_claw, c.claw_closed_mayor, 5)  #
+    move_servo(c.sky_claw, c.claw_closed_mayor, 15)  #
     move_servo(c.sky_arm, c.arm_high_sky)
     g.create_drive_timed(-200, .325)
     g.rotate(-40, 150)
@@ -222,7 +222,7 @@ def grab_third():
     g.create_drive_timed(200, .35)
     move_servo(c.sky_arm, c.arm_low_grab +50, 10)  #
     g.create_drive_timed(200, 0.3)
-    move_servo(c.sky_claw, c.claw_closed_mayor, 5)  #
+    move_servo(c.sky_claw, c.claw_closed_mayor, 15)  #
     move_servo(c.sky_arm, c.arm_high_sky)
     g.create_drive_timed(-200, 0.55)
     g.rotate(45, 150)
@@ -297,13 +297,9 @@ def hook_up_elec_lines():
 
 
 def get_water_cube(): # Drives to cube of water
-    g.create_drive_timed(125, .5)
-    msleep(100)
+    g.create_drive_timed(-400, 4)
     g.rotate(-90, 100)
-    g.create_drive_timed(100, 2)
-    g.create_drive_timed(-200, 8)
-    g.rotate(-90, 100)
-    g.create_drive_timed(200, 3)
+    g.create_drive_timed(400, 2.5)
     g.create_pivot_on_right_wheel(-100, 90)
     g.create_drive_timed(-125, 1)
     m.drive_to_black_and_square_up(100)
@@ -321,7 +317,7 @@ def drop_water_cube():
     g.drive_condition(m.on_black_left_tophat, -200, False)
     g.create_drive_timed(100, 1)
     g.rotate(-90, 100)
-    g.create_drive_timed(-200, 3)
+    g.create_drive_timed(-200, 2.5)
     g.rotate(-90, 100)
     g.create_drive_timed(200, 1)
     m.drive_to_black_and_square_up(-100)
@@ -332,7 +328,7 @@ def drop_water_cube():
         else:
             g.rotate(35, 100)
         msleep(500)
-        g.create_drive_timed(100, 1.8)
+        g.create_drive_timed(100, 1.4)
         move_servo(c.sky_arm, c.arm_low_sky, 5)
         msleep(100)
         move_servo(c.sky_claw, c.claw_open, 10)

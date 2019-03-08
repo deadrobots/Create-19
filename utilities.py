@@ -1,6 +1,7 @@
 import constants as c
 from wallaby import *
 import movement as m
+import camera as k #for kamera
 
 
 cpp = None
@@ -32,6 +33,16 @@ def wait_for_button(force=False):
         print "Press Button..."
         while not right_button():
             pass
+        msleep(1)
+        print "Pressed"
+        msleep(1000)
+
+
+def wait_for_button_camera(force=False):
+    if c.ALLOW_BUTTON_WAIT or force:
+        print "Press Button..."
+        while not right_button():
+            x = k.find_burning_MC()
         msleep(1)
         print "Pressed"
         msleep(1000)
