@@ -32,7 +32,6 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     print("Camera Init")
     p.camera_init()
     p.camera_update()
-    p.find_burning_MC()
     msleep(500)
     print("Testing Servos")
     msleep(500)
@@ -169,7 +168,7 @@ def new_pattern():
 def grab_second():
     move_servo(c.sky_arm, c.arm_high_sky_deliver, 10)#
     g.create_drive_timed(200, 0.925)#
-    move_servo(c.sky_claw, c.claw_closed_mayor, 15)#
+    move_servo(c.sky_claw, c.claw_closed_mayor, 20)#
     move_servo(c.sky_arm, c.arm_high_sky)
     g.create_drive_timed(-200, 0.1)  #
     #######################################################
@@ -272,32 +271,8 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     g.create_drive_timed(125, 2.3) #Square up on wall
 
 
-def hook_up_elec_lines():
-    g.create_drive_timed(-100, 1)
-    g.rotate(89, 125)
-    enable_servo(c.electric_arm)
-    move_servo(c.electric_arm, c.electric_arm_start, 10)
-    g.create_drive_timed(100, 2.5)
-    move_servo(c.electric_arm, c.electric_arm_start - 100, 3)
-    g.create_drive_timed(-50, 1.5)
-    msleep(100)
-    move_servo(c.electric_arm, c.electric_arm_down, 20)
-    m.drive_to_black_and_square_up(-100)
-    msleep(250)
-    g.rotate(5, 100)
-    g.create_drive_timed(-50, 3.5)
-    move_servo(c.electric_arm, c.electric_arm_start, 10)
-    msleep(100)
-    move_servo(c.electric_arm, c.electric_arm_start - 100, 3)
-    g.create_drive_timed(-125, 2.3)
-    msleep(250)
-    g.create_drive_timed(125, 1)
-    move_servo(c.electric_arm, c.electric_arm_down, 20)
-    disable_servo(c.electric_arm)
-
-
 def get_water_cube(): # Drives to cube of water
-    g.create_drive_timed(-400, 4)
+    g.create_drive_timed(-400, 4.3)
     g.rotate(-90, 100)
     g.create_drive_timed(400, 2.5)
     g.create_pivot_on_right_wheel(-100, 90)
@@ -331,24 +306,21 @@ def drop_water_cube():
         g.create_drive_timed(100, 1.4)
         move_servo(c.sky_arm, c.arm_low_sky, 5)
         msleep(100)
-        move_servo(c.sky_claw, c.claw_open, 10)
     elif burningSky == 1:
         print("middle")
-        msleep(500)
-        g.rotate(2.5, 50)
         msleep(500)
         g.create_drive_timed(50, 3.3)
         msleep(500)
         msleep(250)
         move_servo(c.sky_arm, c.arm_high_sky_deliver, 5)
         msleep(100)
-        move_servo(c.sky_claw, c.clawDeliver, 5)
     else:
         print("Right")
         if c.IS_PRIME:
-            g.rotate(-23, 100)
+            g.rotate(-42, 100)
             msleep(500)
-            g.create_drive_timed(50, 1.5)
+            g.create_drive_timed(100, 1) #(50,2.5)
+            g.create_drive_timed(50, 1)
         elif c.IS_CLONE:
             g.rotate(-35, 100)
             msleep(500)
@@ -356,7 +328,6 @@ def drop_water_cube():
         msleep(100)
         move_servo(c.sky_arm, c.arm_low_sky, 5)
         msleep(100)
-        move_servo(c.sky_claw, c.clawDeliver, 10)
 
 
 

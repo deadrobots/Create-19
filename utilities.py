@@ -7,6 +7,8 @@ import camera as k #for kamera
 cpp = None
 method = 0
 
+burning_MC = False
+
 def init_utilities(icpp):
     global cpp
     cpp = icpp
@@ -39,10 +41,11 @@ def wait_for_button(force=False):
 
 
 def wait_for_button_camera(force=False):
+    global burning_MC
     if c.ALLOW_BUTTON_WAIT or force:
         print "Press Button..."
         while not right_button():
-            x = k.find_burning_MC()
+            burning_MC = k.find_burning_MC()
         msleep(1)
         print "Pressed"
         msleep(1000)

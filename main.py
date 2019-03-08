@@ -15,7 +15,6 @@ def main():
     act.new_pattern()
     #shut_down_in(118) put me back in for comptetion!!!!!!!!!!!!!!!!
     act.head_to_elec_lines()
-    # act.hook_up_elec_lines()
     act.get_water_cube()
     act.drop_water_cube()
     u.DEBUG()
