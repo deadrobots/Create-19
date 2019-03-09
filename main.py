@@ -12,7 +12,7 @@ import movement as m
 def main():
     print("Running!!!")
     act.init()
-    act.new_pattern()
+    act.grab_bot_mayor()
     #shut_down_in(118) put me back in for comptetion!!!!!!!!!!!!!!!!
     act.head_to_elec_lines()
     act.get_water_cube()

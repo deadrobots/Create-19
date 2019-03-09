@@ -193,3 +193,7 @@ def bump_or_black_test():
 
 def get_bump_or_black():
     return bump_or_black_test() > 0
+
+
+def get_pipe_switch():
+    return digital(c.pipe_switch)

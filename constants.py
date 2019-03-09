@@ -16,7 +16,7 @@ electric_arm = 3
 #Sensor ports
 left_tophat = 5
 right_tophat = 4
-
+pipe_switch = 9
 
 if IS_PRIME:
     # Servo Positions
@@ -30,7 +30,7 @@ if IS_PRIME:
 
     claw_open = 150
     clawDeliver = 150
-    claw_closed_water = 1350
+    claw_closed_water = 1250
     claw_closed_mayor = 1280
 
     electric_arm_down = 1680 #2000

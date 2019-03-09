@@ -133,7 +133,7 @@ def go_to_tallest_building(): #exactly what it sounds like
     msleep(100)
     g.rotate(5, 125)
 
-def new_pattern():
+def grab_bot_mayor():
     global burningSky
     global burningMCLeft
     p.count()
@@ -269,17 +269,25 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     g.create_drive_timed(-60, .5)
     g.rotate(90, 125)
     g.create_drive_timed(125, 2.3) #Square up on wall
+    if not u.get_pipe_switch():
+        g.create_drive_timed(-250, .5)
+        g.create_drive_timed(500, 1)
+        msleep(300)
+    g.create_drive_timed(-500, .5)
+    g.rotate(15, 250)
+    g.create_drive_timed(-500, .5)
+    g.rotate(-15, 250)
 
 
 def get_water_cube(): # Drives to cube of water
-    g.create_drive_timed(-400, 4.3)
+    g.create_drive_timed(-500, 3.1)
     g.rotate(-90, 100)
     g.create_drive_timed(400, 2.5)
     g.create_pivot_on_right_wheel(-100, 90)
     g.create_drive_timed(-125, 1)
     m.drive_to_black_and_square_up(100)
     g.rotate(10, 100)
-    g.create_drive_timed(100, 1.7)
+    g.create_drive_timed(100, 1.9)
     move_servo(c.sky_arm, c.arm_down, 10)
     move_servo(c.sky_claw, c.claw_closed_water, 10)
     move_servo(c.sky_arm, c.arm_vertical, 10)
@@ -292,7 +300,7 @@ def drop_water_cube():
     g.drive_condition(m.on_black_left_tophat, -200, False)
     g.create_drive_timed(100, 1)
     g.rotate(-90, 100)
-    g.create_drive_timed(-200, 2.5)
+    g.create_drive_timed(-200, 2.8)
     g.rotate(-90, 100)
     g.create_drive_timed(200, 1)
     m.drive_to_black_and_square_up(-100)
@@ -310,17 +318,17 @@ def drop_water_cube():
         print("middle")
         msleep(500)
         g.create_drive_timed(50, 3.3)
-        msleep(500)
         msleep(250)
+        g.rotate(-4, 100)
         move_servo(c.sky_arm, c.arm_high_sky_deliver, 5)
         msleep(100)
     else:
         print("Right")
         if c.IS_PRIME:
-            g.rotate(-42, 100)
+            g.rotate(-34, 100)
             msleep(500)
             g.create_drive_timed(100, 1) #(50,2.5)
-            g.create_drive_timed(50, 1)
+            g.create_drive_timed(50, 1.2)
         elif c.IS_CLONE:
             g.rotate(-35, 100)
             msleep(500)
