@@ -177,7 +177,7 @@ def hit_wall():
 
 def bump_or_black_test():
     global method
-    if get_create_lbump() > 0 or get_create_rbump() > 0:
+    if get_create_lbump() > 0 and get_create_rbump() > 0:
         print("Bumped")
         method = 1
     elif on_black_right_tophat() or on_black_left_tophat():

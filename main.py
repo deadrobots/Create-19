@@ -13,12 +13,11 @@ def main():
     print("Running!!!")
     act.init()
     act.grab_bot_mayor()
-    #shut_down_in(118) put me back in for comptetion!!!!!!!!!!!!!!!!
+    shut_down_in(118)
     act.head_to_elec_lines()
     act.get_water_cube()
     act.drop_water_cube()
     u.DEBUG()
-
 
 
 class tee :
