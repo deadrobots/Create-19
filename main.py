@@ -10,6 +10,8 @@ import movement as m
 
 
 def main():
+    act.test()
+    u.DEBUG()
     print("Running!!!")
     act.init()
     act.grab_bot_mayor()

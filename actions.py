@@ -56,7 +56,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     msleep(500)
     g.drive_condition(m.get_black_left, -250, False)
     print("Setting servos for the run")
-    move_servo(c.sky_arm, c.arm_down)
+    move_servo(c.sky_arm, c.arm_start)
     msleep(500)
     move_servo(c.sky_claw, c.claw_open)
     msleep(500)
@@ -64,10 +64,16 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     disable_servo(c.electric_arm)
     wait_for_button_camera()
     c.START_TIME = seconds()
-    move_servo(c.sky_arm, c.arm_vertical)
-    msleep(500)
+    if u.burning_MC == False:
+        u.move_servo(c.sky_arm, 200)
+        u.move_servo(c.sky_arm, c.arm_button, 5)
+        msleep(100)
+        u.move_servo(c.sky_arm, c.arm_vertical)
+    else:
+        u.move_servo(c.sky_arm, c.arm_vertical)
+    msleep(1000)
     g.calibrate_gyro()
-    msleep(3000)
+    msleep(2000)
 
 
 def find_burning_buildings(): #Determines which sky scraper and medical center is burning
@@ -137,7 +143,7 @@ def grab_bot_mayor():
     burningMCLeft = p.find_burning_MC()
     move_servo(c.sky_arm, c.arm_vertical)
     g.rotate(-50, 100)
-    msleep(100)
+    msleep(400)
     burningSky = p.find_burning_sky()
     if burningSky == 0:
         print("doing code for left")
@@ -192,7 +198,7 @@ def grab_first():
     g.create_drive_timed(200, 0.6)
     g.rotate(40, 150)
     move_servo(c.sky_claw, c.claw_open+300, 20)
-    g.create_drive_timed(200, .425)
+    g.create_drive_timed(200, .6)
     move_servo(c.sky_arm, c.arm_low_grab +50, 10)  #
     move_servo(c.sky_claw, c.claw_closed_mayor, 15)  #
     move_servo(c.sky_arm, c.arm_high_sky, 20)
@@ -327,6 +333,30 @@ def drop_water_cube():
             g.create_drive_timed(50, .3)
         msleep(100)
         move_servo(c.sky_arm, c.arm_low_sky, 10)
+
+
+def test():
+    if c.IS_CLONE:
+        print("Clone")
+    enable_servos()
+    create_connect()
+    u.move_servo(c.electric_arm_base, c.electric_base_up)
+    u.move_servo(c.electric_arm, c.electric_arm_start)
+    msleep(250)
+    g.create_drive_timed(100, 2)
+    u.move_servo(c.electric_arm, c.electric_arm_right)
+    msleep(100)
+    u.move_servo(c.electric_arm_base, c.electric_base_right)
+    msleep(100)
+    u.move_servo(c.electric_arm, c.electric_arm_start)
+    g.create_drive_timed(-100, 2)
+    u.move_servo(c.electric_arm, c.electric_arm_slight_left)
+    g.create_drive_timed(100, 2.2)
+    u.move_servo(c.electric_arm_base, c.electric_base_left)
+    u.move_servo(c.electric_arm, c.electric_arm_left)
+    msleep(100)
+    u.move_servo(c.electric_arm_base, c.electric_base_left_score)
+    msleep(1000)
 
 
 
