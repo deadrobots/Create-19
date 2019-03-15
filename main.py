@@ -7,11 +7,11 @@ import utilities as u
 import camera as p
 import shutdown
 import movement as m
+import gyro as g
 
 
 def main():
     act.test()
-    u.DEBUG()
     print("Running!!!")
     act.init()
     act.grab_bot_mayor()

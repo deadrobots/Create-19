@@ -36,6 +36,23 @@ if IS_PRIME:
     claw_closed_water = 1250
     claw_closed_mayor = 1280
 
+    #Electric base
+    electric_base_down = 540
+    electric_base_up = 1815
+    electric_base_right = 1940
+    electric_base_left = 1890
+    electric_base_left_score = 1740
+
+    #Electric arm
+    electric_arm_start = 920
+    electric_arm_right = 0
+    electric_arm_slight_left = 1180
+    electric_arm_left = 2047
+
+    # Gyro
+    turn_conversion = 5100  # 5500
+
+
 elif IS_CLONE:
     # Servo Positions
     arm_vertical = 1260
@@ -52,18 +69,20 @@ elif IS_CLONE:
     claw_closed_mayor = 1300
 
     #Electric base
-    electric_base_down = 0
-    electric_base_up = 1275
-    electric_base_right = 1400
-    electric_base_left = 1350
-    electric_base_left_score = 1200
+    electric_base_down = 540
+    electric_base_up = 1815
+    electric_base_right = 1940
+    electric_base_left = 1890
+    electric_base_left_score = 1740
 
     #Electric arm
-    electric_arm_start = 750
+    electric_arm_start = 815
     electric_arm_right = 0
-    electric_arm_slight_left = 1200
-    electric_arm_left = 1950
+    electric_arm_slight_left = 1180
+    electric_arm_left = 2047
 
+    #Gyro
+    turn_conversion = 5100  #5500
 
 #Camera Channels
 YELLOW = 0
@@ -73,8 +92,7 @@ ORANGE = 1
 MC_LIMIT = 15
 SKY_LIMIT = 50
 
-#Gyro
-turn_conversion = 5100  #5500
+
 
 
 

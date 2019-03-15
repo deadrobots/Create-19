@@ -42,7 +42,6 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     msleep(500)
     move_servo(c.sky_claw, c.claw_closed_water)
     msleep(500)
-    move_servo(c.electric_arm, c.electric_arm_up)
     msleep(500)
     print("Connecting to Create")
     create_connect()
@@ -60,8 +59,6 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     msleep(500)
     move_servo(c.sky_claw, c.claw_open)
     msleep(500)
-    move_servo(c.electric_arm, c.electric_arm_down, 10)
-    disable_servo(c.electric_arm)
     wait_for_button_camera()
     c.START_TIME = seconds()
     if u.burning_MC == False:
@@ -344,9 +341,9 @@ def test():
     u.move_servo(c.electric_arm, c.electric_arm_start)
     msleep(250)
     g.create_drive_timed(100, 2)
-    u.move_servo(c.electric_arm, c.electric_arm_right)
+    u.move_servo(c.electric_arm, c.electric_arm_right, 4)
     msleep(100)
-    u.move_servo(c.electric_arm_base, c.electric_base_right)
+    u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
     msleep(100)
     u.move_servo(c.electric_arm, c.electric_arm_start)
     g.create_drive_timed(-100, 2)
@@ -358,6 +355,18 @@ def test():
     u.move_servo(c.electric_arm_base, c.electric_base_left_score)
     msleep(1000)
 
+
+def push_cube_test():
+    create_connect()
+    u.wait_for_button()
+    u.move_servo(c.sky_arm, c.arm_vertical)
+    u.move_servo(c.sky_claw, c.claw_closed_water)
+    g.rotate(-20, 250)
+    msleep(100)
+    g.rotate(20,250)
+    msleep(100)
+    u.move_servo(c.sky_arm, c.arm_high_sky_deliver)
+    u.DEBUG()
 
 
     
