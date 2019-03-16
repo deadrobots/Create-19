@@ -19,6 +19,9 @@ left_tophat = 5
 right_tophat = 4
 pipe_switch = 9
 
+#motor
+electric_line_motor = 3
+
 if IS_PRIME:
     # Servo Positions
     arm_vertical = 1260 + 170
@@ -37,16 +40,18 @@ if IS_PRIME:
     claw_closed_mayor = 1280
 
     #Electric base
-    electric_base_down = 540
-    electric_base_up = 1815
-    electric_base_right = 1940
-    electric_base_left = 1890
-    electric_base_left_score = 1740
+    electric_base_down = 470
+    electric_base_up = 1920
+    electric_base_right = 2047
+    electric_base_left = 1680
+    electric_base_left_score = 1800
+    electric_base_start_left = 1850
 
     #Electric arm
     electric_arm_start = 920
-    electric_arm_right = 0
-    electric_arm_slight_left = 1180
+    electric_arm_right = 20
+    electric_arm_start_box = 1230
+    electric_arm_slight_left = 1350
     electric_arm_left = 2047
 
     # Gyro

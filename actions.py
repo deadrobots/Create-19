@@ -5,6 +5,7 @@ from wallaby import *
 import camera as p
 import gyro as g
 import movement as m
+import electricLineMotor as em
 
 colorOrder = []
 
@@ -42,7 +43,10 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     msleep(500)
     move_servo(c.sky_claw, c.claw_closed_water)
     msleep(500)
-    msleep(500)
+    u.move_servo(c.electric_arm_base, c.electric_base_right)
+    u.move_servo(c.electric_arm, c.electric_arm_right)
+    u.move_servo(c.electric_arm, c.electric_arm_start_box)
+    u.move_servo(c.electric_arm_base, c.electric_base_down)
     print("Connecting to Create")
     create_connect()
     create_full()
@@ -247,6 +251,8 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     else:
         g.create_drive_timed(-60,2)
     g.rotate(-90, 100)
+    u.move_servo(c.electric_arm_base, c.electric_base_up)
+    u.move_servo(c.electric_arm, c.electric_arm_start)
     g.create_drive_timed(500, 3.5) #Square up on wall
     msleep(100)
     g.create_drive_timed(-200, .5)
@@ -272,14 +278,77 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         g.create_drive_timed(-250, .5)
         g.create_drive_timed(500, 1)
         msleep(300)
-    g.create_drive_timed(-500, .5)
-    g.rotate(15, 250)
-    g.create_drive_timed(-500, .5)
-    g.rotate(-15, 250)
+
+
+def elec():
+    em.clear_ticks_button()
+    c.START_TIME = seconds()
+    g.calibrate_gyro()
+    if c.IS_CLONE:
+        print("Clone")
+    else:
+      print("Prime")
+    enable_servos()
+    create_connect()
+    msleep(250)
+    u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
+    g.create_drive_timed(100, 1.3)
+    em.clear_ticks(-20)
+    msleep(100)
+    em.electric_line_motor(30, 470)
+    u.DEBUG()
+    u.move_servo(c.electric_arm_base, c.electric_base_left_score)
+    msleep(300)
+    u.move_servo(c.electric_arm, c.electric_arm_slight_left, 5)
+    u.move_servo(c.electric_arm, c.electric_arm_right, 4)
+    msleep(100)
+
+    msleep(200)
+    u.move_servo(c.electric_arm, c.electric_arm_start)
+    msleep(100)
+    g.create_drive_timed(-100, 1)
+
+    DEBUG()
+
+
+def connect_elec_lines():
+    # c.START_TIME = seconds()
+    # g.calibrate_gyro()
+    # if c.IS_CLONE:
+    #     print("Clone")
+    # else:
+    #   print("Prime")
+    # enable_servos()
+    # create_connect()
+    msleep(250)
+    u.move_servo(c.electric_arm, c.electric_arm_right, 4)
+    msleep(100)
+    if c.IS_CLONE:
+        u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
+        msleep(100)
+        u.move_servo(c.electric_arm, c.electric_arm_start)
+    else:
+        u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
+        msleep(200)
+        u.move_servo(c.electric_arm, c.electric_arm_start)
+        msleep(100)
+    g.create_drive_timed(-100, 1)
+    u.move_servo(c.electric_arm, c.electric_arm_slight_left)
+    if c.IS_PRIME:
+        u.move_servo(c.electric_arm_base, c.electric_base_start_left)
+    g.create_drive_timed(100, 1.3)
+    if c.IS_CLONE:
+        u.move_servo(c.electric_arm_base, c.electric_base_left)
+    u.move_servo(c.electric_arm, c.electric_arm_left)
+    msleep(100)
+    u.move_servo(c.electric_arm_base, c.electric_base_left_score)
+    msleep(300)
+    u.move_servo(c.electric_arm, c.electric_arm_slight_left, 5)
+    DEBUG()
 
 
 def get_water_cube(): # Drives to cube of water
-    g.create_drive_timed(-500, 2.6)
+    g.create_drive_timed(-500, 3)
     g.rotate(-90, 150)
     g.create_drive_timed(400, 2.5)
     g.create_pivot_on_right_wheel(-150, 90)
@@ -330,30 +399,6 @@ def drop_water_cube():
             g.create_drive_timed(50, .3)
         msleep(100)
         move_servo(c.sky_arm, c.arm_low_sky, 10)
-
-
-def test():
-    if c.IS_CLONE:
-        print("Clone")
-    enable_servos()
-    create_connect()
-    u.move_servo(c.electric_arm_base, c.electric_base_up)
-    u.move_servo(c.electric_arm, c.electric_arm_start)
-    msleep(250)
-    g.create_drive_timed(100, 2)
-    u.move_servo(c.electric_arm, c.electric_arm_right, 4)
-    msleep(100)
-    u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
-    msleep(100)
-    u.move_servo(c.electric_arm, c.electric_arm_start)
-    g.create_drive_timed(-100, 2)
-    u.move_servo(c.electric_arm, c.electric_arm_slight_left)
-    g.create_drive_timed(100, 2.2)
-    u.move_servo(c.electric_arm_base, c.electric_base_left)
-    u.move_servo(c.electric_arm, c.electric_arm_left)
-    msleep(100)
-    u.move_servo(c.electric_arm_base, c.electric_base_left_score)
-    msleep(1000)
 
 
 def push_cube_test():
