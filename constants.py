@@ -40,12 +40,13 @@ if IS_PRIME:
     claw_closed_mayor = 1280
 
     #Electric base
-    electric_base_down = 470
-    electric_base_up = 1920
-    electric_base_right = 2047
-    electric_base_left = 1680
-    electric_base_left_score = 1800
-    electric_base_start_left = 1850
+    electric_base_down = 470 -470
+    electric_base_up = 1920-470
+    electric_base_right = 2047-470
+    electric_base_left = 1680-470
+    electric_base_left_score = 1800-470
+    electric_base_start_left = 1870-470
+    electric_base_swing = 1910
 
     #Electric arm
     electric_arm_start = 920

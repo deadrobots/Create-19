@@ -44,8 +44,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     move_servo(c.sky_claw, c.claw_closed_water)
     msleep(500)
     u.move_servo(c.electric_arm_base, c.electric_base_right)
-    u.move_servo(c.electric_arm, c.electric_arm_right)
-    u.move_servo(c.electric_arm, c.electric_arm_start_box)
+    em.clear_ticks_button()
     u.move_servo(c.electric_arm_base, c.electric_base_down)
     print("Connecting to Create")
     create_connect()
@@ -65,6 +64,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     msleep(500)
     wait_for_button_camera()
     c.START_TIME = seconds()
+    shut_down_in(119.5)
     if u.burning_MC == False:
         u.move_servo(c.sky_arm, 200)
         u.move_servo(c.sky_arm, c.arm_button, 5)
@@ -72,6 +72,8 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
         u.move_servo(c.sky_arm, c.arm_vertical)
     else:
         u.move_servo(c.sky_arm, c.arm_vertical)
+    u.move_servo(c.electric_arm_base, c.electric_base_left)
+    em.electric_line_motor(30, -600)
     msleep(1000)
     g.calibrate_gyro()
     msleep(2000)
@@ -153,7 +155,7 @@ def grab_bot_mayor():
     else:
         print("doing code for right")
     print ("Going to 1/2 building")
-    g.create_drive_timed(200, .7)
+    g.create_drive_timed(400, .35)
     m.pivot_till_black(200)
     m.drive_to_black_and_square_up(200)
     g.create_drive_timed(200, 0.5)
@@ -219,6 +221,7 @@ def grab_first():
 
 
 def grab_third():
+    em.electric_line_motor(30, 0)
     g.create_drive_timed(200, 0.6)
     g.rotate(-45, 150)
     move_servo(c.sky_claw, c.claw_open + 300, 20)
@@ -241,22 +244,23 @@ def grab_third():
     g.rotate(10, 150)
     g.rotate(180, 150)
     m.drive_to_black_and_square_up(200)
+    em.electric_line_motor(30, -600)
 
 
 def head_to_elec_lines(): # Goes to electric lines and attatches them
     print("Heading to electric lines")
-    move_servo(c.sky_arm, c.arm_vertical, 10)
+    move_servo(c.sky_arm, c.arm_vertical, 20)
     if c.IS_PRIME:
         g.create_drive_timed(-240, .25)
     else:
         g.create_drive_timed(-60,2)
     g.rotate(-90, 100)
-    u.move_servo(c.electric_arm_base, c.electric_base_up)
+    u.move_servo(c.electric_arm_base, c.electric_base_up, 20)
     u.move_servo(c.electric_arm, c.electric_arm_start)
     g.create_drive_timed(500, 3.5) #Square up on wall
     msleep(100)
     g.create_drive_timed(-200, .5)
-    g.rotate(-90, 150)
+    g.rotate(-90, 300)
     g.drive_condition(get_bump_or_black, -500, False)
     method = u.bump_or_black_test()
     print(method)
@@ -280,77 +284,34 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         msleep(300)
 
 
-def elec():
-    em.clear_ticks_button()
-    c.START_TIME = seconds()
-    g.calibrate_gyro()
-    if c.IS_CLONE:
-        print("Clone")
-    else:
-      print("Prime")
-    enable_servos()
-    create_connect()
-    msleep(250)
-    u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
-    g.create_drive_timed(100, 1.3)
-    em.clear_ticks(-20)
-    msleep(100)
-    em.electric_line_motor(30, 470)
-    u.DEBUG()
-    u.move_servo(c.electric_arm_base, c.electric_base_left_score)
-    msleep(300)
-    u.move_servo(c.electric_arm, c.electric_arm_slight_left, 5)
-    u.move_servo(c.electric_arm, c.electric_arm_right, 4)
-    msleep(100)
-
-    msleep(200)
-    u.move_servo(c.electric_arm, c.electric_arm_start)
-    msleep(100)
-    g.create_drive_timed(-100, 1)
-
-    DEBUG()
-
-
 def connect_elec_lines():
-    # c.START_TIME = seconds()
-    # g.calibrate_gyro()
-    # if c.IS_CLONE:
-    #     print("Clone")
-    # else:
-    #   print("Prime")
-    # enable_servos()
-    # create_connect()
-    msleep(250)
-    u.move_servo(c.electric_arm, c.electric_arm_right, 4)
+    clear_motor_position_counter(c.electric_line_motor)
+    em.electric_line_motor(50, -950)
+    u.move_servo(c.electric_arm_base, c.electric_base_swing, 20)
+    em.clear_ticks(-50)
+    u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
+    em.clear_ticks(-35)
+    em.electric_line_motor(25, 470)
+    # msleep(200)
+    # em.clear_ticks(-50)
+    msleep(200)
+    em.electric_line_motor(30, 170)
     msleep(100)
-    if c.IS_CLONE:
-        u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
-        msleep(100)
-        u.move_servo(c.electric_arm, c.electric_arm_start)
-    else:
-        u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
-        msleep(200)
-        u.move_servo(c.electric_arm, c.electric_arm_start)
-        msleep(100)
     g.create_drive_timed(-100, 1)
-    u.move_servo(c.electric_arm, c.electric_arm_slight_left)
-    if c.IS_PRIME:
-        u.move_servo(c.electric_arm_base, c.electric_base_start_left)
-    g.create_drive_timed(100, 1.3)
-    if c.IS_CLONE:
-        u.move_servo(c.electric_arm_base, c.electric_base_left)
-    u.move_servo(c.electric_arm, c.electric_arm_left)
+    u.move_servo(c.electric_arm_base, c.electric_base_start_left)
+    em.electric_line_motor(50, -85)
+    g.create_drive_timed(100, 1.2)
     msleep(100)
-    u.move_servo(c.electric_arm_base, c.electric_base_left_score)
+    em.clear_ticks(40)
+    em.electric_line_motor(30, -525)
     msleep(300)
-    u.move_servo(c.electric_arm, c.electric_arm_slight_left, 5)
-    DEBUG()
+    em.electric_line_motor(40, -250)
 
 
 def get_water_cube(): # Drives to cube of water
-    g.create_drive_timed(-500, 3)
-    g.rotate(-90, 150)
-    g.create_drive_timed(400, 2.5)
+    g.create_drive_timed(-500, 3.3)
+    g.rotate(-90, 250)
+    g.create_drive_timed(500, 2.1)
     g.create_pivot_on_right_wheel(-150, 90)
     g.create_drive_timed(-250, .5)
     m.drive_to_black_and_square_up(100)
@@ -383,6 +344,7 @@ def drop_water_cube():
         move_servo(c.sky_arm, c.arm_low_sky, 10)
     elif burningSky == 1:
         print("middle")
+        em.electric_line_motor(40, -370)
         g.create_drive_timed(100, 1.5)
         g.create_drive_timed(50, .3)
         g.rotate(-4, 100)

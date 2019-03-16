@@ -2,6 +2,7 @@ import constants as c
 from wallaby import *
 import movement as m
 import camera as k #for kamera
+import electricLineMotor as em
 
 
 cpp = None

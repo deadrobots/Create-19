@@ -11,11 +11,9 @@ import gyro as g
 
 
 def main():
-    act.elec()
     print("Running!!!")
     act.init()
     act.grab_bot_mayor()
-    #shut_down_in(118)
     act.head_to_elec_lines()
     act.connect_elec_lines()
     act.get_water_cube()
