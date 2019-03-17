@@ -181,7 +181,7 @@ def bump_or_black_test():
     if get_create_lbump() > 0 and get_create_rbump() > 0:
         print("Bumped")
         method = 1
-    elif on_black_right_tophat() or on_black_left_tophat():
+    elif on_black_left_tophat():
         print("Tophats")
         method = 2
     elif m.get_black_right() or m.get_black_left():
