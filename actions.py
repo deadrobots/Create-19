@@ -54,6 +54,10 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     g.rotate(-50, 150)
     msleep(500)
     p.find_burning_sky()
+    done = seconds() + 3
+    print("Waiting for you to press the switch and check which building is burning")
+    while not u.get_pipe_switch():
+        pass
     g.rotate(50, 150)
     msleep(500)
     g.drive_condition(m.get_black_left, -250, False)
@@ -65,86 +69,25 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     wait_for_button_camera()
     c.START_TIME = seconds()
     shut_down_in(119.5)
-    if u.burning_MC == False:
+    if u.burning_MC == False: #burning MC is on right
         u.move_servo(c.sky_arm, 200)
         u.move_servo(c.sky_arm, c.arm_button, 5)
         msleep(100)
         u.move_servo(c.sky_arm, c.arm_vertical)
-    else:
+        u.move_servo(c.electric_arm_base, c.electric_base_left)
+    else: #burning MC is on left
         u.move_servo(c.sky_arm, c.arm_vertical)
-    u.move_servo(c.electric_arm_base, c.electric_base_left)
+        msleep(1000)
+        u.move_servo(c.electric_arm_base, c.electric_base_left)
     em.electric_line_motor(30, -600)
-    msleep(1000)
+    msleep(500)
     g.calibrate_gyro()
-    msleep(2000)
-
-
-def find_burning_buildings(): #Determines which sky scraper and medical center is burning
-    #Function determines which skyscraper and which MC are burning
-    global burningMCLeft
-    global burningSky
-    g.rotate(50, 150)
-    msleep(250)
-    burningMCLeft = p.find_burning_MC() #Eventually will need to pass this info onto lego
-    if burningMCLeft == True:
-        print("doing code for left")
-    else:
-        print("doing code for right")
-    g.rotate(-50, 100)
-    msleep(300)
-    burningSky = p.find_burning_sky()
-    if burningSky == 0:
-        print("doing code for left")
-    elif burningSky == 1:
-        print("doing code for middle")
-    else:
-        print("doing code for right")
-    #Do Bump to signal LEGO bot (not coded yet)
-
-
-def go_to_tallest_building(): #exactly what it sounds like
-    print ("Going to the tallest building")
-    move_servo(c.sky_arm, c.arm_vertical)
-    print("help me i'm pivoting")
-    m.pivot_till_black(100)
-    print("did i pivot?")
-    wait_for_button()
-    g.create_drive_timed(100, 1)
-    wait_for_button()
-    g.rotate(8, 125)
-    wait_for_button()
-    g.create_drive_timed(100, 1)
-    wait_for_button()
-    g.rotate(-8, 125)
-    print("did we do this right? Are we looking directly at the building????????????????????")
-    wait_for_button()
-    m.drive_to_black_and_square_up(100)
-    wait_for_button()
-    #g.create_drive_timed(50, 3.2)
-    msleep(500)
-    move_servo(c.sky_arm, c.mayor_arm, 5)
-    msleep(100)
-    move_servo(c.sky_claw, c.claw_closed_mayor, 20)
-    msleep(800)
-    move_servo(c.sky_arm, c.arm_vertical, 5)
-    msleep(500)
-    m.drive_to_black_and_square_up(-100)
-    g.rotate(180, 125)
-    m.drive_to_black_and_square_up(100)
-    g.rotate(-5, 125)
-    move_servo(c.sky_arm, c.arm_down, 10)
-    msleep(100)
-    move_servo(c.sky_claw, c.claw_open, 20)
-    msleep(100)
-    g.rotate(5, 125)
-
 
 def grab_bot_mayor():
     global burningSky
     global burningMCLeft
     p.count()
     burningMCLeft = p.find_burning_MC()
-    move_servo(c.sky_arm, c.arm_vertical)
     g.rotate(-50, 100)
     msleep(400)
     burningSky = p.find_burning_sky()
@@ -259,30 +202,33 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     u.move_servo(c.electric_arm, c.electric_arm_start)
     g.create_drive_timed(500, 3.5) #Square up on wall
     msleep(100)
-    g.create_drive_timed(-200, .5)
-    g.rotate(-90, 300)
-    g.drive_condition(get_bump_or_black, -500, False)
-    method = u.bump_or_black_test()
-    print(method)
-    if method == 1:
-        print("Bumped")
-        g.create_drive_timed(200, .7)
-    elif method == 2:
-        print("Tophats")
-    elif method == 3:
-        print("Create sensors")
-    else:
-        print("None (shouldn't happen)")
-        g.create_drive_timed(-200, 1)
-    m.drive_to_black_and_square_up(125)
-    g.create_drive_timed(-120, .25)
-    g.rotate(90, 125)
-    g.create_drive_timed(125, 2.3) #Square up on wall
     if not u.get_pipe_switch():
-        g.create_drive_timed(-250, .5)
-        g.create_drive_timed(500, 1)
-        msleep(300)
-
+        g.create_drive_timed(-200, .65)
+        g.rotate(-90, 300)
+        g.drive_condition(get_bump_or_black, -500, False)
+        method = u.bump_or_black_test()
+        print(method)
+        if method == 1:
+            print("Bumped")
+            g.create_drive_timed(200, .7)
+        elif method == 2:
+            print("Tophats")
+        elif method == 3:
+            print("Create sensors")
+            g.create_drive_timed(-200, 1.5)
+        else:
+            print("None (shouldn't happen)")
+            g.create_drive_timed(-200, 1)
+        m.drive_to_black_and_square_up(125)
+        g.create_drive_timed(-120, .25)
+        g.rotate(90, 125)
+        g.create_drive_timed(125, 2.5) #Square up on wall
+        if not u.get_pipe_switch():
+            g.create_drive_timed(-250, .5)
+            g.create_drive_timed(500, 1)
+            msleep(300)
+    else:
+        msleep(4000)
 
 def connect_elec_lines():
     clear_motor_position_counter(c.electric_line_motor)
@@ -309,7 +255,7 @@ def connect_elec_lines():
 
 
 def get_water_cube(): # Drives to cube of water
-    g.create_drive_timed(-500, 3.3)
+    g.create_drive_timed(-500, 3.4)
     g.rotate(-90, 250)
     g.create_drive_timed(500, 2.1)
     g.create_pivot_on_right_wheel(-150, 90)
@@ -325,7 +271,7 @@ def get_water_cube(): # Drives to cube of water
 
 def drop_water_cube():
     #Create deposits large water cube on burning building
-    g.rotate(80, 100)
+    g.rotate(80, 300)
     g.create_drive_timed(200, 1)
     g.drive_condition(m.on_black_left_tophat, -200, False)
     g.create_drive_timed(100, 1)
