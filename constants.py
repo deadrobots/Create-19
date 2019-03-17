@@ -61,25 +61,29 @@ if IS_PRIME:
 
 elif IS_CLONE:
     # Servo Positions
-    arm_vertical = 1260
-    arm_low_sky = 645
-    arm_low_grab = 600 #570
-    mayor_arm = 950
-    arm_high_sky = 1310
-    arm_high_sky_deliver = 990
-    arm_down = 0
+    arm_vertical = 1445
+    arm_low_sky = 830
+    arm_low_grab = 785 #570
+    mayor_arm = 1135
+    arm_high_sky = 1485
+    arm_high_sky_deliver = 1175
+    arm_down = 275
+    arm_start = 375
+    arm_button = 185
 
     claw_open = 150
     clawDeliver = 150
-    claw_closed_water = 1350
-    claw_closed_mayor = 1300
+    claw_closed_water = 1160
+    claw_closed_mayor = 1190
 
     #Electric base
-    electric_base_down = 540
-    electric_base_up = 1815
-    electric_base_right = 1940
-    electric_base_left = 1890
-    electric_base_left_score = 1740
+    electric_base_down = 470 -470
+    electric_base_up = 1920-470
+    electric_base_right = 2047-470
+    electric_base_left = 1680-470
+    electric_base_left_score = 1800-470
+    electric_base_start_left = 1870-470
+    electric_base_swing = 1910
 
     #Electric arm
     electric_arm_start = 815
