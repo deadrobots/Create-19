@@ -32,7 +32,7 @@ if IS_PRIME:
     arm_high_sky_deliver = 990 + 170
     arm_down = 0 + 170
     arm_start = 375
-    arm_button = 110
+    arm_button = 140
 
     claw_open = 150
     clawDeliver = 150
