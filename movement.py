@@ -3,6 +3,7 @@ from math import pi
 from utilities import *
 import constants as c
 import gyro as g
+import utilities as u
 
 
 
@@ -28,6 +29,13 @@ def get_black_left():
     #print("Black Left Cliff")
     return get_create_lcliff_amt() < 2200
 
+def get_left_front():
+    return get_create_lfcliff_amt() < 2200
+
+
+def get_right_front():
+    return get_create_rfcliff_amt() < 2200
+
 
 def black_left_or_right():
     return get_black_left() or get_black_right()
@@ -45,6 +53,7 @@ def drive_to_black_and_square_up(speed):
         if get_black_right():
             rspeed = 0
         create_drive_direct(lspeed, rspeed)
+    msleep(100)
 
 def drive_timed(left, right, time): #DRS forward is opposite of create forward
     create_drive_direct(-right, -left)
@@ -53,7 +62,7 @@ def drive_timed(left, right, time): #DRS forward is opposite of create forward
 
 
 def drive_condition(condition, speed):
-    print("Driving for condition")
+    #print("Driving for condition")
     speed = -speed
     create_drive_direct(speed, speed)
     while condition:
@@ -80,7 +89,7 @@ def rotate(power, time):
         spin_cw(abs(power), time)
 
 
-def rotateTillBlack(power):
+def rotate_till_black(power):
     if power > 0:
         create_drive_direct(-power, power)
     else:
@@ -119,92 +128,54 @@ def rotate_degrees(degrees, speed):
         pass
     stop()
 
-
-def driveTilBlackLCliffAndSquareUp(speed):
-    if speed > 0:
-        drive_condition(not black_left_or_right, speed)
-        while not get_black_left() or not get_black_right():
-            if get_black_left():
-                g.turn_with_gyro(-speed, 0)
-                print ("left")
-            elif get_black_right():
-                g.turn_with_gyro(0, -speed)
-                print ("right")
-            else:
-                print ("None")
+def pivot_till_black(power):
+    if power > 0:
+        create_drive_direct(0, -power)
     else:
-        drive_condition(black_left_or_right, speed)
-        while not get_black_left() or not get_black_right():
-            if get_black_left():
-                g.turn_with_gyro(-speed, 0)
-                print ("left")
-            elif get_black_right():
-                g.turn_with_gyro(0, -speed)
-                print ("right")
-            else:
-                print ("None")
-    print ("done!")
-    create_drive_direct(0, 0)
-
-
-def timedLineFollowLeftFront(speed, time):
-    sec = seconds()
-    while(seconds() - sec<time):
-        if cpp.get_black_left():
-            cpp.drive(speed/2, speed)
-        else:
-            cpp.drive(speed, speed/2)
-    cpp.drive(0, 0)
-
-
-def timedLineFollowFrontTophat(time):
-    sec = seconds()
-    while(seconds() - sec<time):
-        if analog(c.FRONT_TOPHAT) < 1500:
-            create_drive_direct(-100, -50)
-        else:
-            create_drive_direct(-50, -100)
+        create_drive_direct(0, power)
+    while (analog(c.left_tophat) < 2000):
+        pass
     create_stop()
 
 
-def timedLineFollowRightFront(speed, time):
+def timed_line_follow_left_front(speed, time):
     sec = seconds()
     while(seconds() - sec<time):
-        if get_create_rfcliff_amt() < 2000:
-            create_drive_direct(speed, (int)(speed/1.8))
+        if get_left_front():
+            create_drive_direct(speed/10, speed)
         else:
-            create_drive_direct((int)(speed/1.8), speed)
+            create_drive_direct(speed, speed/10)
         msleep(10)
     create_stop()
 
 
-def lineFollowLeftFrontTilRightFrontBlack(speed):
-    while cpp.get_black_front_right():
-        if not cpp.get_black_front_left():
-            cpp.drive(speed, speed / 2)
-        else:
-            cpp.drive(speed / 2, speed)
-    cpp.drive(0, 0)
-
-
-def lineFollowRightFrontTilLeftFrontBlack(speed):
-    while cpp.get_black_front_left():
-        if not cpp.get_black_front_right():
-            cpp.drive(speed / 2, speed)
-        else:
-            cpp.drive(speed, speed / 2)
-    cpp.drive(0, 0)
-
-
-def turnTilRightFrontBlack(left, right):
+def turn_till_right_front_black(left, right):
     create_drive_direct(left, right)
     while (get_create_rfcliff_amt() > 2000):
         pass
     create_stop()
 
-#####################################################
 
+def proportional_line_follow(speed, time):
+    sec = seconds()
+    while(seconds() - sec<time):
+        if get_create_lfcliff_amt() < 1200:
+            create_drive_direct(speed, speed/15)
+        elif get_create_lfcliff_amt < 1700 and get_create_lfcliff_amt > 1200:
+            create_drive_direct(speed, speed/10)
+        elif get_create_lfcliff_amt < 2200 and get_create_lfcliff_amt > 1700:
+            create_drive_direct(speed, speed)
+        elif get_create_lfcliff_amt < 2700 and get_create_lfcliff_amt > 2200:
+            create_drive_direct(speed/2, speed)
+        elif get_create_lfcliff_amt > 2700:
+            create_drive_direct(speed/5, speed)
+        msleep(10)
+    create_drive_direct(0, 0)
 
-
-
-
+def electric_drive(speed, time):
+    sec = seconds()
+    while (seconds() - sec < time):
+        if(u.on_black_left_tophat()):
+            rotate(200, 10)
+        if(u.on_black_right_tophat()):
+            rotate(-200, 10)

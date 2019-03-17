@@ -1,8 +1,14 @@
 import constants as c
 from wallaby import *
+import movement as m
+import camera as k #for kamera
+import electricLineMotor as em
 
 
 cpp = None
+method = 0
+
+burning_MC = False
 
 def init_utilities(icpp):
     global cpp
@@ -30,6 +36,17 @@ def wait_for_button(force=False):
         print "Press Button..."
         while not right_button():
             pass
+        msleep(1)
+        print "Pressed"
+        msleep(1000)
+
+
+def wait_for_button_camera(force=False):
+    global burning_MC
+    if c.ALLOW_BUTTON_WAIT or force:
+        print "Press Button..."
+        while not right_button():
+            burning_MC = k.find_burning_MC()
         msleep(1)
         print "Pressed"
         msleep(1000)
@@ -84,6 +101,7 @@ def calibrate(port):
         print("Bad calibration")
         return False
 
+
     if (lightOff - lightOn) < 1000:
         print("Bad calibration")
         return False
@@ -121,7 +139,7 @@ def DEBUG_with_wait():
     DEBUG(False)
 
 
-def moveServo(servo, endPos, speed=10):
+def move_servo(servo, endPos, speed=10):
     # speed of 1 is slow
     # speed of 2000 is fast
     # speed of 10 is the default
@@ -139,11 +157,44 @@ def moveServo(servo, endPos, speed=10):
     msleep(10)
 
 
-def getLinefollowvalues():
+def get_line_follow_values():
     create_connect()
     while 1:
         print ("The right front line follow sensor sees: ")
         print get_create_rfcliff_amt()
 
 
+def on_black_left_tophat():
+    return analog(c.left_tophat) > 1000
 
+
+def on_black_right_tophat():
+    return analog(c.right_tophat) > 1000
+
+
+def hit_wall():
+    return accel_y() > 1000
+
+
+def bump_or_black_test():
+    global method
+    if get_create_lbump() > 0 and get_create_rbump() > 0:
+        print("Bumped")
+        method = 1
+    elif on_black_right_tophat() or on_black_left_tophat():
+        print("Tophats")
+        method = 2
+    elif m.get_black_right() or m.get_black_left():
+        print("Create sensors")
+        method = 3
+    else:
+        method = 0
+        pass
+    return method
+
+def get_bump_or_black():
+    return bump_or_black_test() > 0
+
+
+def get_pipe_switch():
+    return digital(c.pipe_switch)

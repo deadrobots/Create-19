@@ -6,16 +6,18 @@ from wallaby import *
 import utilities as u
 import camera as p
 import shutdown
+import movement as m
+import gyro as g
 
 
 def main():
     print("Running!!!")
     act.init()
-    shut_down_in(118)
-    act.findBurningBuildings()
-    act.grabWaterCube()
-    act.dropWaterCube()
-    camera_close()
+    act.grab_bot_mayor()
+    act.head_to_elec_lines()
+    act.connect_elec_lines()
+    act.get_water_cube()
+    act.drop_water_cube()
     u.DEBUG()
 
 
