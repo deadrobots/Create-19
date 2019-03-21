@@ -74,14 +74,13 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
         u.move_servo(c.sky_arm, c.arm_button, 5)
         msleep(100)
         u.move_servo(c.sky_arm, c.arm_vertical)
-        u.move_servo(c.electric_arm_base, c.electric_base_left)
     else: #burning MC is on left
         u.move_servo(c.sky_arm, c.arm_vertical)
         msleep(1000)
-        u.move_servo(c.electric_arm_base, c.electric_base_left)
-    em.electric_line_motor(30, -600)
     msleep(500)
     g.calibrate_gyro()
+    u.move_servo(c.electric_arm_base, c.electric_base_left)
+    em.electric_line_motor(30, -600)
 
 def grab_bot_mayor():
     global burningSky
