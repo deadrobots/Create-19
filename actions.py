@@ -80,7 +80,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     msleep(500)
     g.calibrate_gyro()
     u.move_servo(c.electric_arm_base, c.electric_base_left)
-    em.electric_line_motor(30, -600)
+
 
 def grab_bot_mayor():
     global burningSky
@@ -186,7 +186,6 @@ def grab_third():
     g.rotate(10, 150)
     g.rotate(180, 150)
     m.drive_to_black_and_square_up(200)
-    em.electric_line_motor(30, -600)
 
 
 def head_to_elec_lines(): # Goes to electric lines and attatches them
@@ -199,6 +198,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     g.rotate(-90, 100)
     u.move_servo(c.electric_arm_base, c.electric_base_up, 20)
     u.move_servo(c.electric_arm, c.electric_arm_start)
+    em.electric_line_motor(30, -600)
     g.create_drive_timed(500, 3.5) #Square up on wall
     msleep(100)
     if not u.get_pipe_switch():
@@ -209,7 +209,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         print(method)
         if method == 1:
             print("Bumped")
-            g.create_drive_timed(200, .7)
+            g.create_drive_timed(200, 2)
         elif method == 2:
             print("Tophats")
         elif method == 3:
@@ -227,15 +227,18 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
             g.create_drive_timed(500, 1)
             msleep(300)
     else:
-        msleep(4000)
+        msleep(11000)
 
 def connect_elec_lines():
     clear_motor_position_counter(c.electric_line_motor)
-    em.electric_line_motor(50, -950)
+    if c.IS_PRIME:
+        em.electric_line_motor(50, -950)
+    else:
+        em.electric_line_motor(50, -800)
     u.move_servo(c.electric_arm_base, c.electric_base_swing, 20)
-    em.clear_ticks(-50)
+    em.clear_ticks(-25)
     u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
-    em.clear_ticks(-35)
+    em.clear_ticks(-25)
     em.electric_line_motor(25, 470)
     # msleep(200)
     # em.clear_ticks(-50)
@@ -247,10 +250,14 @@ def connect_elec_lines():
     em.electric_line_motor(50, -85)
     g.create_drive_timed(100, 1.2)
     msleep(100)
-    em.clear_ticks(40)
-    em.electric_line_motor(30, -525)
+    em.clear_ticks(25)
+    if c.IS_PRIME:
+        em.electric_line_motor(30, -525)
+    else:
+        em.electric_line_motor(30, -450)
     msleep(300)
     em.electric_line_motor(40, -250)
+    #u.DEBUG()
 
 
 def get_water_cube(): # Drives to cube of water
@@ -264,7 +271,9 @@ def get_water_cube(): # Drives to cube of water
     g.create_drive_timed(200, .75)
     g.create_drive_timed(100, .4)
     move_servo(c.sky_arm, c.arm_down, 10)
+    msleep(100) # do not remove
     move_servo(c.sky_claw, c.claw_closed_water, 10)
+    msleep(100) # do not remoove
     move_servo(c.sky_arm, c.arm_vertical, 10)
 
 
@@ -289,7 +298,7 @@ def drop_water_cube():
         move_servo(c.sky_arm, c.arm_low_sky, 10)
     elif burningSky == 1:
         print("middle")
-        em.electric_line_motor(40, -370)
+        em.electric_line_motor(40, -330)
         g.create_drive_timed(100, 1.5)
         g.create_drive_timed(50, .3)
         g.rotate(-4, 100)

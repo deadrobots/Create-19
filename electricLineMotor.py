@@ -14,7 +14,7 @@ def clear_ticks(speed):
     motor_power(c.electric_line_motor, speed)
     while count < 10:
         x = get_motor_position_counter(c.electric_line_motor)
-        msleep(10)
+        msleep(5)
         if get_motor_position_counter(c.electric_line_motor) == x:
             count = count + 1
     motor(c.electric_line_motor, 0)

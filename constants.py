@@ -45,7 +45,7 @@ if IS_PRIME:
     electric_base_right = 2047-470
     electric_base_left = 1680-470
     electric_base_left_score = 1800-470
-    electric_base_start_left = 1870-470
+    electric_base_start_left = 1270
     electric_base_swing = 1910
 
     #Electric arm
@@ -67,7 +67,7 @@ elif IS_CLONE:
     mayor_arm = 1135
     arm_high_sky = 1485
     arm_high_sky_deliver = 1175
-    arm_down = 275
+    arm_down = 255
     arm_start = 375
     arm_button = 185
 
@@ -82,8 +82,8 @@ elif IS_CLONE:
     electric_base_right = 2047-470
     electric_base_left = 1680-470
     electric_base_left_score = 1800-470
-    electric_base_start_left = 1870-470
-    electric_base_swing = 1910
+    electric_base_start_left = 1270
+    electric_base_swing = 1870
 
     #Electric arm
     electric_arm_start = 815

@@ -114,7 +114,7 @@ def calibrate(port):
 def _wait_4(port):
     print("waiting for light!! ")
     while analog(port) > c.startLightThresh:
-        pass
+        burning_MC = k.find_burning_MC()
 
 
 def DEBUG(PrintTime=True):
