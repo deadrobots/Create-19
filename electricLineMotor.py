@@ -23,6 +23,7 @@ def clear_ticks(speed):
 
 
 def electric_line_motor(speed, endPos):
+    start_time = seconds()
     if get_motor_position_counter(c.electric_line_motor) > endPos:
         speed = -speed
         motor_power(c.electric_line_motor, speed)

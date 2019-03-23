@@ -24,13 +24,13 @@ electric_line_motor = 3
 
 if IS_PRIME:
     # Servo Positions
-    arm_vertical = 1260 + 170
-    arm_low_sky = 645 + 170
-    arm_low_grab = 600 + 200 #570
-    mayor_arm = 950 + 200
-    arm_high_sky = 1310 + 170
-    arm_high_sky_deliver = 990 + 170
-    arm_down = 0 + 170
+    arm_vertical = 1430
+    arm_low_sky = 815
+    arm_low_grab = 800
+    mayor_arm = 1150
+    arm_high_sky = 1480
+    arm_high_sky_deliver = 1160
+    arm_down = 170
     arm_start = 375
     arm_button = 140
 
@@ -40,12 +40,12 @@ if IS_PRIME:
     claw_closed_mayor = 1280
 
     #Electric base
-    electric_base_down = 470 -470
-    electric_base_up = 1920-470
-    electric_base_right = 2047-470
-    electric_base_left = 1680-470
-    electric_base_left_score = 1800-470
-    electric_base_start_left = 1270
+    electric_base_down = 0
+    electric_base_up = 1450
+    electric_base_right = 1600
+    electric_base_left = 1210
+    electric_base_left_score = 1330
+    electric_base_start_left = 1350
     electric_base_swing = 1910
 
     #Electric arm
@@ -63,7 +63,7 @@ elif IS_CLONE:
     # Servo Positions
     arm_vertical = 1445
     arm_low_sky = 830
-    arm_low_grab = 785 #570
+    arm_low_grab = 850
     mayor_arm = 1135
     arm_high_sky = 1485
     arm_high_sky_deliver = 1175
@@ -77,12 +77,12 @@ elif IS_CLONE:
     claw_closed_mayor = 1190
 
     #Electric base
-    electric_base_down = 470 -470
-    electric_base_up = 1920-470
-    electric_base_right = 2047-470
-    electric_base_left = 1680-470
-    electric_base_left_score = 1800-470
-    electric_base_start_left = 1270
+    electric_base_down = 0
+    electric_base_up = 1450
+    electric_base_right = 1530
+    electric_base_left = 1210
+    electric_base_left_score = 1330
+    electric_base_start_left = 1240
     electric_base_swing = 1870
 
     #Electric arm

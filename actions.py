@@ -232,7 +232,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
 def connect_elec_lines():
     clear_motor_position_counter(c.electric_line_motor)
     if c.IS_PRIME:
-        em.electric_line_motor(50, -950)
+        em.electric_line_motor(50, -900)
     else:
         em.electric_line_motor(50, -800)
     u.move_servo(c.electric_arm_base, c.electric_base_swing, 20)
@@ -252,7 +252,7 @@ def connect_elec_lines():
     msleep(100)
     em.clear_ticks(25)
     if c.IS_PRIME:
-        em.electric_line_motor(30, -525)
+        em.electric_line_motor(30, -460)
     else:
         em.electric_line_motor(30, -450)
     msleep(300)
@@ -261,7 +261,10 @@ def connect_elec_lines():
 
 
 def get_water_cube(): # Drives to cube of water
-    g.create_drive_timed(-500, 3.4)
+    if c.IS_PRIME:
+        g.create_drive_timed(-500, 3.6)
+    else:
+        g.create_drive_timed(-500, 3.4)
     g.rotate(-90, 250)
     g.create_drive_timed(500, 2.1)
     g.create_pivot_on_right_wheel(-150, 90)
@@ -279,13 +282,14 @@ def get_water_cube(): # Drives to cube of water
 
 def drop_water_cube():
     #Create deposits large water cube on burning building
-    g.rotate(80, 300)
-    g.create_drive_timed(200, 1)
+    g.rotate(70, 400)
+    g.create_drive_timed(400, .5)
     g.drive_condition(m.on_black_left_tophat, -200, False)
     g.create_drive_timed(100, 1)
     g.rotate(-90, 100)
-    g.create_drive_timed(-200, 2.8)
-    g.rotate(-90, 100)
+    g.create_drive_timed(-400, 1.3)
+    g.create_drive_timed(-200, .2)
+    g.rotate(-90, 250)
     g.create_drive_timed(200, 1)
     m.drive_to_black_and_square_up(-100)
     if burningSky == 0:
