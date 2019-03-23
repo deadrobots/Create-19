@@ -42,8 +42,8 @@ if IS_PRIME:
     #Electric base
     electric_base_down = 0
     electric_base_up = 1450
-    electric_base_right = 1600
-    electric_base_left = 1210
+    electric_base_right = 1550 #1600
+    electric_base_left = 1170 #1210
     electric_base_left_score = 1330
     electric_base_start_left = 1350
     electric_base_swing = 1910

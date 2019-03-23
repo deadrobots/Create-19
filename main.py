@@ -16,6 +16,7 @@ def main():
     act.grab_bot_mayor()
     act.head_to_elec_lines()
     act.connect_elec_lines()
+    u.DEBUG()
     act.get_water_cube()
     act.drop_water_cube()
     u.DEBUG()

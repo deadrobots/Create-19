@@ -112,7 +112,6 @@ def grab_bot_mayor():
         grab_second()
         grab_third()
 
-
 def grab_second():
     move_servo(c.sky_arm, c.arm_high_sky_deliver, 15)#
     g.create_drive_timed(200, 0.925)#
@@ -230,6 +229,10 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         msleep(11000)
 
 def connect_elec_lines():
+    #move_servo(c.sky_arm, c.arm_vertical, 20)
+    #u.move_servo(c.electric_arm_base, c.electric_base_up, 20)
+    #u.move_servo(c.electric_arm, c.electric_arm_start)
+    #u.wait_for_button()
     clear_motor_position_counter(c.electric_line_motor)
     if c.IS_PRIME:
         em.electric_line_motor(50, -900)
