@@ -2,6 +2,8 @@ from wallaby import *
 import constants as c
 import actions as a
 import utilities as u
+import pycreate2 as pc
+
 
 def camera_init():
     #Initializes/Opens up camera
@@ -58,6 +60,7 @@ def see_color(color):
 def find_burning_MC():
     count()
     startTime = seconds()
+    remember = True
     while (seconds() - startTime < .5):
         camera_update()
         msleep(50)
@@ -65,12 +68,15 @@ def find_burning_MC():
             print("I see yellow")
             if get_object_center_x(c.YELLOW, 0) < 80:
                 print("Burning MC is on the left")
-                return True
+                remember = True
+                return remember
             elif get_object_center_x(c.YELLOW, 0) > 80:
                 print("Burning MC is on the right")
-                return False
+                remember = False
+                return remember
         else:
             print("I see approximately no yellow")
+            return remember
 
 
 def find_burning_sky():

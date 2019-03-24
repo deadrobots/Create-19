@@ -22,17 +22,31 @@ def clear_ticks(speed):
 
 
 
-def electric_line_motor(speed, endPos):
-    start_time = seconds()
+def electric_line_motor(speed, endPos, n = 10):
+    count = 0
     if get_motor_position_counter(c.electric_line_motor) > endPos:
         speed = -speed
         motor_power(c.electric_line_motor, speed)
         while get_motor_position_counter(c.electric_line_motor) > endPos:
-            pass
+            x = get_motor_position_counter(c.electric_line_motor)
+            msleep(5)
+            if count == n:
+                break
+            elif x == get_motor_position_counter(c.electric_line_motor):
+                count = count + 1
+            else:
+                count = 0
     else:
         motor_power(c.electric_line_motor, speed)
         while get_motor_position_counter(c.electric_line_motor) <  endPos:
-            pass
+            x = get_motor_position_counter(c.electric_line_motor)
+            msleep(5)
+            if count == n:
+                break
+            elif x == get_motor_position_counter(c.electric_line_motor):
+                count = count + 1
+            else:
+                count = 0
     motor(c.electric_line_motor, 0)
 
 

@@ -11,12 +11,16 @@ import gyro as g
 
 
 def main():
+    # bot = Create2()
+    # bot.start()
+    # sensors = bot.get_sensors()
+    # print(sensors[1])
+    # u.DEBUG()
     print("Running!!!")
     act.init()
     act.grab_bot_mayor()
     act.head_to_elec_lines()
     act.connect_elec_lines()
-    u.DEBUG()
     act.get_water_cube()
     act.drop_water_cube()
     u.DEBUG()

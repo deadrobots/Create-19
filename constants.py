@@ -24,15 +24,16 @@ electric_line_motor = 3
 
 if IS_PRIME:
     # Servo Positions
-    arm_vertical = 1430
-    arm_low_sky = 815
-    arm_low_grab = 800
-    mayor_arm = 1150
-    arm_high_sky = 1480
-    arm_high_sky_deliver = 1160
-    arm_down = 170
-    arm_start = 375
-    arm_button = 140
+    arm_offset = 25
+    arm_vertical = 1430 + arm_offset
+    arm_low_sky = 815 + arm_offset
+    arm_low_grab = 850 + arm_offset
+    mayor_arm = 1150 + arm_offset
+    arm_high_sky = 1480 + arm_offset
+    arm_high_sky_deliver = 1210 + arm_offset
+    arm_down = 170 + arm_offset
+    arm_start = 375 + arm_offset
+    arm_button = 140 + arm_offset
 
     claw_open = 150
     clawDeliver = 150
@@ -45,7 +46,7 @@ if IS_PRIME:
     electric_base_right = 1550 #1600
     electric_base_left = 1170 #1210
     electric_base_left_score = 1330
-    electric_base_start_left = 1350
+    electric_base_start_left = 1310
     electric_base_swing = 1910
 
     #Electric arm

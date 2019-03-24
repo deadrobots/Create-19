@@ -192,6 +192,10 @@ def bump_or_black_test():
         pass
     return method
 
+def bumped():
+    return get_create_lbump() and get_create_rbump()
+
+
 def get_bump_or_black():
     return bump_or_black_test() > 0
 
