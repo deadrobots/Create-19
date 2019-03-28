@@ -70,12 +70,14 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     c.START_TIME = seconds()
     shut_down_in(119.5)
     if u.burning_MC == False: #burning MC is on right
+        print("Pushing switch")
         msleep(300)
-        u.move_servo(c.sky_arm, 200)
+        u.move_servo(c.sky_arm, c.arm_moving)
         u.move_servo(c.sky_arm, c.arm_button, 5)
         msleep(100)
         u.move_servo(c.sky_arm, c.arm_vertical)
     else: #burning MC is on left
+        print("Not pushing switch")
         u.move_servo(c.sky_arm, c.arm_vertical)
         msleep(1000)
     msleep(500)
@@ -194,7 +196,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     if c.IS_PRIME:
         g.create_drive_timed(-240, .25)
     else:
-        g.create_drive_timed(-60,2)
+        g.create_drive_timed(-240,.5)
     g.rotate(-90, 100)
     u.move_servo(c.electric_arm_base, c.electric_base_up, 20)
     u.move_servo(c.electric_arm, c.electric_arm_start)
@@ -214,7 +216,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
             print("Tophats")
         elif method == 3:
             print("Create sensors")
-            g.drive_condition(u.bumped() and on_black_left_tophat(), -200, False)
+            g.drive_condition(u.bumped and on_black_left_tophat, -200, False)
         else:
             print("None (shouldn't happen)")
             g.create_drive_timed(-200, 1)
@@ -268,7 +270,7 @@ def get_water_cube(): # Drives to cube of water
     if c.IS_PRIME:
         g.create_drive_timed(-450, 3.8)
     else:
-        g.create_drive_timed(-500, 3.4)
+        g.create_drive_timed(-450, 3.4)
     g.rotate(-90, 250)
     g.create_drive_timed(500, 2.1)
     g.create_drive_timed(250, .2)

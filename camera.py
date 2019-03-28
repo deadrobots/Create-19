@@ -2,7 +2,6 @@ from wallaby import *
 import constants as c
 import actions as a
 import utilities as u
-import pycreate2 as pc
 
 
 def camera_init():

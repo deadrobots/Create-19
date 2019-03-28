@@ -34,6 +34,7 @@ if IS_PRIME:
     arm_down = 170 + arm_offset
     arm_start = 375 + arm_offset
     arm_button = 140 + arm_offset
+    arm_moving = 200
 
     claw_open = 150
     clawDeliver = 150
@@ -71,6 +72,7 @@ elif IS_CLONE:
     arm_down = 255
     arm_start = 375
     arm_button = 185
+    arm_moving = 200
 
     claw_open = 150
     clawDeliver = 150
@@ -80,11 +82,11 @@ elif IS_CLONE:
     #Electric base
     electric_base_down = 0
     electric_base_up = 1450
-    electric_base_right = 1530
+    electric_base_right = 1460
     electric_base_left = 1210
     electric_base_left_score = 1330
-    electric_base_start_left = 1240
-    electric_base_swing = 1870
+    electric_base_start_left = 1299
+    electric_base_swing = 1800
 
     #Electric arm
     electric_arm_start = 815
