@@ -258,9 +258,9 @@ def connect_elec_lines():
     msleep(100)
     em.clear_ticks(25)
     if c.IS_PRIME:
-        em.electric_line_motor(30, -485)
+        em.electric_line_motor(30, -500)
     else:
-        em.electric_line_motor(30, -450)
+        em.electric_line_motor(30, -480)
     msleep(500)
     em.electric_line_motor(40, -250)
     #u.DEBUG()
@@ -321,9 +321,9 @@ def drop_water_cube():
             g.create_drive_timed(100, 1) #(50,2.5)
             g.create_drive_timed(50, 1.2)
         elif c.IS_CLONE:
-            g.rotate(-35, 100)
+            g.rotate(-42, 100)
             g.create_drive_timed(200, .25)
-            g.create_drive_timed(50, .3)
+            g.create_drive_timed(50, 1.2)
         msleep(100)
         move_servo(c.sky_arm, c.arm_low_sky, 10)
 

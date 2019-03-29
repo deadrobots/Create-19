@@ -8,7 +8,6 @@ import camera as p
 import shutdown
 import movement as m
 import gyro as g
-from pycreate2 import Create2
 
 
 def main():
