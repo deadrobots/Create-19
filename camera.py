@@ -4,8 +4,8 @@ import actions as a
 import utilities as u
 
 remember = False
-
 first = True
+camera_reads = [False * 10]
 
 def camera_init():
     #Initializes/Opens up camera
@@ -128,4 +128,33 @@ def find_burning_sky():
             return 0
 
 
-
+def find_burning_MC_improved():
+    global camera_reads
+    count()
+    startTime = seconds()
+    if len(camera_reads) == 10:
+        camera_reads.pop(0)
+    while (seconds() - startTime < .5):
+        camera_update()
+        found = False
+        if get_object_count(c.YELLOW)>0:
+            i = 0
+            while i < get_object_count(c.YELLOW):
+                if get_object_area(c.YELLOW, i) > c.MC_LIMIT:
+                    print("I see yellow")
+                    found = True
+                    break
+                i = i+1
+        if found:
+            print("X = ", get_object_center_x(c.YELLOW, i))
+            print("Y = ", get_object_center_y(c.YELLOW, i))
+            print("Area = ", get_object_area(c.YELLOW, i))
+            if get_object_center_x(c.YELLOW, 0) < 80:
+                print("Burning MC is on the left")
+                camera_reads.append(True)
+            elif get_object_center_x(c.YELLOW, 0) > 80:
+                print("Burning MC is on the right")
+                camera_reads.append(False)
+        else:
+            print("I see approximately no yellow")
+            return remember

@@ -115,7 +115,7 @@ def _wait_4(port):
     global burning_MC
     print("waiting for light!! ")
     while analog(port) > c.startLightThresh:
-        burning_MC = k.find_burning_MC()
+        burning_MC = k.find_burning_MC_improved()
 
 
 def DEBUG(PrintTime=True):
@@ -203,3 +203,17 @@ def get_bump_or_black():
 
 def get_pipe_switch():
     return digital(c.pipe_switch)
+
+def compute_burning_MC():
+    F = 0
+    T = 0
+    for result in k.camera_reads:
+       if result:
+           T = T + 1
+       else:
+           F = F + 1
+    if T > F:
+        return True
+    else:
+        return False
+

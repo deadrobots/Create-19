@@ -8,7 +8,6 @@ import movement as m
 import electricLineMotor as em
 
 colorOrder = []
-
 burningMCLeft = True
 burningSky = 0
 
@@ -18,6 +17,7 @@ def turn_calibration():
     DEBUG()
 
 def init(): #Test to make sure all the moving parts and sensors work the way they should
+    global first
     if c.IS_PRIME:
         print("I are prime")
     if c.IS_CLONE:
@@ -55,6 +55,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     msleep(500)
     p.find_burning_sky()
     done = seconds() + 3
+    first = False
     print("Waiting for you to press the switch and check which building is burning")
     while not u.get_pipe_switch():
         pass
@@ -69,7 +70,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     wait_4_light()
     c.START_TIME = seconds()
     shut_down_in(119.5)
-    if u.burning_MC == False: #burning MC is on right
+    if u.compute_burning_MC() == False: #burning MC is on right
         print("Pushing switch")
         msleep(300)
         u.move_servo(c.sky_arm, c.arm_moving)
@@ -211,7 +212,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         print(method)
         if method == 1:
             print("Bumped")
-            g.create_drive_timed(200, 2)
+            g.drive_condition(on_black_left_tophat, 200, False)
         elif method == 2:
             print("Tophats")
         elif method == 3:
@@ -232,13 +233,14 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         msleep(11000)
 
 def connect_elec_lines():
-    clear_motor_position_counter(c.electric_line_motor)
+    #Controls a servo and motor to connect both of the elctric lines
+    clear_motor_position_counter(c.electric_line_motor) #Clears motor counter
     if c.IS_PRIME:
-        em.electric_line_motor(50, -900)
+        em.electric_line_motor(50, -900) #Moves motor to a certain position
     else:
         em.electric_line_motor(50, -800)
     u.move_servo(c.electric_arm_base, c.electric_base_swing, 20)
-    em.clear_ticks(-25)
+    em.clear_ticks(-25) #Runs motor until it hits PVC then zeros motor counter
     u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
     em.clear_ticks(-25)
     em.electric_line_motor(25, 470)
@@ -247,8 +249,8 @@ def connect_elec_lines():
     msleep(200)
     em.electric_line_motor(30, 170)
     msleep(100)
-    g.create_drive_timed(-100, 1)
-    u.move_servo(c.electric_arm_base, c.electric_base_start_left)
+    g.create_drive_timed(-100, 1) #Drive functions use Wallaby gyro
+    u.move_servo(c.electric_arm_base, c.electric_base_start_left) #Servo functions use a loop to control servo speed
     em.electric_line_motor(50, -85)
     g.create_drive_timed(100, 1.2)
     msleep(100)
@@ -260,8 +262,7 @@ def connect_elec_lines():
     g.rotate(3, 50)
     msleep(500)
     g.rotate(-3, 50)
-    em.electric_line_motor(40, -80)
-    #u.DEBUG()
+    em.electric_line_motor(50, -30)
 
 
 def get_water_cube(): # Drives to cube of water
@@ -295,7 +296,7 @@ def drop_water_cube():
     g.create_drive_timed(-400, 1.3)
     g.create_drive_timed(-200, .2)
     g.rotate(-90, 250)
-    g.create_drive_timed(200, 1)
+    g.create_drive_timed(200, 1.3)
     m.drive_to_black_and_square_up(-100)
     if burningSky == 0:
         print("Left")
