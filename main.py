@@ -11,11 +11,6 @@ import gyro as g
 
 
 def main():
-    # bot = Create2()
-    # bot.start()
-    # sensors = bot.get_sensors()
-    # print(sensors[1])
-    # u.DEBUG()
     print("Running!!!")
     act.init()
     act.grab_bot_mayor()

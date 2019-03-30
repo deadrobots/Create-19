@@ -3,6 +3,9 @@ import constants as c
 import actions as a
 import utilities as u
 
+remember = False
+
+first = True
 
 def camera_init():
     #Initializes/Opens up camera
@@ -57,14 +60,25 @@ def see_color(color):
 
 
 def find_burning_MC():
+    global remember
     count()
     startTime = seconds()
     remember = True
     while (seconds() - startTime < .5):
         camera_update()
-        msleep(50)
-        if get_object_count(c.YELLOW) > 0 and get_object_area(0, c.YELLOW) > c.MC_LIMIT:
-            print("I see yellow")
+        found = False
+        if get_object_count(c.YELLOW)>0:
+            i = 0
+            while i < get_object_count(c.YELLOW):
+                if get_object_area(c.YELLOW, i) > c.MC_LIMIT:
+                    print("I see yellow")
+                    found = True
+                    break
+                i = i+1
+        if found:
+            print("X = ", get_object_center_x(c.YELLOW, i))
+            print("Y = ", get_object_center_y(c.YELLOW, i))
+            print("Area = ", get_object_area(c.YELLOW, i))
             if get_object_center_x(c.YELLOW, 0) < 80:
                 print("Burning MC is on the left")
                 remember = True
@@ -79,6 +93,10 @@ def find_burning_MC():
 
 
 def find_burning_sky():
+    global first
+    if first:
+        count()
+        first = False
     count()
     startTime = seconds()
     while (seconds() - startTime < .5):

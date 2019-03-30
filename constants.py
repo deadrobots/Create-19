@@ -7,6 +7,7 @@ START_TIME = 0
 ROBOT_ID_CLONE = 0
 IS_CLONE = digital(ROBOT_ID_CLONE)
 IS_PRIME = not IS_CLONE
+STARTLIGHT = 0
 
 #Servo Ports
 sky_arm = 0

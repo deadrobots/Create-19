@@ -66,7 +66,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     msleep(500)
     move_servo(c.sky_claw, c.claw_open)
     msleep(500)
-    wait_for_button_camera()
+    wait_4_light()
     c.START_TIME = seconds()
     shut_down_in(119.5)
     if u.burning_MC == False: #burning MC is on right
@@ -232,10 +232,6 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         msleep(11000)
 
 def connect_elec_lines():
-    #move_servo(c.sky_arm, c.arm_vertical, 20)
-    #u.move_servo(c.electric_arm_base, c.electric_base_up, 20)
-    #u.move_servo(c.electric_arm, c.electric_arm_start)
-    #u.wait_for_button()
     clear_motor_position_counter(c.electric_line_motor)
     if c.IS_PRIME:
         em.electric_line_motor(50, -900)
@@ -261,14 +257,16 @@ def connect_elec_lines():
         em.electric_line_motor(30, -500)
     else:
         em.electric_line_motor(30, -480)
+    g.rotate(3, 50)
     msleep(500)
-    em.electric_line_motor(40, -250)
+    g.rotate(-3, 50)
+    em.electric_line_motor(40, -80)
     #u.DEBUG()
 
 
 def get_water_cube(): # Drives to cube of water
     if c.IS_PRIME:
-        g.create_drive_timed(-450, 3.8)
+        g.create_drive_timed(-400, 4)
     else:
         g.create_drive_timed(-450, 3.4)
     g.rotate(-90, 250)
@@ -277,9 +275,9 @@ def get_water_cube(): # Drives to cube of water
     g.rotate(-85, 300)
     g.create_drive_timed(-250, .5)
     m.drive_to_black_and_square_up(100)
-    g.rotate(2.5, 125)
+    g.rotate(2, 125)
     g.create_drive_timed(200, .75)
-    g.create_drive_timed(100, .4)
+    g.create_drive_timed(100, .6)
     move_servo(c.sky_arm, c.arm_down, 10)
     msleep(100) # do not remove
     move_servo(c.sky_claw, c.claw_closed_water, 10)
@@ -309,7 +307,6 @@ def drop_water_cube():
         move_servo(c.sky_arm, c.arm_low_sky, 10)
     elif burningSky == 1:
         print("middle")
-        em.electric_line_motor(40, -330)
         g.create_drive_timed(100, 1.5)
         g.create_drive_timed(50, .3)
         g.rotate(-4, 100)
