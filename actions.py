@@ -207,15 +207,15 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     if not u.get_pipe_switch():
         g.create_drive_timed(-200, .65)
         g.rotate(-90, 300)
+        print(u.method)
         g.drive_condition(get_bump_or_black, -500, False)
-        method = u.bump_or_black_test()
-        print(method)
-        if method == 1:
+        print(u.method)
+        if u.method == 1:
             print("Bumped")
             g.drive_condition(on_black_left_tophat, 200, False)
-        elif method == 2:
+        elif u.method == 2:
             print("Tophats")
-        elif method == 3:
+        elif u.method == 3:
             print("Create sensors")
             g.drive_condition(u.bumped and on_black_left_tophat, -200, False)
         else:
@@ -262,7 +262,7 @@ def connect_elec_lines():
     g.rotate(3, 50)
     msleep(500)
     g.rotate(-3, 50)
-    em.electric_line_motor(50, -30)
+    em.electric_line_motor(50, -75)
 
 
 def get_water_cube(): # Drives to cube of water
@@ -274,7 +274,7 @@ def get_water_cube(): # Drives to cube of water
     g.create_drive_timed(500, 2.1)
     g.create_drive_timed(250, .2)
     g.rotate(-85, 300)
-    g.create_drive_timed(-250, .5)
+    g.drive_condition(u.on_black_left_tophat, -150, False)
     m.drive_to_black_and_square_up(100)
     g.rotate(2, 125)
     g.create_drive_timed(200, .75)
