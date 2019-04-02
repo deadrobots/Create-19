@@ -51,7 +51,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     create_full()
     #turnCalibration()
     print("Drive and Sensor Testing")
-    g.rotate(-50, 150)
+    g.rotate(-56, 150)
     msleep(500)
     p.find_burning_sky()
     done = seconds() + 3
@@ -59,9 +59,10 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     print("Waiting for you to press the switch and check which building is burning")
     while not u.get_pipe_switch():
         pass
-    g.rotate(50, 150)
+    g.rotate(56, 150)
     msleep(500)
-    g.drive_condition(m.get_black_left, -250, False)
+    m.drive_to_black_and_square_up(-200)
+    g.drive_condition(on_black_left_tophat, -250, False)
     print("Setting servos for the run")
     move_servo(c.sky_arm, c.arm_start)
     msleep(500)
@@ -88,11 +89,11 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
 
 def grab_bot_mayor():
     global burningSky
-    global burningMCLeft
-    p.count()
-    burningMCLeft = p.find_burning_MC()
-    g.rotate(-50, 100)
-    msleep(400)
+    if c.IS_CLONE:
+        g.rotate(-50, 100)
+    else:
+        g.rotate(-56, 100)
+    msleep(600)
     burningSky = p.find_burning_sky()
     if burningSky == 0:
         print("doing code for left")
@@ -218,6 +219,8 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         elif u.method == 3:
             print("Create sensors")
             g.drive_condition(u.bumped and on_black_left_tophat, -200, False)
+            msleep(200)
+            g.drive_condition(on_black_left_tophat, 200, False)
         else:
             print("None (shouldn't happen)")
             g.create_drive_timed(-200, 1)
@@ -261,6 +264,8 @@ def connect_elec_lines():
         em.electric_line_motor(30, -480)
     g.rotate(3, 50)
     msleep(500)
+    if c.IS_PRIME:
+        em.electric_line_motor(30, -485)
     g.rotate(-3, 50)
     em.electric_line_motor(50, -75)
 

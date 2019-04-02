@@ -161,8 +161,8 @@ def move_servo(servo, endPos, speed=10):
 def get_line_follow_values():
     create_connect()
     while 1:
-        print ("The right front line follow sensor sees: ")
-        print get_create_rfcliff_amt()
+        print ("The right front line follow sensor sees: ",get_create_rfcliff_amt())
+        msleep(50)
 
 
 def on_black_left_tophat():
@@ -176,29 +176,33 @@ def on_black_right_tophat():
 def hit_wall():
     return accel_y() > 1000
 
+def get_bump_or_black():
+    global method
+    _method = bump_or_black_test()
+    if _method > 0:
+        method = _method
+        print(_method, ' ******')
+    return _method > 0
+
 
 def bump_or_black_test():
-    global method
-    if get_create_lbump() > 0 and get_create_rbump() > 0:
+    if get_create_lbump() > 0:
         print("Bumped")
-        method = 1
+        _method = 1
     elif on_black_left_tophat():
         print("Tophats")
-        method = 2
+        _method = 2
     elif m.get_black_right() or m.get_black_left():
         print("Create sensors")
-        method = 3
+        _method = 3
     else:
-        method = 0
-        pass
-    return method
+        _method = 0
+    return _method
 
 def bumped():
     return get_create_lbump() > 0 and get_create_rbump() > 0
 
 
-def get_bump_or_black():
-    return bump_or_black_test() > 0
 
 
 def get_pipe_switch():
