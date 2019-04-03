@@ -25,7 +25,7 @@ electric_line_motor = 3
 
 if IS_PRIME:
     # Servo Positions
-    arm_offset = 25
+    arm_offset = -90
     arm_vertical = 1430 + arm_offset
     arm_low_sky = 815 + arm_offset
     arm_low_grab = 850 + arm_offset

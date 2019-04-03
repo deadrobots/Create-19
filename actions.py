@@ -274,14 +274,17 @@ def get_water_cube(): # Drives to cube of water
     if c.IS_PRIME:
         g.create_drive_timed(-400, 4)
     else:
-        g.create_drive_timed(-450, 3.4)
+        g.create_drive_timed(-450, 3.6)
     g.rotate(-90, 250)
     g.create_drive_timed(500, 2.1)
     g.create_drive_timed(250, .2)
     g.rotate(-85, 300)
     g.drive_condition(u.on_black_left_tophat, -150, False)
     m.drive_to_black_and_square_up(100)
-    g.rotate(2, 125)
+    if c.IS_PRIME:
+        g.rotate(2, 125)
+    else:
+        g.rotate(6, 125)
     g.create_drive_timed(200, .75)
     g.create_drive_timed(100, .6)
     move_servo(c.sky_arm, c.arm_down, 10)
