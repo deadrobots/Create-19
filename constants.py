@@ -10,10 +10,10 @@ IS_PRIME = not IS_CLONE
 STARTLIGHT = 0
 
 #Servo Ports
-sky_arm = 0
+
 sky_claw = 1
 electric_arm_base = 2
-electric_arm = 3
+sky_arm = 3
 
 #Sensor ports
 left_tophat = 5
@@ -25,22 +25,22 @@ electric_line_motor = 3
 
 if IS_PRIME:
     # Servo Positions
-    arm_offset = -90
+    arm_offset = -180
     arm_vertical = 1430 + arm_offset
     arm_low_sky = 815 + arm_offset
     arm_low_grab = 850 + arm_offset
     mayor_arm = 1150 + arm_offset
     arm_high_sky = 1480 + arm_offset
     arm_high_sky_deliver = 1210 + arm_offset
-    arm_down = 170 + arm_offset
+    arm_down = 0 + arm_offset
     arm_start = 375 + arm_offset
-    arm_button = 140 + arm_offset
-    arm_moving = 200
+    arm_button = 0
+    arm_moving =90
 
     claw_open = 150
     clawDeliver = 150
     claw_closed_water = 1250
-    claw_closed_mayor = 1280
+    claw_closed_mayor = 1300
 
     #Electric base
     electric_base_down = 0

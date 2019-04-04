@@ -71,6 +71,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     wait_4_light()
     c.START_TIME = seconds()
     shut_down_in(119.5)
+    print(k.camera_reads)
     if u.compute_burning_MC() == False: #burning MC is on right
         print("Pushing switch")
         msleep(300)
@@ -201,7 +202,6 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         g.create_drive_timed(-240,.5)
     g.rotate(-90, 100)
     u.move_servo(c.electric_arm_base, c.electric_base_up, 20)
-    u.move_servo(c.electric_arm, c.electric_arm_start)
     em.electric_line_motor(30, -600)
     g.create_drive_timed(500, 3.5) #Square up on wall
     msleep(100)

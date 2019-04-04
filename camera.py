@@ -5,7 +5,7 @@ import utilities as u
 
 remember = False
 first = True
-camera_reads = [False * 10]
+camera_reads = [False] * 5
 
 def camera_init():
     #Initializes/Opens up camera
@@ -132,9 +132,11 @@ def find_burning_MC_improved():
     global camera_reads
     count()
     startTime = seconds()
-    if len(camera_reads) == 10:
+    if len(camera_reads) == 5:
         camera_reads.pop(0)
     while (seconds() - startTime < .5):
+        if len(camera_reads) == 5:
+            camera_reads.pop(0)
         camera_update()
         found = False
         if get_object_count(c.YELLOW)>0:
