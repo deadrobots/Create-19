@@ -285,8 +285,12 @@ def get_water_cube(): # Drives to cube of water
         g.rotate(2, 125)
     else:
         g.rotate(6, 125)
-    g.create_drive_timed(200, .75)
-    g.create_drive_timed(100, .6)
+    if c.IS_PRIME:
+        g.create_drive_timed(200, .75)
+        g.create_drive_timed(100, .6)
+    else:
+        g.create_drive_timed(200, .75)
+        g.create_drive_timed(100, .3)
     move_servo(c.sky_arm, c.arm_down, 10)
     msleep(100) # do not remove
     move_servo(c.sky_claw, c.claw_closed_water, 10)

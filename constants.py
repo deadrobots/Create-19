@@ -32,7 +32,7 @@ if IS_PRIME:
     mayor_arm = 1150 + arm_offset
     arm_high_sky = 1480 + arm_offset
     arm_high_sky_deliver = 1210 + arm_offset
-    arm_down = 0 + arm_offset
+    arm_down = 0
     arm_start = 375 + arm_offset
     arm_button = 0
     arm_moving =90
