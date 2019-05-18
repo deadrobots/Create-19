@@ -149,7 +149,7 @@ def grab_first():
     g.rotate(40, 150)
     move_servo(c.sky_claw, c.claw_open+300, 20)
     g.create_drive_timed(200, .6)
-    move_servo(c.sky_arm, c.arm_low_grab +50, 10)  #
+    move_servo(c.sky_arm, c.arm_low_grab + 30, 10)  #
     move_servo(c.sky_claw, c.claw_closed_mayor, 15)  #
     move_servo(c.sky_arm, c.arm_high_sky, 20)
     g.create_drive_timed(-200, .325)
@@ -323,7 +323,7 @@ def drop_water_cube():
         g.create_drive_timed(100, 1.5)
         g.create_drive_timed(50, .3)
         g.rotate(-4, 100)
-        move_servo(c.sky_arm, c.arm_high_sky_deliver, 10)
+        move_servo(c.sky_arm, c.arm_high_sky_deliver - 15, 10)
     else:
         print("Right")
         if c.IS_PRIME:
