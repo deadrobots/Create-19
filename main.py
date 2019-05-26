@@ -12,12 +12,10 @@ import gyro as g
 
 def main():
     print("Running!!!")
-    act.init()
-    act.grab_bot_mayor()
-    act.head_to_elec_lines()
-    act.connect_elec_lines()
-    act.get_water_cube()
-    act.drop_water_cube()
+    create_connect()
+    create_full()
+
+    act.ETest()
     u.DEBUG()
 
 

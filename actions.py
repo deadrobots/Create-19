@@ -11,6 +11,38 @@ colorOrder = []
 burningMCLeft = True
 burningSky = 0
 
+
+def ETest():
+    msleep(500)
+    g.calibrate_gyro()
+    msleep(750)
+    u.move_servo(c.meople_claw, c.meople_claw_open)
+    u.move_servo(c.meople_arm, c.meople_arm_up)
+    while analog(c.ET) < c.EThresh:
+        m.line_follow_right(250)
+    msleep(250)
+    while analog(c.ET) > c.EThresh:
+        m.line_follow_right(250)
+    g.create_drive_timed(-250, .5)
+    g.rotate(-90, 250)
+    m.drive_to_black_and_square_up(-200)
+    move_servo(c.meople_arm, c.meople_arm_down)
+    g.create_drive_timed(100, 1.5)
+    u.DEBUG()
+    g.create_drive_timed(-200, .5)
+    g.rotate(90, 250)
+    while analog(c.ET) < c.EThresh:
+        m.line_follow_right(250)
+    msleep(250)
+    while analog(c.ET) > c.EThresh:
+        m.line_follow_right(250)
+    g.create_drive_timed(-250, .5)
+    g.rotate(-90, 250)
+    m.drive_to_black_and_square_up(-200)
+    g.create_drive_timed(100, 1.5)
+    msleep(1000)
+
+
 def turn_calibration():
     g.rotate(180, 100)
     msleep(500)

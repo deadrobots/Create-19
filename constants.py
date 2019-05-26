@@ -9,11 +9,17 @@ IS_CLONE = digital(ROBOT_ID_CLONE)
 IS_PRIME = not IS_CLONE
 STARTLIGHT = 0
 
+EThresh = 2500
+
+ET = 2
+
 #Servo Ports
 
 sky_claw = 1
 electric_arm_base = 2
 sky_arm = 3
+meople_claw = 0
+meople_arm = 2
 
 #Sensor ports
 left_tophat = 5
@@ -42,21 +48,13 @@ if IS_PRIME:
     claw_closed_water = 1250
     claw_closed_mayor = 1300
 
-    #Electric base
-    electric_base_down = 0
-    electric_base_up = 1450
-    electric_base_right = 1550 #1600
-    electric_base_left = 1170 #1210
-    electric_base_left_score = 1330
-    electric_base_start_left = 1310
-    electric_base_swing = 1910
+    #meople arm
+    meople_arm_up = 1390
+    meople_arm_down = 245
 
-    #Electric arm
-    electric_arm_start = 920
-    electric_arm_right = 20
-    electric_arm_start_box = 1230
-    electric_arm_slight_left = 1350
-    electric_arm_left = 2047
+    #meople claw
+    meople_claw_open = 854
+    meople_claw_closed = 678
 
     # Gyro
     turn_conversion = 5100  # 5500

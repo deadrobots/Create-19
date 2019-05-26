@@ -172,6 +172,17 @@ def proportional_line_follow(speed, time):
         msleep(10)
     create_drive_direct(0, 0)
 
+
+def line_follow_right(speed):
+    if get_create_rcliff_amt() > 2000:
+        create_drive_direct(speed, speed/2)
+        msleep(20)
+    else:
+        create_drive_direct(speed/2, speed)
+        msleep(20)
+    create_drive_direct(0,0)
+
+
 def electric_drive(speed, time):
     sec = seconds()
     while (seconds() - sec < time):
