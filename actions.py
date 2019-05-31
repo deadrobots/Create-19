@@ -13,6 +13,11 @@ burningSky = 0
 
 
 def ETest():
+    if c.IS_PRIME:
+        print("I are prime")
+    if c.IS_CLONE:
+        print("I are clone")
+    u.move_servo(c.sky_arm, c.arm_vertical)
     msleep(500)
     g.calibrate_gyro()
     msleep(750)
@@ -23,11 +28,15 @@ def ETest():
     msleep(250)
     while analog(c.ET) > c.EThresh:
         m.line_follow_right(250)
-    g.create_drive_timed(-250, .5)
+    g.create_drive_timed(-250, .4)
     g.rotate(-90, 250)
     m.drive_to_black_and_square_up(-200)
+    g.create_drive_timed(-200, .5)
+    m.drive_to_black_and_square_up(-200)
     move_servo(c.meople_arm, c.meople_arm_down)
-    g.create_drive_timed(100, 1.5)
+    g.create_drive_timed(200, .5)
+    m.drive_to_black_and_square_up(100)
+    g.create_drive_timed(100, 1)
     u.DEBUG()
     g.create_drive_timed(-200, .5)
     g.rotate(90, 250)

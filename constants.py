@@ -93,6 +93,15 @@ elif IS_CLONE:
     electric_arm_slight_left = 1180
     electric_arm_left = 2047
 
+    #Meople arm
+    meople_arm_up = 1560
+    meople_arm_down = 290
+
+    #Meople claw
+    meople_claw_open = 1580
+    meople_claw_closed = 1680
+
+
     #Gyro
     turn_conversion = 5100  #5500
 

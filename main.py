@@ -14,7 +14,7 @@ def main():
     print("Running!!!")
     create_connect()
     create_full()
-
+    enable_servos()
     act.ETest()
     u.DEBUG()
 
