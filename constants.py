@@ -9,7 +9,7 @@ IS_CLONE = digital(ROBOT_ID_CLONE)
 IS_PRIME = not IS_CLONE
 STARTLIGHT = 0
 
-EThresh = 2500
+EThresh = 2000  #2500
 
 ET = 2
 
@@ -95,11 +95,13 @@ elif IS_CLONE:
 
     #Meople arm
     meople_arm_up = 1560
+    meople_arm_meople_grab = 360 #plz do not change this i enjoy this
     meople_arm_down = 290
 
     #Meople claw
+    meople_claw_wide = 1320
     meople_claw_open = 1580
-    meople_claw_closed = 1680
+    meople_claw_closed = 1750
 
 
     #Gyro
