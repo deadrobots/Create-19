@@ -12,6 +12,8 @@ import gyro as g
 
 def main():
     print("Running!!!")
+    act.wambulanceGrab()
+    u.DEBUG()
     create_connect()
     create_full()
     enable_servos()

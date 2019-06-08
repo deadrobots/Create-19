@@ -20,6 +20,7 @@ electric_arm_base = 2
 sky_arm = 3
 meople_claw = 0
 meople_arm = 2
+ambulance_claw = 0
 
 #Sensor ports
 left_tophat = 5
@@ -28,6 +29,7 @@ pipe_switch = 9
 
 #motor
 electric_line_motor = 3
+ambulance_arm = 0
 
 if IS_PRIME:
     # Servo Positions

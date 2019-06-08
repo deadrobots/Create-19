@@ -11,6 +11,25 @@ colorOrder = []
 burningMCLeft = True
 burningSky = 0
 
+def wambulanceGrab():
+    motor(c.ambulance_arm, -10)
+    msleep(1000)
+    motor(c.ambulance_arm, 0)
+    enable_servo(c.ambulance_claw)
+    set_servo_position(c.ambulance_claw, 1485)
+    msleep(1000)
+    disable_servo(c.ambulance_claw)
+    motor(c.ambulance_arm, -10)
+    msleep(4000)
+    motor(c.ambulance_arm, 0)
+    enable_servo(c.ambulance_claw)
+    set_servo_position(c.ambulance_claw, 1100)
+    msleep(2000)
+    motor(c.ambulance_arm, 10)
+    msleep(5000)
+    motor(c.ambulance_arm, 0)
+    msleep(2000)
+    disable_servo(0)
 
 def ETest():
     if c.IS_PRIME:
@@ -21,28 +40,27 @@ def ETest():
     msleep(500)
     g.calibrate_gyro()
     msleep(750)
-    u.move_servo(c.meople_claw, c.meople_claw_open)
+    # u.move_servo(c.meople_claw, c.meople_claw_open)
     u.move_servo(c.meople_arm, c.meople_arm_up)
-    while analog(c.ET) < c.EThresh:
-        m.line_follow_right(250)
-    msleep(250)
-    while analog(c.ET) > c.EThresh:
-        g.create_drive_timed(250, .1)
-    g.rotate(-90, 100)
-    m.drive_to_black_and_square_up(-200)
-    g.create_drive_timed(-200, 1)
-    u.move_servo(c.meople_arm, c.meople_arm_down)
-    g.create_drive_timed(200, .9)
-    u.move_servo(c.meople_claw, c.meople_claw_wide)
-    g.create_drive_timed(100, .6)
-    u.move_servo(c.meople_claw, c.meople_claw_closed, 3)
-    msleep(300)
-    u.move_servo(c.meople_arm, c.meople_arm_meople_grab, 5)
-    g.create_drive_timed(-200, 1)
-    u.move_servo(c.meople_arm, c.meople_arm_up, 7)
-    g.create_drive_timed(-250, .5)
-    g.rotate(90, 100)
-    u.DEBUG()
+    # while analog(c.ET) < c.EThresh:
+    #     m.line_follow_right(250)
+    # msleep(250)
+    # while analog(c.ET) > c.EThresh:
+    #     g.create_drive_timed(250, .1)
+    # g.rotate(-90, 100)
+    # m.drive_to_black_and_square_up(-200)
+    # g.create_drive_timed(-200, 1)
+    # u.move_servo(c.meople_arm, c.meople_arm_down)
+    # g.create_drive_timed(200, .9)
+    # u.move_servo(c.meople_claw, c.meople_claw_wide)
+    # g.create_drive_timed(100, .6)
+    # u.move_servo(c.meople_claw, c.meople_claw_closed, 3)
+    # msleep(300)
+    # u.move_servo(c.meople_arm, c.meople_arm_meople_grab, 5)
+    # g.create_drive_timed(-200, 1)
+    # u.move_servo(c.meople_arm, c.meople_arm_up, 7)
+    # g.create_drive_timed(-250, .5)
+    # g.rotate(90, 100)
     while analog(c.ET) < c.EThresh:  #code for second meople grab
         m.line_follow_right(250)
     msleep(250)
@@ -63,6 +81,7 @@ def ETest():
     u.move_servo(c.meople_arm, c.meople_arm_meople_grab, 5)
     g.create_drive_timed(-200, 3)
     u.DEBUG()
+
     g.create_drive_timed(-200, .5)
     g.rotate(90, 250)
     while analog(c.ET) < c.EThresh:
