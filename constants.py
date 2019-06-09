@@ -29,7 +29,7 @@ pipe_switch = 9
 
 #motor
 electric_line_motor = 3
-ambulance_arm = 0
+ambulance_motor = 0
 
 if IS_PRIME:
     # Servo Positions
@@ -83,10 +83,10 @@ elif IS_CLONE:
     #Electric base
     electric_base_down = 0
     electric_base_up = 1450
-    electric_base_right = 1460
-    electric_base_left = 1210
+    electric_base_right = 1280
+    electric_base_left = 1000
     electric_base_left_score = 1330
-    electric_base_start_left = 1299
+    electric_base_start_left = 1180
     electric_base_swing = 1800
 
     #Electric arm
@@ -104,6 +104,10 @@ elif IS_CLONE:
     meople_claw_wide = 1320
     meople_claw_open = 1580
     meople_claw_closed = 1750
+
+    wambulance_open = 1485
+    wambulance_closed = 1050
+    wambulance_wide = 1600
 
 
     #Gyro

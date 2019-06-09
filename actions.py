@@ -12,88 +12,24 @@ burningMCLeft = True
 burningSky = 0
 
 def wambulanceGrab():
-    motor(c.ambulance_arm, -10)
+    motor(c.ambulance_motor, -10)
     msleep(1000)
-    motor(c.ambulance_arm, 0)
+    motor(c.ambulance_motor, 0)
     enable_servo(c.ambulance_claw)
     set_servo_position(c.ambulance_claw, 1485)
     msleep(1000)
     disable_servo(c.ambulance_claw)
-    motor(c.ambulance_arm, -10)
+    motor(c.ambulance_motor, -10)
     msleep(4000)
-    motor(c.ambulance_arm, 0)
+    motor(c.ambulance_motor, 0)
     enable_servo(c.ambulance_claw)
     set_servo_position(c.ambulance_claw, 1100)
     msleep(2000)
-    motor(c.ambulance_arm, 10)
+    motor(c.ambulance_motor, 10)
     msleep(5000)
-    motor(c.ambulance_arm, 0)
+    motor(c.ambulance_motor, 0)
     msleep(2000)
     disable_servo(0)
-
-def ETest():
-    if c.IS_PRIME:
-        print("I are prime")
-    if c.IS_CLONE:
-        print("I are clone")
-    u.move_servo(c.sky_arm, c.arm_vertical)
-    msleep(500)
-    g.calibrate_gyro()
-    msleep(750)
-    # u.move_servo(c.meople_claw, c.meople_claw_open)
-    u.move_servo(c.meople_arm, c.meople_arm_up)
-    # while analog(c.ET) < c.EThresh:
-    #     m.line_follow_right(250)
-    # msleep(250)
-    # while analog(c.ET) > c.EThresh:
-    #     g.create_drive_timed(250, .1)
-    # g.rotate(-90, 100)
-    # m.drive_to_black_and_square_up(-200)
-    # g.create_drive_timed(-200, 1)
-    # u.move_servo(c.meople_arm, c.meople_arm_down)
-    # g.create_drive_timed(200, .9)
-    # u.move_servo(c.meople_claw, c.meople_claw_wide)
-    # g.create_drive_timed(100, .6)
-    # u.move_servo(c.meople_claw, c.meople_claw_closed, 3)
-    # msleep(300)
-    # u.move_servo(c.meople_arm, c.meople_arm_meople_grab, 5)
-    # g.create_drive_timed(-200, 1)
-    # u.move_servo(c.meople_arm, c.meople_arm_up, 7)
-    # g.create_drive_timed(-250, .5)
-    # g.rotate(90, 100)
-    while analog(c.ET) < c.EThresh:  #code for second meople grab
-        m.line_follow_right(250)
-    msleep(250)
-    while analog(c.ET) > c.EThresh:
-        m.line_follow_right(250)
-    g.create_drive_timed(-250, .3)
-    g.rotate(-90, 250)
-    m.drive_to_black_and_square_up(-100)  #-200, slowed down for accuracy purposes
-    g.create_drive_timed(-200, .5)
-    m.drive_to_black_and_square_up(-100)
-    move_servo(c.meople_arm, c.meople_arm_down)
-    g.create_drive_timed(200, 1.3)
-    u.move_servo(c.meople_claw, c.meople_claw_wide)
-    m.drive_to_black_and_square_up(100)
-    g.create_drive_timed(100, .6)
-    u.move_servo(c.meople_claw, c.meople_claw_closed, 3)
-    msleep(300)
-    u.move_servo(c.meople_arm, c.meople_arm_meople_grab, 5)
-    g.create_drive_timed(-200, 3)
-    u.DEBUG()
-
-    g.create_drive_timed(-200, .5)
-    g.rotate(90, 250)
-    while analog(c.ET) < c.EThresh:
-        m.line_follow_right(250)
-    msleep(250)
-    while analog(c.ET) > c.EThresh:
-        m.line_follow_right(250)
-    g.create_drive_timed(-250, .5)
-    g.rotate(-90, 250)
-    m.drive_to_black_and_square_up(-200)
-    g.create_drive_timed(100, 1.5)
-    msleep(1000)
 
 
 def turn_calibration():
@@ -131,6 +67,8 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     u.move_servo(c.electric_arm_base, c.electric_base_right)
     em.clear_ticks_button()
     u.move_servo(c.electric_arm_base, c.electric_base_down)
+    move_servo(c.ambulance_claw, c.wambulance_open)
+    move_servo(c.ambulance_claw, c.wambulance_closed)
     print("Connecting to Create")
     create_connect()
     create_full()
@@ -164,10 +102,26 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
         u.move_servo(c.sky_arm, c.arm_button, 5)
         msleep(100)
         u.move_servo(c.sky_arm, c.arm_vertical)
+        u.move_servo(c.ambulance_claw, c.wambulance_wide)
+        disable_servo(c.ambulance_claw)
+        u.wambulance_down()
+        msleep(500)
+        enable_servo(c.ambulance_claw)
+        move_servo(c.ambulance_claw, c.wambulance_closed)
+        msleep(250)
+        u.wambulance_up()
     else: #burning MC is on left
         print("Not pushing switch")
         u.move_servo(c.sky_arm, c.arm_vertical)
-        msleep(1000)
+        u.move_servo(c.ambulance_claw, c.wambulance_wide)
+        disable_servo(c.ambulance_claw)
+        u.wambulance_down()
+        msleep(500)
+        enable_servo(c.ambulance_claw)
+        move_servo(c.ambulance_claw, c.wambulance_closed)
+        msleep(250)
+        u.wambulance_up()
+        # msleep(1000)
     msleep(500)
     g.calibrate_gyro()
     u.move_servo(c.electric_arm_base, c.electric_base_left)
@@ -326,12 +280,12 @@ def connect_elec_lines():
     if c.IS_PRIME:
         em.electric_line_motor(50, -900) #Moves motor to a certain position
     else:
-        em.electric_line_motor(50, -800)
+        em.electric_line_motor(50, -900)
     u.move_servo(c.electric_arm_base, c.electric_base_swing, 20)
     em.clear_ticks(-25) #Runs motor until it hits PVC then zeros motor counter
     u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
     em.clear_ticks(-25)
-    em.electric_line_motor(25, 470)
+    em.electric_line_motor(25, 525)
     # msleep(200)
     # em.clear_ticks(-50)
     msleep(200)
@@ -346,7 +300,7 @@ def connect_elec_lines():
     if c.IS_PRIME:
         em.electric_line_motor(30, -500)
     else:
-        em.electric_line_motor(30, -480)
+        em.electric_line_motor(30, -530)
     g.rotate(3, 50)
     msleep(500)
     if c.IS_PRIME:

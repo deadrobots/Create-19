@@ -12,13 +12,13 @@ import gyro as g
 
 def main():
     print("Running!!!")
-    act.wambulanceGrab()
-    u.DEBUG()
-    create_connect()
-    create_full()
-    enable_servos()
-    act.ETest()
-    u.DEBUG()
+    act.init()
+    act.grab_bot_mayor()
+    act.head_to_elec_lines()
+    act.connect_elec_lines()
+    act.get_water_cube()
+    act.drop_water_cube()
+
 
 
 class tee :

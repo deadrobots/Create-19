@@ -221,3 +221,14 @@ def compute_burning_MC():
     else:
         return False
 
+
+def wambulance_down():
+    motor(c.ambulance_motor, -40)
+    msleep(390)
+
+
+def wambulance_up():
+    motor(c.ambulance_motor, 40)
+    msleep(1500)
+    ao()
+
