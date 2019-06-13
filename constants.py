@@ -18,13 +18,11 @@ ET = 2
 sky_claw = 1
 electric_arm_base = 2
 sky_arm = 3
-meople_claw = 0
-meople_arm = 2
 ambulance_claw = 0
 
 #Sensor ports
 left_tophat = 5
-right_tophat = 4
+right_tophat = 4 #not this one
 pipe_switch = 9
 
 #motor
@@ -50,13 +48,19 @@ if IS_PRIME:
     claw_closed_water = 1250
     claw_closed_mayor = 1300
 
-    #meople arm
-    meople_arm_up = 1390
-    meople_arm_down = 245
+    #Electric base
+    electric_base_down = 0
+    electric_base_up = 1450
+    electric_base_right = 1450 #1600
+    electric_base_left = 1170 #1210
+    electric_base_left_score = 1180
+    electric_base_start_left = 1305
+    electric_base_swing = 1670
 
-    #meople claw
-    meople_claw_open = 854
-    meople_claw_closed = 678
+    #wambulance claw
+
+    wambulance_open = 800
+    wambulance_closed = 1610
 
     # Gyro
     turn_conversion = 5100  # 5500
@@ -89,11 +93,11 @@ elif IS_CLONE:
     electric_base_start_left = 1180
     electric_base_swing = 1800
 
-    #Electric arm
-    electric_arm_start = 815
-    electric_arm_right = 0
-    electric_arm_slight_left = 1180
-    electric_arm_left = 2047
+    # #Electric arm
+    # electric_arm_start = 815
+    # electric_arm_right = 0
+    # electric_arm_slight_left = 1180
+    # electric_arm_left = 2047
 
     #Meople arm
     meople_arm_up = 1560

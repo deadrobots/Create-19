@@ -7,6 +7,8 @@ import gyro as g
 import movement as m
 import electricLineMotor as em
 
+
+burning_medical = False
 colorOrder = []
 burningMCLeft = True
 burningSky = 0
@@ -67,8 +69,8 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     u.move_servo(c.electric_arm_base, c.electric_base_right)
     em.clear_ticks_button()
     u.move_servo(c.electric_arm_base, c.electric_base_down)
-    move_servo(c.ambulance_claw, c.wambulance_open)
     move_servo(c.ambulance_claw, c.wambulance_closed)
+    move_servo(c.ambulance_claw, c.wambulance_open)
     print("Connecting to Create")
     create_connect()
     create_full()
@@ -95,33 +97,30 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     c.START_TIME = seconds()
     shut_down_in(119.5)
     print(k.camera_reads)
-    if u.compute_burning_MC() == False: #burning MC is on right
+    burning_medical = u.compute_burning_MC()
+    if burning_medical == False: #burning MC is on right
         print("Pushing switch")
         msleep(300)
         u.move_servo(c.sky_arm, c.arm_moving)
         u.move_servo(c.sky_arm, c.arm_button, 5)
         msleep(100)
         u.move_servo(c.sky_arm, c.arm_vertical)
-        u.move_servo(c.ambulance_claw, c.wambulance_wide)
-        disable_servo(c.ambulance_claw)
+        u.move_servo(c.ambulance_claw, c.wambulance_open)
         u.wambulance_down()
         msleep(500)
-        enable_servo(c.ambulance_claw)
         move_servo(c.ambulance_claw, c.wambulance_closed)
         msleep(250)
         u.wambulance_up()
     else: #burning MC is on left
         print("Not pushing switch")
         u.move_servo(c.sky_arm, c.arm_vertical)
-        u.move_servo(c.ambulance_claw, c.wambulance_wide)
-        disable_servo(c.ambulance_claw)
+        u.move_servo(c.ambulance_claw, c.wambulance_open)
         u.wambulance_down()
         msleep(500)
-        enable_servo(c.ambulance_claw)
         move_servo(c.ambulance_claw, c.wambulance_closed)
         msleep(250)
         u.wambulance_up()
-        # msleep(1000)
+        msleep(1000)
     msleep(500)
     g.calibrate_gyro()
     u.move_servo(c.electric_arm_base, c.electric_base_left)
@@ -158,7 +157,7 @@ def grab_bot_mayor():
         grab_third()
 
 def grab_second():
-    move_servo(c.sky_arm, c.arm_high_sky_deliver, 15)#
+    arm_up(c.arm_high_sky_deliver, 15)#
     g.create_drive_timed(200, 0.925)#
     move_servo(c.sky_claw, c.claw_closed_mayor, 20)#
     move_servo(c.sky_arm, c.arm_high_sky)
@@ -170,11 +169,11 @@ def grab_second():
         g.rotate(10, 150)
     else:
         g.rotate(-10, 150)
-    move_servo(c.sky_arm, c.arm_down, 15)
+    arm_down(c.arm_down, 15)
     move_servo(c.sky_claw, c.claw_open +500, 10)
     move_servo(c.sky_arm, c.arm_low_sky, 10)
     move_servo(c.sky_claw, c.claw_open)
-    move_servo(c.sky_arm, c.arm_high_sky, 15)
+    arm_up(c.arm_high_sky, 15)
     if burningSky == 0:
         g.rotate(-10, 150)
     else:
@@ -197,11 +196,11 @@ def grab_first():
     g.rotate(180, 150)
     m.drive_to_black_and_square_up(200)
     g.rotate(10, 150)
-    move_servo(c.sky_arm, c.arm_down, 15)
+    arm_down(c.arm_down, 15)
     move_servo(c.sky_claw, c.claw_open + 500, 15)
     move_servo(c.sky_arm, c.arm_low_sky, 20)
     move_servo(c.sky_claw, c.claw_open, 20)
-    move_servo(c.sky_arm, c.arm_high_sky, 20)
+    arm_up(c.arm_high_sky, 20)
     g.rotate(170, 150)
     m.drive_to_black_and_square_up(200)
 
@@ -222,7 +221,7 @@ def grab_third():
     g.rotate(180, 150)
     m.drive_to_black_and_square_up(200)
     g.rotate(-10, 150)
-    move_servo(c.sky_arm, c.arm_down, 15)
+    arm_down(c.arm_down, 15)
     move_servo(c.sky_claw, c.claw_open + 500)
     move_servo(c.sky_arm, c.arm_low_sky, 20)
     move_servo(c.sky_claw, c.claw_open, 20)
@@ -286,10 +285,12 @@ def connect_elec_lines():
     u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
     em.clear_ticks(-25)
     em.electric_line_motor(25, 525)
+    rotate(-5, 50)
     # msleep(200)
     # em.clear_ticks(-50)
     msleep(200)
     em.electric_line_motor(30, 170)
+    rotate(5, 50)
     msleep(100)
     g.create_drive_timed(-100, 1) #Drive functions use Wallaby gyro
     u.move_servo(c.electric_arm_base, c.electric_base_start_left) #Servo functions use a loop to control servo speed
@@ -309,11 +310,33 @@ def connect_elec_lines():
     em.electric_line_motor(50, -75)
 
 
-def get_water_cube(): # Drives to cube of water
+def drop_wambulance(): # Drives to cube of water
     if c.IS_PRIME:
         g.create_drive_timed(-400, 4)
     else:
         g.create_drive_timed(-450, 3.6)
+    g.rotate(-90, 200)
+    g.create_drive_timed(-250, .6)
+    g.rotate(90, 200)
+    drive_to_black_and_square_up(-150)
+    if not burning_medical:
+        g.rotate(30, 100)
+        u.wambulance_down()
+        u.move_servo(c.ambulance_claw, c.claw_open)
+        msleep(100)
+        u.wambulance_up()
+        g.rotate(-30, 100)
+    else:
+        g.rotate(-30, 100)
+        u.wambulance_down()
+        u.move_servo(c.ambulance_claw, c.claw_open)
+        msleep(100)
+        wambulance_up()
+        g.rotate(30, 100)
+    u.DEBUG()
+
+
+def get_water_cube():
     g.rotate(-90, 250)
     g.create_drive_timed(500, 2.1)
     g.create_drive_timed(250, .2)

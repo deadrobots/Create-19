@@ -224,11 +224,23 @@ def compute_burning_MC():
 
 def wambulance_down():
     motor(c.ambulance_motor, -40)
-    msleep(390)
+    msleep(500)
 
 
 def wambulance_up():
     motor(c.ambulance_motor, 40)
-    msleep(1500)
+    msleep(1200)
     ao()
+
+def arm_up(sky_pos, speed=10):
+    move_servo(c.sky_arm, sky_pos, speed)
+    msleep(100)
+    move_servo(c.electric_arm_base, c.electric_base_left, speed)
+
+
+def arm_down(sky_pos, speed=10):
+    move_servo(c.electric_arm_base, c.electric_base_down, speed)
+    msleep(100)
+    move_servo(c.sky_arm, sky_pos, speed)
+
 
