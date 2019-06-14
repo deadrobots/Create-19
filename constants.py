@@ -59,8 +59,8 @@ if IS_PRIME:
 
     #wambulance claw
 
-    wambulance_open = 800
-    wambulance_closed = 1610
+    wambulance_open = 2047
+    wambulance_closed = 1130
 
     # Gyro
     turn_conversion = 5100  # 5500

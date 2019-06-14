@@ -13,25 +13,25 @@ colorOrder = []
 burningMCLeft = True
 burningSky = 0
 
-def wambulanceGrab():
-    motor(c.ambulance_motor, -10)
-    msleep(1000)
-    motor(c.ambulance_motor, 0)
-    enable_servo(c.ambulance_claw)
-    set_servo_position(c.ambulance_claw, 1485)
-    msleep(1000)
-    disable_servo(c.ambulance_claw)
-    motor(c.ambulance_motor, -10)
-    msleep(4000)
-    motor(c.ambulance_motor, 0)
-    enable_servo(c.ambulance_claw)
-    set_servo_position(c.ambulance_claw, 1100)
-    msleep(2000)
-    motor(c.ambulance_motor, 10)
-    msleep(5000)
-    motor(c.ambulance_motor, 0)
-    msleep(2000)
-    disable_servo(0)
+# def wambulanceGrab():
+#     motor(c.ambulance_motor, -10)
+#     msleep(1000)
+#     motor(c.ambulance_motor, 0)
+#     enable_servo(c.ambulance_claw)
+#     set_servo_position(c.ambulance_claw, 1485)
+#     msleep(1000)
+#     disable_servo(c.ambulance_claw)
+#     motor(c.ambulance_motor, -10)
+#     msleep(4000)
+#     motor(c.ambulance_motor, 0)
+#     enable_servo(c.ambulance_claw)
+#     set_servo_position(c.ambulance_claw, 1100)
+#     msleep(2000)
+#     motor(c.ambulance_motor, 10)
+#     msleep(5000)
+#     motor(c.ambulance_motor, 0)
+#     msleep(2000)
+#     disable_servo(0)
 
 
 def turn_calibration():
@@ -41,6 +41,7 @@ def turn_calibration():
 
 def init(): #Test to make sure all the moving parts and sensors work the way they should
     global first
+    global burning_medical
     if c.IS_PRIME:
         print("I are prime")
     if c.IS_CLONE:
@@ -71,6 +72,10 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     u.move_servo(c.electric_arm_base, c.electric_base_down)
     move_servo(c.ambulance_claw, c.wambulance_closed)
     move_servo(c.ambulance_claw, c.wambulance_open)
+    u.wambulance_down()
+    msleep(100)
+    u.wambulance_up()
+    move_servo(c.ambulance_claw, c.wambulance_closed)
     print("Connecting to Create")
     create_connect()
     create_full()
@@ -311,6 +316,7 @@ def connect_elec_lines():
 
 
 def drop_wambulance(): # Drives to cube of water
+    global burning_medical
     if c.IS_PRIME:
         g.create_drive_timed(-400, 4)
     else:
@@ -319,7 +325,8 @@ def drop_wambulance(): # Drives to cube of water
     g.create_drive_timed(-250, .6)
     g.rotate(90, 200)
     drive_to_black_and_square_up(-150)
-    if not burning_medical:
+    if burning_medical:
+        print ("deliver ambulance to right MC")
         g.rotate(30, 100)
         u.wambulance_down()
         u.move_servo(c.ambulance_claw, c.claw_open)
@@ -327,6 +334,7 @@ def drop_wambulance(): # Drives to cube of water
         u.wambulance_up()
         g.rotate(-30, 100)
     else:
+        print ("deliver ambulance to left MC")
         g.rotate(-30, 100)
         u.wambulance_down()
         u.move_servo(c.ambulance_claw, c.claw_open)
