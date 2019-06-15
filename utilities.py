@@ -228,8 +228,8 @@ def wambulance_down():
 
 
 def wambulance_up():
-    motor(c.ambulance_motor, 40)
-    msleep(1200)
+    motor_power(c.ambulance_motor, 30)
+    msleep(1500)
     ao()
 
 def arm_up(sky_pos, speed=10):

@@ -197,6 +197,7 @@ def grab_first():
     move_servo(c.sky_arm, c.arm_high_sky, 20)
     g.create_drive_timed(-200, .325)
     g.rotate(-40, 150)
+    g.create_drive_timed(-200, .5)
     ######################################################
     g.rotate(180, 150)
     m.drive_to_black_and_square_up(200)
@@ -222,6 +223,7 @@ def grab_third():
     move_servo(c.sky_arm, c.arm_high_sky, 15)
     g.create_drive_timed(-200, 0.55)
     g.rotate(45, 150)
+    g.create_drive_timed(-200, .5)
     #####################################################
     g.rotate(180, 150)
     m.drive_to_black_and_square_up(200)
@@ -240,16 +242,21 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     print("Heading to electric lines")
     move_servo(c.sky_arm, c.arm_vertical, 20)
     if c.IS_PRIME:
-        g.create_drive_timed(-240, .25)
+        g.create_drive_timed(-300, 1.25)
+        g.create_drive_timed(300, 1)
     else:
-        g.create_drive_timed(-240,.5)
+        g.create_drive_timed(-300, 1.5)
+        g.create_drive_timed(300, 1)
     g.rotate(-90, 100)
     u.move_servo(c.electric_arm_base, c.electric_base_up, 20)
     em.electric_line_motor(30, -600)
     g.create_drive_timed(500, 3.5) #Square up on wall
     msleep(100)
     if not u.get_pipe_switch():
+        clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
         g.create_drive_timed(-200, .65)
+        em.electric_line_motor(50, -1170)  # Moves motor to a certain position
+        u.wait_for_button()
         g.rotate(-90, 300)
         print(u.method)
         g.drive_condition(get_bump_or_black, -500, False)
@@ -276,17 +283,20 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
             g.create_drive_timed(500, 1)
             msleep(300)
     else:
-        msleep(11000)
+        msleep(3500)
+        g.create_drive_timed(-200, .5)
+        clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
+        em.electric_line_motor(50, -1170)  # Moves motor to a certain position
+        u.wait_for_button()
+        g.create_drive_timed(200, .6)
+        msleep(7500)
 
 def connect_elec_lines():
-    #Controls a servo and motor to connect both of the elctric lines
-    clear_motor_position_counter(c.electric_line_motor) #Clears motor counter
-    if c.IS_PRIME:
-        em.electric_line_motor(50, -900) #Moves motor to a certain position
-    else:
-        em.electric_line_motor(50, -900)
-    u.move_servo(c.electric_arm_base, c.electric_base_swing, 20)
-    em.clear_ticks(-25) #Runs motor until it hits PVC then zeros motor counter
+    #Controls a servo and motor to connect both of the electric lines
+    #clear_motor_position_counter(c.electric_line_motor) #Clears motor counter
+    #em.electric_line_motor(50, -900) #Moves motor to a certain position
+    #u.move_servo(c.electric_arm_base, c.electric_base_swing, 20)
+    #em.clear_ticks(-25) #Runs motor until it hits PVC then zeros motor counter
     u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
     em.clear_ticks(-25)
     em.electric_line_motor(25, 525)
@@ -327,22 +337,19 @@ def drop_wambulance(): # Drives to cube of water
     drive_to_black_and_square_up(-150)
     if burning_medical:
         print ("deliver ambulance to right MC")
-        g.rotate(30, 100)
-        u.wambulance_down()
-        u.move_servo(c.ambulance_claw, c.claw_open)
-        msleep(100)
-        u.wambulance_up()
         g.rotate(-30, 100)
     else:
         print ("deliver ambulance to left MC")
-        g.rotate(-30, 100)
-        u.wambulance_down()
-        u.move_servo(c.ambulance_claw, c.claw_open)
-        msleep(100)
-        wambulance_up()
         g.rotate(30, 100)
+    u.wambulance_down()
+    u.move_servo(c.ambulance_claw, c.wambulance_open)
+    msleep(100)
+    wambulance_up()
+    if burning_medical:
+        g.rotate(30, 100)
+    else:
+        g.rotate(-30, 100)
     u.DEBUG()
-
 
 def get_water_cube():
     g.rotate(-90, 250)

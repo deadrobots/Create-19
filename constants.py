@@ -54,7 +54,7 @@ if IS_PRIME:
     electric_base_right = 1450 #1600
     electric_base_left = 1170 #1210
     electric_base_left_score = 1180
-    electric_base_start_left = 1305
+    electric_base_start_left = 1225 #1305
     electric_base_swing = 1670
 
     #wambulance claw
