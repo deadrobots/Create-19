@@ -253,10 +253,11 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     msleep(100)
     if not u.get_pipe_switch():
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
-        g.create_drive_timed(-200, .65)
+        g.create_drive_timed(-200, .80)#.65
         em.electric_line_motor(50, -1170)  # Moves motor to a certain position
         g.rotate(-90, 300)
-        print(u.method)
+        g.drive_condition(u.l_or_r_bumped, -300, False)
+        '''print(u.method)
         g.drive_condition(get_bump_or_black, -500, False)
         print(u.method)
         if u.method == 1:
@@ -271,7 +272,8 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
             g.drive_condition(on_black_left_tophat, 200, False)
         else:
             print("None (shouldn't happen)")
-            g.create_drive_timed(-200, 1)
+            g.create_drive_timed(-200, 1)'''
+        g.create_drive_timed(200, .6)
         m.drive_to_black_and_square_up(125)
         g.create_drive_timed(-120, .25)
         g.rotate(90, 125)
@@ -286,7 +288,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
         em.electric_line_motor(50, -1170)  # Moves motor to a certain position
         g.create_drive_timed(200, .6)
-        msleep(7500)
+        msleep(3500)
 
 def connect_elec_lines():
     #Controls a servo and motor to connect both of the electric lines
@@ -296,7 +298,7 @@ def connect_elec_lines():
     #em.clear_ticks(-25) #Runs motor until it hits PVC then zeros motor counter
     u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
     em.clear_ticks(-25)
-    em.electric_line_motor(25, 500)#525
+    em.electric_line_motor(25, 493)#525
     rotate(-5, 50)
     # msleep(200)
     # em.clear_ticks(-50)
@@ -325,11 +327,13 @@ def connect_elec_lines():
 def drop_wambulance(): # Drives to cube of water
     global burning_MC
     if c.IS_PRIME:
-        g.create_drive_timed(-400, 4)
+        g.create_drive_timed(-400, 4.45)#4
     else:
         g.create_drive_timed(-450, 3.6)
     g.rotate(-90, 200)
-    g.create_drive_timed(-250, .45)#.6
+    g.drive_condition(u.l_or_r_bumped, -350, False)
+    g.create_drive_timed(200, .17)
+    #g.create_drive_timed(-250, .7)#.6
     g.rotate(90, 200)
     drive_to_black_and_square_up(-150)
     if burning_MC:
@@ -343,7 +347,7 @@ def drop_wambulance(): # Drives to cube of water
     msleep(100)
     wambulance_up()
     if burning_MC:
-        g.rotate(30, 100)
+        g.rotate(60, 100)
     else:
         g.rotate(-30, 100)
     u.DEBUG()

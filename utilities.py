@@ -202,7 +202,8 @@ def bump_or_black_test():
 def bumped():
     return get_create_lbump() > 0 and get_create_rbump() > 0
 
-
+def l_or_r_bumped():
+    return get_create_lbump() > 0 or get_create_rbump() > 0
 
 
 def get_pipe_switch():
