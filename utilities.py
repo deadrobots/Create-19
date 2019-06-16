@@ -46,7 +46,7 @@ def wait_for_button_camera(force=False):
     if c.ALLOW_BUTTON_WAIT or force:
         print "Press Button..."
         while not right_button():
-            burning_MC = k.find_burning_MC()
+            burning_MC = k.find_burning_MC_improved()
         msleep(1)
         print "Pressed"
         msleep(1000)

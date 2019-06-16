@@ -59,7 +59,7 @@ def see_color(color):
             return False
 
 
-def find_burning_MC():
+'''def find_burning_MC():
     global remember
     count()
     startTime = seconds()
@@ -89,7 +89,7 @@ def find_burning_MC():
                 return remember
         else:
             print("I see approximately no yellow")
-            return remember
+            return remember'''
 
 
 def find_burning_sky():

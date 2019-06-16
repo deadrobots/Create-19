@@ -8,9 +8,8 @@ import movement as m
 import electricLineMotor as em
 
 
-burning_medical = False
+burning_MC = False
 colorOrder = []
-burningMCLeft = True
 burningSky = 0
 
 # def wambulanceGrab():
@@ -41,7 +40,7 @@ def turn_calibration():
 
 def init(): #Test to make sure all the moving parts and sensors work the way they should
     global first
-    global burning_medical
+    global burning_MC
     if c.IS_PRIME:
         print("I are prime")
     if c.IS_CLONE:
@@ -102,8 +101,8 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     c.START_TIME = seconds()
     shut_down_in(119.5)
     print(k.camera_reads)
-    burning_medical = u.compute_burning_MC()
-    if burning_medical == False: #burning MC is on right
+    burning_MC = u.compute_burning_MC()
+    if burning_MC == False: #burning MC is on right
         print("Pushing switch")
         msleep(300)
         u.move_servo(c.sky_arm, c.arm_moving)
@@ -256,7 +255,6 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
         g.create_drive_timed(-200, .65)
         em.electric_line_motor(50, -1170)  # Moves motor to a certain position
-        u.wait_for_button()
         g.rotate(-90, 300)
         print(u.method)
         g.drive_condition(get_bump_or_black, -500, False)
@@ -287,7 +285,6 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         g.create_drive_timed(-200, .5)
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
         em.electric_line_motor(50, -1170)  # Moves motor to a certain position
-        u.wait_for_button()
         g.create_drive_timed(200, .6)
         msleep(7500)
 
@@ -299,7 +296,7 @@ def connect_elec_lines():
     #em.clear_ticks(-25) #Runs motor until it hits PVC then zeros motor counter
     u.move_servo(c.electric_arm_base, c.electric_base_right, 4)
     em.clear_ticks(-25)
-    em.electric_line_motor(25, 525)
+    em.electric_line_motor(25, 500)#525
     rotate(-5, 50)
     # msleep(200)
     # em.clear_ticks(-50)
@@ -326,18 +323,18 @@ def connect_elec_lines():
 
 
 def drop_wambulance(): # Drives to cube of water
-    global burning_medical
+    global burning_MC
     if c.IS_PRIME:
         g.create_drive_timed(-400, 4)
     else:
         g.create_drive_timed(-450, 3.6)
     g.rotate(-90, 200)
-    g.create_drive_timed(-250, .6)
+    g.create_drive_timed(-250, .45)#.6
     g.rotate(90, 200)
     drive_to_black_and_square_up(-150)
-    if burning_medical:
+    if burning_MC:
         print ("deliver ambulance to right MC")
-        g.rotate(-30, 100)
+        g.rotate(-60, 100)
     else:
         print ("deliver ambulance to left MC")
         g.rotate(30, 100)
@@ -345,7 +342,7 @@ def drop_wambulance(): # Drives to cube of water
     u.move_servo(c.ambulance_claw, c.wambulance_open)
     msleep(100)
     wambulance_up()
-    if burning_medical:
+    if burning_MC:
         g.rotate(30, 100)
     else:
         g.rotate(-30, 100)
