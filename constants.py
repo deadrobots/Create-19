@@ -46,7 +46,7 @@ if IS_PRIME:
     claw_open = 150
     clawDeliver = 150
     claw_closed_water = 1250
-    claw_closed_mayor = 1300
+    claw_closed_mayor = 1500 #1300
 
     #Electric base
     electric_base_down = 0

@@ -160,3 +160,25 @@ def find_burning_MC_improved():
         else:
             print("I see approximately no yellow")
             return remember
+
+def check_camera_MC_init():
+    y = 0
+    n = 0
+    count()
+    startTime = seconds()
+    while (seconds() - startTime < .5):
+        camera_update()
+        found = False
+        if get_object_count(c.YELLOW)>0:
+            i = 0
+            while i < get_object_count(c.YELLOW):
+                if get_object_area(c.YELLOW, i) > c.MC_LIMIT:
+                    found = True
+                    break
+                i = i+1
+        if found:
+            y += 1
+        else:
+            n += 1
+    return y > n
+

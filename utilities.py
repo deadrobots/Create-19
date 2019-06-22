@@ -2,6 +2,7 @@ import constants as c
 from wallaby import *
 import movement as m
 import camera as k #for kamera
+import threading as t
 import electricLineMotor as em
 
 
@@ -9,6 +10,7 @@ cpp = None
 method = 0
 
 burning_MC = False
+camera_works = False
 
 def init_utilities(icpp):
     global cpp
@@ -50,6 +52,19 @@ def wait_for_button_camera(force=False):
         msleep(1)
         print "Pressed"
         msleep(1000)
+
+def wait_for_button_camera_check(force=False):
+    global camera_works
+    if c.ALLOW_BUTTON_WAIT or force:
+        while not right_button():
+            camera_works = k.check_camera_MC_init()
+            if left_button():
+                camera_works = True
+                break
+        msleep(1)
+        print "Pressed"
+        msleep(1000)
+
 
 
 def wait_for_selection(force=False):
@@ -243,5 +258,9 @@ def arm_down(sky_pos, speed=10):
     move_servo(c.electric_arm_base, c.electric_base_down, speed)
     msleep(100)
     move_servo(c.sky_arm, sky_pos, speed)
+
+def thread_servo(servo, pos, speed):
+    x = lambda : move_servo(servo, pos, speed)
+    t.Thread(name='daemon', target=x).start()
 
 

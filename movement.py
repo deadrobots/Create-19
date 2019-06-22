@@ -44,15 +44,17 @@ def black_left_or_right():
 def drive_to_black_and_square_up(speed):
     g.drive_condition(black_left_or_right, speed, False)
     create_drive_direct(0, 0)
-    msleep(500)
     lspeed = -speed
     rspeed = -speed
     while lspeed != 0 or rspeed != 0:
         if get_black_left():
             lspeed = 0
+        msleep(10)
         if get_black_right():
             rspeed = 0
+        msleep(10)
         create_drive_direct(lspeed, rspeed)
+        msleep(10)
     msleep(100)
 
 def drive_timed(left, right, time): #DRS forward is opposite of create forward
