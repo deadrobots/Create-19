@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from wallaby import *
 import constants as v
+import utilities as u
 
 bias = 0
 
@@ -123,6 +124,24 @@ def drive_condition(test_function, speed, state=True):
         msleep(10)
         theta = theta + (gyro_x() - bias) * 10
     create_drive_direct(0, 0)
+
+def drive_timed_condition(test_function, speed, time, state=True):
+    #print("Driving for time")
+    #_calibrate_gyro()
+    speed = -speed
+    theta = 0
+    start_time = seconds()
+    while seconds() - start_time < time and test_function() == state:
+        if speed > 0:
+            create_drive_direct(int((speed + speed * (1.920137e-16 + 0.000004470956 * theta))),
+                                int((speed - speed * (1.920137e-16 + 0.000004470956 * theta))))
+        else:
+            create_drive_direct(int((speed - speed * (1.920137e-16 + 0.000004470956 * theta))),
+                                int((speed + speed * (1.920137e-16 + 0.000004470956 * theta))))
+        msleep(10)
+        theta = theta + (gyro_x() - bias) * 10
+    create_drive_direct(0, 0)
+
 
 
 def _drive(speed):

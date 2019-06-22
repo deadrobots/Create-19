@@ -207,7 +207,7 @@ def l_or_r_bumped():
 
 
 def get_pipe_switch():
-    return digital(c.pipe_switch)
+    return digital(c.pipe_switch) == 1
 
 def compute_burning_MC():
     F = 0
@@ -224,13 +224,13 @@ def compute_burning_MC():
 
 
 def wambulance_down():
-    motor(c.ambulance_motor, -40)
-    msleep(500)
+    motor(c.ambulance_motor, -50)#-40
+    msleep(400)#500
 
 
 def wambulance_up():
-    motor_power(c.ambulance_motor, 30)
-    msleep(1500)
+    motor_power(c.ambulance_motor, 45)#30
+    msleep(1000)#1500
     ao()
 
 def arm_up(sky_pos, speed=10):

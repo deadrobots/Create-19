@@ -19,6 +19,7 @@ def main():
     act.drop_wambulance()
     act.get_water_cube()
     act.drop_water_cube()
+    u.DEBUG()
 
 
 

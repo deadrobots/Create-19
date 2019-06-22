@@ -99,7 +99,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     msleep(500)
     u.wait_for_button_camera()
     c.START_TIME = seconds()
-    shut_down_in(299.5)#119.5
+    shut_down_in(119.5)
     print(k.camera_reads)
     burning_MC = u.compute_burning_MC()
     if burning_MC == False: #burning MC is on right
@@ -108,27 +108,26 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
         u.move_servo(c.sky_arm, c.arm_moving)
         u.move_servo(c.sky_arm, c.arm_button, 5)
         msleep(100)
-        u.move_servo(c.sky_arm, c.arm_vertical)
-        u.move_servo(c.ambulance_claw, c.wambulance_open)
+        u.move_servo(c.sky_arm, c.arm_vertical, 15)
+        u.move_servo(c.ambulance_claw, c.wambulance_open, 20)
         u.wambulance_down()
-        msleep(500)
-        move_servo(c.ambulance_claw, c.wambulance_closed)
-        msleep(250)
+        msleep(200)
+        move_servo(c.ambulance_claw, c.wambulance_closed, 20)
+        msleep(200)
         u.wambulance_up()
     else: #burning MC is on left
         print("Not pushing switch")
-        u.move_servo(c.sky_arm, c.arm_vertical)
-        u.move_servo(c.ambulance_claw, c.wambulance_open)
+        u.move_servo(c.sky_arm, c.arm_vertical, 15)
+        u.move_servo(c.ambulance_claw, c.wambulance_open, 20)
         u.wambulance_down()
-        msleep(500)
-        move_servo(c.ambulance_claw, c.wambulance_closed)
-        msleep(250)
+        msleep(200)
+        move_servo(c.ambulance_claw, c.wambulance_closed, 20)
+        msleep(200)
         u.wambulance_up()
         msleep(1000)
-    msleep(500)
+    msleep(100)
     g.calibrate_gyro()
-    u.move_servo(c.electric_arm_base, c.electric_base_left)
-
+    u.move_servo(c.electric_arm_base, c.electric_base_left, 20)
 
 def grab_bot_mayor():
     global burningSky
@@ -136,7 +135,7 @@ def grab_bot_mayor():
         g.rotate(-50, 100)
     else:
         g.rotate(-56, 100)
-    msleep(600)
+    msleep(300)#600
     burningSky = p.find_burning_sky()
     if burningSky == 0:
         print("doing code for left")
@@ -167,7 +166,7 @@ def grab_second():
     move_servo(c.sky_arm, c.arm_high_sky)
     g.create_drive_timed(-200, 0.1)  #
     #######################################################
-    g.rotate(180, 250)
+    g.rotate(180, 200)
     m.drive_to_black_and_square_up(250)
     if burningSky == 0:
         g.rotate(10, 200)
@@ -179,41 +178,41 @@ def grab_second():
     move_servo(c.sky_claw, c.claw_open)
     arm_up(c.arm_high_sky, 15)
     if burningSky == 0:
-        g.rotate(-6, 200)
+        g.rotate(-6, 150)
     else:
-        g.rotate(6, 200)
-    g.rotate(180, 250)
+        g.rotate(6, 150)
+    g.rotate(180, 200)
     m.drive_to_black_and_square_up(250)
 
 
 def grab_first():
     g.create_drive_timed(400, 0.3)
-    g.rotate(40, 250)
+    g.rotate(40, 200)
     move_servo(c.sky_claw, c.claw_open+300, 20)
     g.create_drive_timed(200, .6)
     move_servo(c.sky_arm, c.arm_low_grab + 30, 10)  #
     move_servo(c.sky_claw, c.claw_closed_mayor, 15)  #
     move_servo(c.sky_arm, c.arm_high_sky, 20)
     g.create_drive_timed(-200, .325)
-    g.rotate(-40, 250)
+    g.rotate(-40, 200)
     g.create_drive_timed(-200, .5)
     ######################################################
-    g.rotate(180, 350)
+    g.rotate(180, 250)
     m.drive_to_black_and_square_up(250)
-    g.rotate(6, 350)
+    g.rotate(6, 250)
     arm_down(c.arm_down, 10)
     move_servo(c.sky_claw, c.claw_open + 500, 15)
     move_servo(c.sky_arm, c.arm_low_sky, 20)
     move_servo(c.sky_claw, c.claw_open, 20)
     arm_up(c.arm_high_sky, 20)
-    g.rotate(174, 350)
+    g.rotate(174, 250)
     m.drive_to_black_and_square_up(250)
 
 
 def grab_third():
     em.electric_line_motor(150, 0)
     g.create_drive_timed(200, 0.6)
-    g.rotate(-45, 250)
+    g.rotate(-45, 200)
     move_servo(c.sky_claw, c.claw_open + 300, 20)
     g.create_drive_timed(200, .35)
     move_servo(c.sky_arm, c.arm_low_grab +50, 10)  #
@@ -221,19 +220,19 @@ def grab_third():
     move_servo(c.sky_claw, c.claw_closed_mayor, 15)  #
     move_servo(c.sky_arm, c.arm_high_sky, 15)
     g.create_drive_timed(-200, 0.55)
-    g.rotate(45, 250)
+    g.rotate(45, 200)
     g.create_drive_timed(-400, .25)
     #####################################################
-    g.rotate(180, 250)
+    g.rotate(180, 200)
     m.drive_to_black_and_square_up(250)
-    g.rotate(-6, 250)
+    g.rotate(-6, 200)
     arm_down(c.arm_down, 10)
     move_servo(c.sky_claw, c.claw_open + 500)
     move_servo(c.sky_arm, c.arm_low_sky, 20)
     move_servo(c.sky_claw, c.claw_open, 20)
     move_servo(c.sky_arm, c.arm_high_sky, 20)
-    g.rotate(6, 250)
-    g.rotate(180, 250)
+    g.rotate(6, 200)
+    g.rotate(180, 200)
     m.drive_to_black_and_square_up(250)
 
 
@@ -246,22 +245,23 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     else:
         g.create_drive_timed(-400, .8)
         g.create_drive_timed(400, .6)
-    g.rotate(-90, 250)
+    g.rotate(-90, 200)
     u.move_servo(c.electric_arm_base, c.electric_base_up, 20)
     em.electric_line_motor(150, -600)
-    g.create_drive_timed(500, 3.5) #Square up on wall
-    msleep(100)
+    #g.create_drive_timed(500, 3.5) #Square up on wall
+    g.drive_timed_condition(u.get_pipe_switch, 500, 3.5, False)
     if not u.get_pipe_switch():
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
         g.create_drive_timed(-400, .40)#.65
         em.electric_line_motor(150, -1170)  # Moves motor to a certain position
-        g.rotate(-90, 300)
+        g.rotate(-90, 250)
         g.drive_condition(u.l_or_r_bumped, -300, False)
         g.create_drive_timed(400, .3)
         m.drive_to_black_and_square_up(250)
         g.create_drive_timed(-120, .25)
-        g.rotate(90, 300)
-        g.create_drive_timed(125, 2.5) #Square up on wall
+        g.rotate(90, 250)
+        #g.create_drive_timed(125, 2.5) #Square up on wall
+        g.drive_timed_condition(u.get_pipe_switch, 125, 2.5, False)
         if not u.get_pipe_switch():
             g.create_drive_timed(-250, .5)
             g.create_drive_timed(500, 1)
@@ -289,8 +289,10 @@ def connect_elec_lines():
     rotate(7, 50)
     msleep(100)
     g.create_drive_timed(-100, 1) #Drive functions use Wallaby gyro
+    u.move_servo(c.electric_arm_base, c.electric_base_start_left+100)  # Servo functions use a loop to control servo speed
+    em.electric_line_motor(50, 50)  # 85
     u.move_servo(c.electric_arm_base, c.electric_base_start_left+30) #Servo functions use a loop to control servo speed
-    em.electric_line_motor(50, -85)#85
+    em.electric_line_motor(30, -85)#85
     g.create_drive_timed(100, 1.2)
     msleep(100)
     em.clear_ticks(25)
@@ -314,51 +316,43 @@ def drop_wambulance(): # Drives to cube of water
         g.create_drive_timed(-450, 3.6)
     em.electric_line_motor(250, 0)
     u.move_servo(c.electric_arm_base, c.electric_base_down, 15)
-    g.rotate(-90, 250)
+    g.rotate(-90, 200)
     g.drive_condition(u.l_or_r_bumped, -350, False)
     msleep(100)
     g.create_drive_timed(200, .17)
     #g.create_drive_timed(-250, .7)#.6
-    g.rotate(90, 250)
+    g.rotate(90, 200)
     msleep(100)
-    u.wait_for_button()
     drive_to_black_and_square_up(-150)
-    u.wait_for_button()
     if burning_MC:
         print ("deliver ambulance to right MC")
-        g.rotate(-60, 250)
+        g.rotate(-60, 200)
     else:
         print ("deliver ambulance to left MC")
-        g.rotate(30, 250)
+        g.rotate(30, 200)
     u.wambulance_down()
     u.move_servo(c.ambulance_claw, c.wambulance_open)
     msleep(100)
     wambulance_up()
     if burning_MC:
-        g.rotate(60, 250)
+        g.rotate(60, 200)
     else:
-        g.rotate(-30, 250)
+        g.rotate(-30, 200)
 
 def get_water_cube():
     g.create_drive_timed(400, .8)
-    g.rotate(-90, 350)
-    u.wait_for_button()
+    g.rotate(-90, 250)
     drive_to_black_and_square_up(250)
-    u.wait_for_button()
     g.create_drive_timed(500, 1.5)
-    g.rotate(-85, 350)
+    g.rotate(-85, 250)
     g.drive_condition(u.on_black_left_tophat, -300, False)
-    u.wait_for_button()
     m.drive_to_black_and_square_up(300)
-    u.wait_for_button()
     if c.IS_PRIME:
-        g.rotate(2, 250)
+        g.rotate(2, 120)
     else:
-        g.rotate(6, 250)
-    u.wait_for_button()
+        g.rotate(6, 200)
     if c.IS_PRIME:
-        g.create_drive_timed(200, .75)
-        g.create_drive_timed(100, .4)
+        g.create_drive_timed(200, .95)
     else:
         g.create_drive_timed(200, .75)
         g.create_drive_timed(100, .3)
@@ -371,38 +365,38 @@ def get_water_cube():
 
 def drop_water_cube():
     #Create deposits large water cube on burning building
-    g.rotate(70, 400)
+    g.rotate(70, 300)
     g.create_drive_timed(400, .5)
-    g.drive_condition(m.on_black_left_tophat, -200, False)
+    g.drive_condition(m.on_black_left_tophat, -250, False)
     g.create_drive_timed(200, .5)
-    g.rotate(-90, 250)
+    g.rotate(-90, 200)
     g.create_drive_timed(-400, 1.3)
-    g.create_drive_timed(-200, .2)
-    g.rotate(-90, 250)
+    g.create_drive_timed(-200, .1)#.2
+    g.rotate(-90, 200)
     g.create_drive_timed(400, .65)
     m.drive_to_black_and_square_up(-200)
     if burningSky == 0:
         print("Left")
         if c.IS_CLONE:
-            g.rotate(40, 200)
+            g.rotate(40, 150)
         else:
-            g.rotate(35, 200)
+            g.rotate(35, 150)
         g.create_drive_timed(200, .7)
         move_servo(c.sky_arm, c.arm_low_sky, 10)
     elif burningSky == 1:
         print("middle")
         g.create_drive_timed(200, .75)
         g.create_drive_timed(50, .3)
-        g.rotate(-4, 250)
-        move_servo(c.sky_arm, c.arm_high_sky_deliver - 15, 10)
+        #g.rotate(-4, 200)
+        move_servo(c.sky_arm, c.arm_high_sky_deliver - 15, 15)
     else:
         print("Right")
         if c.IS_PRIME:
-            g.rotate(-34, 250)
+            g.rotate(-34, 200)
             g.create_drive_timed(100, 1) #(50,2.5)
             g.create_drive_timed(50, 1.2)
         elif c.IS_CLONE:
-            g.rotate(-42, 250)
+            g.rotate(-42, 200)
             g.create_drive_timed(200, .25)
             g.create_drive_timed(50, 1.2)
         msleep(100)
@@ -414,9 +408,9 @@ def push_cube_test():
     u.wait_for_button()
     u.move_servo(c.sky_arm, c.arm_vertical)
     u.move_servo(c.sky_claw, c.claw_closed_water)
-    g.rotate(-20, 250)
+    g.rotate(-20, 200)
     msleep(100)
-    g.rotate(20,250)
+    g.rotate(20,200)
     msleep(100)
     u.move_servo(c.sky_arm, c.arm_high_sky_deliver)
     u.DEBUG()
