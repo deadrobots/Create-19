@@ -110,6 +110,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     move_servo(c.sky_claw, c.claw_open)
     msleep(500)
     u.wait_for_button_camera()
+    u.wait_4_light()
     c.START_TIME = seconds()
     shut_down_in(119.5)
     print(k.camera_reads)
