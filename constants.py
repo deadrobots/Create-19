@@ -34,7 +34,7 @@ if IS_PRIME:
     arm_offset = -180
     arm_vertical = 1430 + arm_offset
     arm_low_sky = 815 + arm_offset
-    arm_low_grab = 850 + arm_offset
+    arm_low_grab = 850 + arm_offset #850
     mayor_arm = 1150 + arm_offset
     arm_high_sky = 1480 + arm_offset
     arm_high_sky_deliver = 1210 + arm_offset
@@ -60,7 +60,7 @@ if IS_PRIME:
     #wambulance claw
 
     wambulance_open = 2047
-    wambulance_closed = 1130
+    wambulance_closed = 930 #1130
 
     # Gyro
     turn_conversion = 5100  # 5500

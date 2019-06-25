@@ -75,7 +75,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     u.wambulance_down()
     msleep(100)
     u.wambulance_up()
-    move_servo(c.ambulance_claw, c.wambulance_closed)
+    move_servo(c.ambulance_claw, c.wambulance_closed + 300)
     print("Connecting to Create")
     create_connect()
     create_full()
@@ -232,7 +232,7 @@ def grab_third():
     g.rotate(-45, 200)
     move_servo(c.sky_claw, c.claw_open + 300, 20)
     g.create_drive_timed(200, .35)
-    move_servo(c.sky_arm, c.arm_low_grab +50, 10)  #
+    move_servo(c.sky_arm, c.arm_low_grab +20, 10)  #
     g.create_drive_timed(200, 0.3)
     move_servo(c.sky_claw, c.claw_closed_mayor, 15)  #
     move_servo(c.sky_arm, c.arm_high_sky, 15)
