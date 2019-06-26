@@ -255,7 +255,7 @@ def grab_third():
 
 def head_to_elec_lines(): # Goes to electric lines and attatches them
     print("Heading to electric lines")
-    thread_servo(c.sky_arm, c.arm_vertical, 20)
+    thread_servo(c.sky_arm, c.arm_vertical +100, 20)
     thread_servo(c.electric_arm_base, c.electric_base_up, 20)
     if c.IS_PRIME:
         g.create_drive_timed(-400, .8)
@@ -289,6 +289,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
         em.electric_line_motor(150, -1170)  # Moves motor to a certain position
         g.create_drive_timed(400, .3)
+        msleep(3000)
 
 def connect_elec_lines():
     #Controls a servo and motor to connect both of the electric lines
@@ -329,7 +330,7 @@ def connect_elec_lines():
 def drop_wambulance(): # Drives to cube of water
     global burning_MC
     if c.IS_PRIME:
-        g.create_drive_timed(-400, 4.45)#4
+        g.create_drive_timed(-350, 5.09)#-400, 4.45
     else:
         g.create_drive_timed(-450, 3.6)
     em.electric_line_motor(250, 0)
@@ -398,7 +399,7 @@ def drop_water_cube():
         else:
             g.rotate(35, 200)
         g.create_drive_timed(200, .7)
-        move_servo(c.sky_arm, c.arm_low_sky, 15)
+        move_servo(c.sky_arm, c.arm_low_sky+30, 15)
     elif burningSky == 1:
         print("middle")
         g.create_drive_timed(200, .75)
@@ -416,7 +417,7 @@ def drop_water_cube():
             g.create_drive_timed(200, .25)
             g.create_drive_timed(150, .4)
         msleep(100)
-        move_servo(c.sky_arm, c.arm_low_sky, 15)
+        move_servo(c.sky_arm, c.arm_low_sky+30, 15)
 
 
 def push_cube_test():
