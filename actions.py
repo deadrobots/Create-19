@@ -107,7 +107,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     print("Setting servos for the run")
     move_servo(c.sky_arm, c.arm_start)
     msleep(500)
-    move_servo(c.sky_claw, c.claw_open)
+    move_servo(c.sky_claw, c.claw_open+200)
     msleep(500)
     u.wait_for_button_camera()
     u.wait_4_light()
@@ -229,7 +229,10 @@ def grab_first():
 def grab_third():
     em.electric_line_motor(150, 0)
     g.create_drive_timed(200, 0.6)
-    g.rotate(-45, 200)
+    if c.IS_PRIME:
+        g.rotate(-45, 200)
+    else:
+        g.rotate(-40, 200)
     move_servo(c.sky_claw, c.claw_open + 300, 20)
     g.create_drive_timed(200, .35)
     move_servo(c.sky_arm, c.arm_low_grab +20, 10)  #
@@ -237,7 +240,10 @@ def grab_third():
     move_servo(c.sky_claw, c.claw_closed_mayor, 15)  #
     move_servo(c.sky_arm, c.arm_high_sky, 15)
     g.create_drive_timed(-200, 0.55)
-    g.rotate(45, 200)
+    if c.IS_PRIME:
+        g.rotate(45, 200)
+    else:
+        g.rotate(40, 200)
     g.create_drive_timed(-400, .25)
     #####################################################
     g.rotate(180, 200)
@@ -332,7 +338,7 @@ def drop_wambulance(): # Drives to cube of water
     if c.IS_PRIME:
         g.create_drive_timed(-350, 5.09)#-400, 4.45
     else:
-        g.create_drive_timed(-450, 3.6)
+        g.create_drive_timed(-400, 4.45)#-450, 3.6
     em.electric_line_motor(250, 0)
     u.move_servo(c.electric_arm_base, c.electric_base_down, 25)
     g.rotate(-90, 200)
@@ -367,7 +373,7 @@ def get_water_cube():
     if c.IS_PRIME:
         g.rotate(2, 120)
     else:
-        g.rotate(6, 200)
+        g.rotate(2, 120) #6, 200
     if c.IS_PRIME:
         g.create_drive_timed(200, .95)
     else:
