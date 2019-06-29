@@ -230,9 +230,9 @@ def grab_third():
     em.electric_line_motor(150, 0)
     g.create_drive_timed(200, 0.6)
     if c.IS_PRIME:
-        g.rotate(-45, 200)
-    else:
         g.rotate(-40, 200)
+    else:
+        g.rotate(-35, 200)
     move_servo(c.sky_claw, c.claw_open + 300, 20)
     g.create_drive_timed(200, .35)
     move_servo(c.sky_arm, c.arm_low_grab +20, 10)  #
@@ -241,9 +241,9 @@ def grab_third():
     move_servo(c.sky_arm, c.arm_high_sky, 15)
     g.create_drive_timed(-200, 0.55)
     if c.IS_PRIME:
-        g.rotate(45, 200)
-    else:
         g.rotate(40, 200)
+    else:
+        g.rotate(35, 200)
     g.create_drive_timed(-400, .25)
     #####################################################
     g.rotate(180, 200)
@@ -276,7 +276,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     if not u.get_pipe_switch():
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
         g.create_drive_timed(-400, .40)#.65
-        em.electric_line_motor(150, -1170)  # Moves motor to a certain position
+        em.electric_line_motor(150, -1070) #-1170 # Moves motor to a certain position
         g.rotate(-90, 250)
         g.drive_condition(u.l_or_r_bumped, -300, False)
         g.create_drive_timed(400, .3)
@@ -293,7 +293,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     else:
         g.create_drive_timed(-200, .5)
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
-        em.electric_line_motor(150, -1170)  # Moves motor to a certain position
+        em.electric_line_motor(150, -1070) #-1170 # Moves motor to a certain position
         g.create_drive_timed(400, .3)
         msleep(3000)
 
@@ -373,7 +373,7 @@ def get_water_cube():
     if c.IS_PRIME:
         g.rotate(2, 120)
     else:
-        g.rotate(2, 120) #6, 200
+        g.rotate(5, 120) #6, 200
     if c.IS_PRIME:
         g.create_drive_timed(200, .95)
     else:

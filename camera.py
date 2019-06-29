@@ -58,40 +58,6 @@ def see_color(color):
             print("I don't see the color")
             return False
 
-
-'''def find_burning_MC():
-    global remember
-    count()
-    startTime = seconds()
-    remember = True
-    while (seconds() - startTime < .5):
-        camera_update()
-        found = False
-        if get_object_count(c.YELLOW)>0:
-            i = 0
-            while i < get_object_count(c.YELLOW):
-                if get_object_area(c.YELLOW, i) > c.MC_LIMIT:
-                    print("I see yellow")
-                    found = True
-                    break
-                i = i+1
-        if found:
-            print("X = ", get_object_center_x(c.YELLOW, i))
-            print("Y = ", get_object_center_y(c.YELLOW, i))
-            print("Area = ", get_object_area(c.YELLOW, i))
-            if get_object_center_x(c.YELLOW, 0) < 80:
-                print("Burning MC is on the left")
-                remember = True
-                return remember
-            elif get_object_center_x(c.YELLOW, 0) > 80:
-                print("Burning MC is on the right")
-                remember = False
-                return remember
-        else:
-            print("I see approximately no yellow")
-            return remember'''
-
-
 def find_burning_sky():
     global first
     if first:
@@ -151,10 +117,10 @@ def find_burning_MC_improved():
             print("X = ", get_object_center_x(c.YELLOW, i))
             print("Y = ", get_object_center_y(c.YELLOW, i))
             print("Area = ", get_object_area(c.YELLOW, i))
-            if get_object_center_x(c.YELLOW, 0) < 80:
+            if get_object_center_x(c.YELLOW, 0) < c.camera_middle_value:
                 print("Burning MC is on the left")
                 camera_reads.append(True)
-            elif get_object_center_x(c.YELLOW, 0) > 80:
+            elif get_object_center_x(c.YELLOW, 0) > c.camera_middle_value:
                 print("Burning MC is on the right")
                 camera_reads.append(False)
         else:

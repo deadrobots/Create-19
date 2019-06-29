@@ -7,29 +7,34 @@ START_TIME = 0
 ROBOT_ID_CLONE = 0
 IS_CLONE = digital(ROBOT_ID_CLONE)
 IS_PRIME = not IS_CLONE
-STARTLIGHT = 0
+
 
 EThresh = 2000  #2500
 
 ET = 2
 
 #Servo Ports
-
+ambulance_claw = 0
 sky_claw = 1
 electric_arm_base = 2
 sky_arm = 3
-ambulance_claw = 0
 
 #Sensor ports
-left_tophat = 5
+STARTLIGHT = 0
 right_tophat = 4 #not this one
+left_tophat = 5
 pipe_switch = 9
 
 #motor
-electric_line_motor = 3
 ambulance_motor = 0
+electric_line_motor = 3
+
 
 if IS_PRIME:
+
+    # Camera bounds
+    camera_middle_value = 80
+
     # Servo Positions
     arm_offset = -180
     arm_vertical = 1430 + arm_offset
@@ -67,6 +72,10 @@ if IS_PRIME:
 
 
 elif IS_CLONE:
+
+    #Camera bounds
+    camera_middle_value = 55
+
     # Servo Positions
     arm_vertical = 1445
     arm_low_sky = 830
@@ -82,16 +91,25 @@ elif IS_CLONE:
     claw_open = 150
     clawDeliver = 150
     claw_closed_water = 1160
-    claw_closed_mayor = 1190
+    claw_closed_mayor = 1400#1190
 
     #Electric base
+    #electric_base_down = 0
+    #electric_base_up = 1450
+    #electric_base_right = 1280
+    #electric_base_left = 1000
+    #electric_base_left_score = 1330
+    #electric_base_start_left = 1180
+    #electric_base_swing = 1800
+    #####################################################
     electric_base_down = 0
     electric_base_up = 1450
-    electric_base_right = 1280
-    electric_base_left = 1000
-    electric_base_left_score = 1330
-    electric_base_start_left = 1180
-    electric_base_swing = 1800
+    electric_base_right = 1450  # 1600
+    electric_base_left = 1170  # 1210
+    electric_base_left_score = 1180
+    electric_base_start_left = 1225  # 1305
+    electric_base_swing = 1670
+    ######################################################
 
     # #Electric arm
     # electric_arm_start = 815
