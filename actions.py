@@ -75,7 +75,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     u.wambulance_down()
     msleep(100)
     u.wambulance_up()
-    move_servo(c.ambulance_claw, c.wambulance_closed + 300)
+    move_servo(c.ambulance_claw, c.wambulance_closed + 200)
     print("Connecting to Create")
     create_connect()
     create_full()
@@ -105,7 +105,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     m.drive_to_black_and_square_up(-200)
     g.drive_condition(on_black_left_tophat, -250, False)
     print("Setting servos for the run")
-    move_servo(c.sky_arm, c.arm_start)
+    move_servo(c.sky_arm, c.arm_start-30)
     msleep(500)
     move_servo(c.sky_claw, c.claw_open+200)
     msleep(500)
@@ -230,7 +230,7 @@ def grab_third():
     em.electric_line_motor(150, 0)
     g.create_drive_timed(200, 0.6)
     if c.IS_PRIME:
-        g.rotate(-40, 200)
+        g.rotate(-35, 200)
     else:
         g.rotate(-35, 200)
     move_servo(c.sky_claw, c.claw_open + 300, 20)
@@ -241,7 +241,7 @@ def grab_third():
     move_servo(c.sky_arm, c.arm_high_sky, 15)
     g.create_drive_timed(-200, 0.55)
     if c.IS_PRIME:
-        g.rotate(40, 200)
+        g.rotate(35, 200)
     else:
         g.rotate(35, 200)
     g.create_drive_timed(-400, .25)
@@ -276,7 +276,10 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     if not u.get_pipe_switch():
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
         g.create_drive_timed(-400, .40)#.65
-        em.electric_line_motor(150, -1070) #-1170 # Moves motor to a certain position
+        if c.IS_PRIME:
+            em.electric_line_motor(150, -1070) #-1170 # Moves motor to a certain position
+        else:
+            em.electric_line_motor(150, -1070)
         g.rotate(-90, 250)
         g.drive_condition(u.l_or_r_bumped, -300, False)
         g.create_drive_timed(400, .3)
@@ -293,7 +296,10 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     else:
         g.create_drive_timed(-200, .5)
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
-        em.electric_line_motor(150, -1070) #-1170 # Moves motor to a certain position
+        if c.IS_PRIME:
+            em.electric_line_motor(150, -1070) #-1170 # Moves motor to a certain position
+        else:
+            em.electric_line_motor(150, -1070)
         g.create_drive_timed(400, .3)
         msleep(3000)
 
@@ -370,10 +376,12 @@ def get_water_cube():
     g.rotate(-85, 250)
     g.drive_condition(u.on_black_left_tophat, -300, False)
     m.drive_to_black_and_square_up(300)
+    msleep(10)
     if c.IS_PRIME:
-        g.rotate(2, 120)
+        g.rotate(4, 120)
     else:
         g.rotate(5, 120) #6, 200
+    msleep(10)
     if c.IS_PRIME:
         g.create_drive_timed(200, .95)
     else:
@@ -401,7 +409,7 @@ def drop_water_cube():
     if burningSky == 0:
         print("Left")
         if c.IS_CLONE:
-            g.rotate(40, 200)
+            g.rotate(35, 200)
         else:
             g.rotate(35, 200)
         g.create_drive_timed(200, .7)
