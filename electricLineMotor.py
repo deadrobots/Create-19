@@ -47,7 +47,8 @@ def electric_line_motor(speed, endPos, n = 10):
                 count = count + 1
             else:
                 count = 0
-    motor(c.electric_line_motor, 0)
+    #motor(c.electric_line_motor, 0)
+    freeze(c.electric_line_motor)
 
 
 

@@ -93,15 +93,6 @@ elif IS_CLONE:
     claw_closed_water = 1160
     claw_closed_mayor = 1400#1190
 
-    #Electric base
-    #electric_base_down = 0
-    #electric_base_up = 1450
-    #electric_base_right = 1280
-    #electric_base_left = 1000
-    #electric_base_left_score = 1330
-    #electric_base_start_left = 1180
-    #electric_base_swing = 1800
-    #####################################################
     electric_base_down = 0
     electric_base_up = 1450
     electric_base_right = 1450  # 1600
@@ -109,13 +100,6 @@ elif IS_CLONE:
     electric_base_left_score = 1180
     electric_base_start_left = 1225  # 1305
     electric_base_swing = 1670
-    ######################################################
-
-    # #Electric arm
-    # electric_arm_start = 815
-    # electric_arm_right = 0
-    # electric_arm_slight_left = 1180
-    # electric_arm_left = 2047
 
     #Meople arm
     meople_arm_up = 1560
@@ -127,9 +111,8 @@ elif IS_CLONE:
     meople_claw_open = 1580
     meople_claw_closed = 1750
 
-    wambulance_open = 1485
-    wambulance_closed = 1050
-    wambulance_wide = 1600
+    wambulance_open = 2047 #1485
+    wambulance_closed = 1300 #1050
 
 
     #Gyro

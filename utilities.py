@@ -246,7 +246,8 @@ def wambulance_down():
 def wambulance_up():
     motor_power(c.ambulance_motor, 45)#30
     msleep(1000)#1500
-    ao()
+    freeze(c.ambulance_motor)
+    #########
 
 def arm_up(sky_pos, speed=10):
     move_servo(c.sky_arm, sky_pos, speed)

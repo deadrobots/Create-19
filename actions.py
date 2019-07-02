@@ -264,29 +264,35 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
     thread_servo(c.sky_arm, c.arm_vertical +100, 20)
     thread_servo(c.electric_arm_base, c.electric_base_up, 20)
     if c.IS_PRIME:
-        g.create_drive_timed(-400, .8)
-        g.create_drive_timed(400, .6)
+        g.create_drive_timed(-300, .8)
+        msleep(10)
+        g.create_drive_timed(300, .8)
+        g.rotate(-90, 150)
     else:
-        g.create_drive_timed(-400, .8)
-        g.create_drive_timed(400, .6)
-    g.rotate(-90, 200)
+        g.create_drive_timed(-300, .8)
+        msleep(10)
+        g.create_drive_timed(300, .8)
+        g.rotate(-86, 150)
     em.electric_line_motor(150, -600)
     #g.create_drive_timed(500, 3.5) #Square up on wall
     g.drive_timed_condition(u.get_pipe_switch, 500, 3.5, False)
     if not u.get_pipe_switch():
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
-        g.create_drive_timed(-400, .40)#.65
+        g.create_drive_timed(-200, .80)#.65
         if c.IS_PRIME:
             em.electric_line_motor(150, -1070) #-1170 # Moves motor to a certain position
         else:
-            em.electric_line_motor(150, -1070)
+            em.electric_line_motor(150, -1030)
         g.rotate(-90, 250)
         g.drive_condition(u.l_or_r_bumped, -300, False)
         g.create_drive_timed(400, .3)
         m.drive_to_black_and_square_up(250)
         msleep(10)
         g.create_drive_timed(-120, .25)
-        g.rotate(90, 250)
+        if c.IS_PRIME:
+            g.rotate(90, 250)
+        else:
+            g.rotate(86, 250)
         #g.create_drive_timed(125, 2.5) #Square up on wall
         g.drive_timed_condition(u.get_pipe_switch, 125, 2.5, False)
         if not u.get_pipe_switch():
@@ -299,7 +305,7 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         if c.IS_PRIME:
             em.electric_line_motor(150, -1070) #-1170 # Moves motor to a certain position
         else:
-            em.electric_line_motor(150, -1070)
+            em.electric_line_motor(150, -1030)
         g.create_drive_timed(400, .3)
         msleep(3000)
 
