@@ -145,6 +145,7 @@ def init(): #Test to make sure all the moving parts and sensors work the way the
     #u.move_servo(c.electric_arm_base, c.electric_base_left, 20)
 
 def grab_bot_mayor():
+    print("grab_bot_mayor")
     global burningSky
     if c.IS_CLONE:
         g.rotate(-50, 100)
@@ -261,7 +262,7 @@ def grab_third():
 
 def head_to_elec_lines(): # Goes to electric lines and attatches them
     print("Heading to electric lines")
-    thread_servo(c.sky_arm, c.arm_vertical +100, 20)
+    thread_servo(c.sky_arm, c.arm_vertical, 20) # was c.arm_vertical+100
     thread_servo(c.electric_arm_base, c.electric_base_up, 20)
     if c.IS_PRIME:
         g.create_drive_timed(-300, .8)
@@ -280,9 +281,9 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
         g.create_drive_timed(-200, .80)#.65
         if c.IS_PRIME:
-            em.electric_line_motor(150, -1070) #-1170 # Moves motor to a certain position
+            em.electric_line_motor(150, -930) # less negative numbers = less rotation
         else:
-            em.electric_line_motor(150, -1030)
+            em.electric_line_motor(150, -1030) # less negative numbers = less rotation
         g.rotate(-90, 250)
         g.drive_condition(u.l_or_r_bumped, -300, False)
         g.create_drive_timed(400, .3)
@@ -303,9 +304,9 @@ def head_to_elec_lines(): # Goes to electric lines and attatches them
         g.create_drive_timed(-200, .5)
         clear_motor_position_counter(c.electric_line_motor)  # Clears motor counter
         if c.IS_PRIME:
-            em.electric_line_motor(150, -1070) #-1170 # Moves motor to a certain position
+            em.electric_line_motor(150, -930) # less negative numbers = less rotation
         else:
-            em.electric_line_motor(150, -1030)
+            em.electric_line_motor(150, -1030) # less negative numbers = less rotation
         g.create_drive_timed(400, .3)
         msleep(3000)
 
@@ -346,6 +347,7 @@ def connect_elec_lines():
 
 
 def drop_wambulance(): # Drives to cube of water
+    print("drop_wambulance")
     global burning_MC
     if c.IS_PRIME:
         g.create_drive_timed(-350, 5.09)#-400, 4.45
@@ -354,7 +356,7 @@ def drop_wambulance(): # Drives to cube of water
     em.electric_line_motor(250, 0)
     u.move_servo(c.electric_arm_base, c.electric_base_down, 25)
     g.rotate(-90, 200)
-    g.drive_condition(u.l_or_r_bumped, -350, False)
+    g.drive_timed_condition(u.l_or_r_bumped, -350, 2.0, False) #late addition to recover from missing the bumper
     g.create_drive_timed(200, .17)
     #g.create_drive_timed(-250, .7)#.6
     g.rotate(90, 200)
@@ -375,6 +377,7 @@ def drop_wambulance(): # Drives to cube of water
         g.rotate(-30, 200)
 
 def get_water_cube():
+    print("get_water_cube")
     g.create_drive_timed(400, .8)
     g.rotate(-90, 250)
     drive_to_black_and_square_up(250)
